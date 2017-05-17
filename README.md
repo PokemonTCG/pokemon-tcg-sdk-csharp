@@ -7,7 +7,7 @@ Included in this repository are two projects:
 * PokemonTcgSdk
 * PokemonTcgSdkConsole
 
-_PokemonTcgSdk_ is a clas library which holds all of the code to get the data from the API and return C# classes.
+_PokemonTcgSdk_ is a clas library which holds all of the code to get the data from the [Pokemon TCG API](https://pokemontcg.io/) and return C# classes.
 _PokemonTcgSdkConsole_ is a console application to test the calls from the _PokemonTcgSdk_ project.
 
 In the _PokemonTcgSdk_ project, there is a class called _QueryBuilder_ which contains all of the logic to get the actual cards. There is another class called _Card_ which is a wrapper around _QueryBuilder_ that is used similarly to the other SDK projects to get cards based on `id` and `type` and or `string` arguments.
