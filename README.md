@@ -1,36 +1,125 @@
-# Pokemon API SDK - C#
+# Pokémon TCG SDK
 
-__NOTE:__ THIS PROJECT IS VERY MUCH STILL IN DEVELOPMENT AND NOT CURRENTLY MEANT TO BE USED IN AN APPLICATION
+This is the Pokémon TCG SDK Python implementation. It is a wrapper around the Pokémon TCG API of [pokemontcg.io](https://pokemontcg.io/).
 
-Included in this repository are two projects:
+## Installation
 
-* PokemonTcgSdk
-* PokemonTcgSdkConsole
+Coming soon to NuGet!
 
-_PokemonTcgSdk_ is a clas library which holds all of the code to get the data from the [Pokemon TCG API](https://pokemontcg.io/) and return C# classes.
-_PokemonTcgSdkConsole_ is a console application to test the calls from the _PokemonTcgSdk_ project.
-
-In the _PokemonTcgSdk_ project, there is a class called _QueryBuilder_ which contains all of the logic to get the actual cards. There is another class called _Card_ which is a wrapper around _QueryBuilder_ that is used similarly to the other SDK projects to get cards based on `id` and `type` and or `string` arguments.
-
-In the _PokemonTcgSdkConsole_ project are examples on how the _Card_ class mentioned above are used.
-
-## Examples
+## Classes
 
 ```
-PokemonCard card = Card.Find<PokemonCard>("base4-4");
+Pokemon
+PokemonCard
+Trainer
+TrainerCard
+Set
+SetData
+TypeData
+SuperType
+SubType
 ```
-returns the JSON object for that card.
+
+## Helper Classes
+
+In places where you would use these helper classes (examples below), strings can also be used if you prefer. These directly map to what's available on the [API](https://docs.pokemontcg.io/#cards).
+```
+ResourceTypes
+CardQueryTypes
+SetQueryTypes
+```
+
+## Properties Per Class
+
+#### Pokemon, Set, Trainer
 
 ```
-PokemonCardObject card = Card.Get<PokemonCardObject>("cards");
+Card
+Cards
 ```
-returns the JSON array of objects for the default call to the API.
+
+#### PokemonCard, TrainerCard
+
+```
+Id
+Name
+NationalPokedexNumber
+ImageUrl
+ImageUrlHiRes
+SubType
+SuperType
+Abilities
+AncientTrait
+Hp
+Number
+Artist
+Rarity
+Series
+Set
+SetCode
+RetreatCost
+Text
+Types
+Attacks
+Weaknesses
+Resistances
+```
+
+#### SetData
+
+```
+Code
+Name
+Series
+TotalCards
+StandardLegal
+ExpandedLegal
+ReleaseDate
+```
+
+#### TypeData, SuperTypes, SubTypes
+```
+Types
+```
+
+## Functions Available
+
+#### Find a card by id
+
+```
+Pokemon card = Card.Find<Pokemon>(ResourceTypes.Cards, "base4-4");
+```
+
+#### Filter Cards via query parameters
 
 ```
 Dictionary<string, string> args = new Dictionary<string, string>();
-args.Add("supertype", "trainer");
-args.Add("pageSize", "10");
+args.Add(CardQueryTypes.SuperType, "trainer");
+args.Add(CardQueryTypes.PageSize, "1");
 
-TrainerCardObject card = Card.Get<TrainerCardObject>("cards", args);
+Trainer card = Card.Get<Trainer>(ResourceTypes.Cards, args);
 ```
-returns the first 10 cards based on the `trainer` supertype.
+
+#### Get all cards, but only a specific page of data
+```
+Dictionary<string, string> args = new Dictionary<string, string>();
+args.Add(CardQueryTypes.Page, "5");
+args.Add(CardQueryTypes.PageSize, "100");
+
+Pokemon card = Card.Get<Pokemon>(ResourceTypes.Cards, args);
+```
+
+#### Find a set by code
+
+```
+Set set = Sets.Find<Set>(ResourceTypes.Sets, "base1");
+```
+
+#### Filter sets via query parameters
+
+```
+Dictionary<string, string> args = new Dictionary<string, string>();
+args.Add(SetQueryTypes.Page, "true");
+
+Set set = Card.Get<Set>(ResourceTypes.Sets, args);
+```
