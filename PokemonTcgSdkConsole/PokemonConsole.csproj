@@ -55,9 +55,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PokemonTcgSdk\PokemonTcgSdk.csproj">
+    <ProjectReference Include="..\PokemonTcgSdk\Pokemon.csproj">
       <Project>{bd97f285-4fb2-419e-a967-732494271e34}</Project>
-      <Name>PokemonTcgSdk</Name>
+      <Name>Pokemon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

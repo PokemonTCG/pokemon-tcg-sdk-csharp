@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 using PokemonTcgSdk;
 using PokemonTcgSdk.Models;
-using Newtonsoft.Json;
 
 namespace PokemonTcgSdkConsole
 {
@@ -13,32 +10,78 @@ namespace PokemonTcgSdkConsole
     {
         static void Main(string[] args)
         {
-            //FindCard();
-            //GetCards();
-            GetCardsWithArgs();
+            //FindPokemonCard();
+            //GetPokemonCards();
+            //GetTrainerCardsWithArgs();
+            //FindTrainerCard();
+            //GetSetCards();
+            //FindSet();
+            //GetTypes();
+            //GetSuperTypes();
+            //GetSubTypes();
             Console.ReadLine();
         }
 
-        static void FindCard()
+        static void FindPokemonCard()
         {
-            PokemonCard card = Card.Find<PokemonCard>("base4-4");
+            Pokemon card = Card.Find<Pokemon>(ResourceTypes.Cards, "base4-4");
             Console.WriteLine(JsonConvert.SerializeObject(card, Formatting.Indented));
         }
 
-        static void GetCards()
+        static void FindTrainerCard()
         {
-            PokemonCardObject card = Card.Get<PokemonCardObject>("cards");
+            Trainer card = Card.Find<Trainer>(ResourceTypes.Cards, "xy7-79");
             Console.WriteLine(JsonConvert.SerializeObject(card, Formatting.Indented));
         }
 
-        static void GetCardsWithArgs()
+        static void GetPokemonCards()
+        {
+            Pokemon card = Card.Get<Pokemon>(ResourceTypes.Cards);
+            Console.WriteLine(JsonConvert.SerializeObject(card, Formatting.Indented));
+        }
+
+        static void GetTrainerCardsWithArgs()
         {
             Dictionary<string, string> args = new Dictionary<string, string>();
-            args.Add("supertype", "trainer");
-            args.Add("pageSize", "10");
+            args.Add(CardQueryTypes.SuperType, "trainer");
+            args.Add(CardQueryTypes.PageSize, "1");
 
-            TrainerCardObject card = Card.Get<TrainerCardObject>("cards", args);
+            Trainer card = Card.Get<Trainer>(ResourceTypes.Cards, args);
             Console.WriteLine(JsonConvert.SerializeObject(card, Formatting.Indented));
+        }
+
+        static void GetSetCards()
+        {
+            Dictionary<string, string> args = new Dictionary<string, string>();
+            args.Add(SetQueryTypes.Name, "Base");
+            args.Add(SetQueryTypes.PageSize, "1");
+
+            Set set = Sets.Get<Set>(ResourceTypes.Sets, args);
+            Console.WriteLine(JsonConvert.SerializeObject(set, Formatting.Indented));
+        }
+
+        static void FindSet()
+        {
+            Set set = Sets.Find<Set>(ResourceTypes.Sets, "base1");
+            Console.WriteLine(JsonConvert.SerializeObject(set, Formatting.Indented));
+        }
+
+        static void GetTypes()
+        {
+            TypeData type = Types.Get<TypeData>(ResourceTypes.Types);
+            Console.WriteLine(JsonConvert.SerializeObject(type, Formatting.Indented));
+        }
+
+        static void GetSuperTypes()
+        {
+            SuperType type = SuperTypes.Get<SuperType>(ResourceTypes.SuperTypes);
+            Console.WriteLine(JsonConvert.SerializeObject(type, Formatting.Indented));
+        }
+
+        static void GetSubTypes()
+        {
+            SubType type = SubTypes.Get<SubType>(ResourceTypes.SubTypes);
+            Console.WriteLine(JsonConvert.SerializeObject(type, Formatting.Indented));
         }
     }
 }

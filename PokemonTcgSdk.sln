@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonTcgSdk", "PokemonTcgSdk\PokemonTcgSdk.csproj", "{BD97F285-4FB2-419E-A967-732494271E34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon", "PokemonTcgSdk\Pokemon.csproj", "{BD97F285-4FB2-419E-A967-732494271E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonTcgSdkConsole", "PokemonTcgSdkConsole\PokemonTcgSdkConsole.csproj", "{C1C0E5D7-29A5-4E56-9B63-8BF7D1B41CAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonConsole", "PokemonTcgSdkConsole\PokemonConsole.csproj", "{C1C0E5D7-29A5-4E56-9B63-8BF7D1B41CAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

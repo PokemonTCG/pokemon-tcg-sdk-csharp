@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace PokemonTcgSdk
 {
-    public class Card
+    public class Sets
     {
         public static T Get<T>(string type, Dictionary<string, string> args = null)
         {
