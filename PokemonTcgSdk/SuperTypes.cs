@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using PokemonTcgSdk.Helpers;
+using PokemonTcgSdk.Models;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace PokemonTcgSdk
 {
     public class SuperTypes
     {
-        public static T Get<T>(string type, Dictionary<string, string> args = null)
+        /// <summary>
+        /// Get all of the SuperTypes.
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> All()
         {
-            return QueryBuilder.Get<T>(type, args);
-        }
-
-        public static T Find<T>(string type, string id)
-        {
-            return QueryBuilder.Find<T>(type, id);
+            return QueryBuilder.GetSuperTypes();
         }
     }
 }

@@ -5,15 +5,15 @@ using System.Net.Http;
 
 namespace PokemonTcgSdk
 {
-    public class Types
+    public class SubTypes
     {
         /// <summary>
-        /// Get all of the Types.
+        /// Get all of the SubTypes.
         /// </summary>
         /// <returns></returns>
         public static List<string> All()
         {
-            return QueryBuilder.GetTypes();
+            return QueryBuilder.GetSubTypes();
         }
     }
 }

@@ -45,7 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Helpers\QueryBuilderHelper.cs" />
     <Compile Include="Models\Ability.cs" />
+    <Compile Include="Models\AncientTrait.cs" />
     <Compile Include="Models\Attack.cs" />
     <Compile Include="Models\BaseCard.cs" />
     <Compile Include="Card.cs" />
@@ -65,7 +67,7 @@
     <Compile Include="SetQueryTypes.cs" />
     <Compile Include="Sets.cs" />
     <Compile Include="SuperTypes.cs" />
-    <Compile Include="SupTypes.cs" />
+    <Compile Include="SubTypes.cs" />
     <Compile Include="Trainer.cs" />
     <Compile Include="Types.cs" />
   </ItemGroup>

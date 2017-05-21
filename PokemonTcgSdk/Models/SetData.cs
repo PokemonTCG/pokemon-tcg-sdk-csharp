@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace PokemonTcgSdk.Models
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class SetData
     {
         [JsonProperty("code")]
@@ -24,5 +26,7 @@ namespace PokemonTcgSdk.Models
 
         [JsonProperty("releaseDate")]
         public string ReleaseDate { get; set; }
+
+        public List<string> Errors { get; set; }
     }
 }

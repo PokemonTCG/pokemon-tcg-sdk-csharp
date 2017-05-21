@@ -1,17 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using PokemonTcgSdk.Models;
 
 namespace PokemonTcgSdk
 {
     public class Sets
     {
-        public static T Get<T>(string type, Dictionary<string, string> args = null)
+        public static SetData Get()
         {
-            return QueryBuilder.Get<T>(type, args);
-        }
-
-        public static T Find<T>(string type, string id)
-        {
-            return QueryBuilder.Find<T>(type, id);
+            return QueryBuilder.GetSets();
         }
     }
 }

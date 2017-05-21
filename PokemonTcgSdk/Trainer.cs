@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace PokemonTcgSdk
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class Trainer
     {
         [JsonProperty("cards")]
@@ -11,5 +12,7 @@ namespace PokemonTcgSdk
 
         [JsonProperty("card")]
         public TrainerCard Card { get; set; }
+
+        public List<string> Errors { get; set; }
     }
 }

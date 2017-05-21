@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace PokemonTcgSdk.Models
 {
-    public class Ability
+    public class AncientTrait
     {
         [JsonProperty("name")]
         public string Name { get; set; }
 
         [JsonProperty("text")]
         public string Text { get; set; }
-
-        [JsonProperty("type")]
-        public string Type { get; set; }
     }
 }

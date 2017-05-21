@@ -15,10 +15,10 @@ namespace PokemonTcgSdk.Models
         public List<string> RetreatCost { get; set; }
 
         [JsonProperty("ability")]
-        public List<Ability> Abilities { get; set; }
+        public Ability Ability { get; set; }
 
         [JsonProperty("ancientTrait")]
-        public string AncientTrait { get; set; }
+        public AncientTrait AncientTrait { get; set; }
 
         [JsonProperty("types")]
         public List<string> Types { get; set; }

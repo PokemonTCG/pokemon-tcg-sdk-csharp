@@ -1,65 +1,165 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
+using PokemonTcgSdk.Helpers;
+using System;
+using System.Linq;
+using System.Collections;
+using PokemonTcgSdk.Models;
 
 namespace PokemonTcgSdk
 {
     public class QueryBuilder
     {
-        public static T Get<T>(string type, Dictionary<string, string> args = null)
+        public static T Get<T>(Dictionary<string, string> query = null)
         {
-            var argString = string.Empty;
-            HttpResponseMessage stringTask;
-
-            using (HttpClient client = SetupClient())
+            try
             {
-                if (args != null && args.Any())
+                string queryString = string.Empty;
+                HttpResponseMessage stringTask;
+                string type = QueryBuilderHelper.GetType<T>(ref query);
+
+                using (HttpClient client = QueryBuilderHelper.SetupClient())
                 {
-                    var lastItem = args.Values.Last();
-                    foreach (KeyValuePair<string, string> item in args)
-                    {
-                        argString += $"{item.Key}={item.Value}";
-
-                        if (lastItem != item.Value)
-                        {
-                            argString += "&";
-                        }
-                    }
-
-                    stringTask = client.GetAsync($"{type}?{argString}").Result;
+                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, type, client);
+                    return QueryBuilderHelper.CreateObject<T>(stringTask);
                 }
-                else
-                {
-                    stringTask = client.GetAsync(type).Result;
-                }
-
-                HttpContent result = stringTask.Content;
-                string data = result.ReadAsStringAsync().Result;
-                return JsonConvert.DeserializeObject<T>(data);
+            }
+            catch (Exception ex)
+            {
+                return (T)Convert.ChangeType(ex.Message, typeof(T));
             }
         }
 
-        public static T Find<T>(string type, string id)
+        public static Pokemon GetPokemonCards(Dictionary<string, string> query = null)
         {
-            using (HttpClient client = SetupClient())
+            try
             {
-                HttpResponseMessage stringTask = client.GetAsync($"{type}/{id}").Result;
-                HttpContent result = stringTask.Content;
-                string data = result.ReadAsStringAsync().Result;
-                return JsonConvert.DeserializeObject<T>(data);
+                string queryString = string.Empty;
+                HttpResponseMessage stringTask;
+
+                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                {
+                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client);
+                    return QueryBuilderHelper.CreateObject<Pokemon>(stringTask);
+                }
+            }
+            catch (Exception ex)
+            {
+                Pokemon pokemon = new Pokemon();
+                pokemon.Errors = new List<string>() { ex.Message };
+                return pokemon;
             }
         }
 
-        private static HttpClient SetupClient()
+        public static SetData GetSets(Dictionary<string, string> query = null)
         {
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.BaseAddress = new Uri(Config.Endpoint);
-            return client;
+            try
+            {
+                string queryString = string.Empty;
+                HttpResponseMessage stringTask;
+
+                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                {
+                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client);
+                    return QueryBuilderHelper.CreateObject<SetData>(stringTask);
+                }
+            }
+            catch (Exception ex)
+            {
+                SetData set = new SetData();
+                set.Errors = new List<string>() { ex.Message };
+                return set;
+            }
+        }
+
+        public static List<string> GetSuperTypes(Dictionary<string, string> query = null)
+        {
+            try
+            {
+                string queryString = string.Empty;
+                HttpResponseMessage stringTask;
+                List<string> superTypes = new List<string>();
+                query = QueryBuilderHelper.GetDefaultQuery(query);
+
+                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                {
+                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.SuperTypes);
+                    SuperType type = QueryBuilderHelper.CreateObject<SuperType>(stringTask);
+                    superTypes.AddRange(type.Types);
+                    return superTypes;
+                }
+            }
+            catch (Exception ex)
+            {
+                List<string> errors = new List<string>() { ex.Message };
+                return errors;
+            }
+        }
+
+        public static List<string> GetTypes(Dictionary<string, string> query = null)
+        {
+            try
+            {
+                string queryString = string.Empty;
+                HttpResponseMessage stringTask;
+                List<string> superTypes = new List<string>();
+                query = QueryBuilderHelper.GetDefaultQuery(query);
+
+                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                {
+                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Types);
+                    TypeData type = QueryBuilderHelper.CreateObject<TypeData>(stringTask);
+                    superTypes.AddRange(type.Types);
+                    return superTypes;
+                }
+            }
+            catch (Exception ex)
+            {
+                List<string> errors = new List<string>() { ex.Message };
+                return errors;
+            }
+        }
+
+        public static List<string> GetSubTypes(Dictionary<string, string> query = null)
+        {
+            try
+            {
+                string queryString = string.Empty;
+                HttpResponseMessage stringTask;
+                List<string> superTypes = new List<string>();
+                query = QueryBuilderHelper.GetDefaultQuery(query);
+
+                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                {
+                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.SubTypes);
+                    SubType type = QueryBuilderHelper.CreateObject<SubType>(stringTask);
+                    superTypes.AddRange(type.Types);
+                    return superTypes;
+                }
+            }
+            catch (Exception ex)
+            {
+                List<string> errors = new List<string>() { ex.Message };
+                return errors;
+            }
+        }
+
+        public static T Find<T>(string id)
+        {
+            try
+            {
+                string type = QueryBuilderHelper.GetType<T>();
+
+                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                {
+                    HttpResponseMessage stringTask = client.GetAsync($"{type}/{id}").Result;
+                    return QueryBuilderHelper.CreateObject<T>(stringTask);
+                }
+            }
+            catch (Exception ex)
+            {
+                return (T)Convert.ChangeType(ex.Message, typeof(T));
+            }
         }
     }
 }
