@@ -67,6 +67,7 @@ namespace PokemonTcgSdk
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        // TODO: Make this call more generic
         public static List<PokemonCard> All(Dictionary<string, string> query = null)
         {
             using (HttpClient client = QueryBuilderHelper.SetupClient())
