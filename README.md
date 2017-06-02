@@ -240,8 +240,8 @@ var types = Types.All();
 ```
 
 ## Contributing
- Fork it (click the Fork button at the top of the page)
- Create your feature branch (git checkout -b my-new-feature)
- Commit your changes (git commit -am 'Add some feature')
- Push to the branch (git push origin my-new-feature)
- Create a new Pull Request
+ * Fork it (click the Fork button at the top of the page)
+ * Create your feature branch (git checkout -b my-new-feature)
+ * Commit your changes (git commit -am 'Add some feature')
+ * Push to the branch (git push origin my-new-feature)
+ * Create a new Pull Request
