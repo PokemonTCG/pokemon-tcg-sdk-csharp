@@ -12,7 +12,7 @@ Install via NuGet (Install-Package PokemonTcgSdk)
 
 The following classes are available in the PokemonTcgSdk namespace
 
-```
+```C#
 Card
 Pokemon
 Sets
@@ -24,7 +24,7 @@ Types
 
 The following classes are available in the PokemonTcgSdk.Models namespace
 
-```
+```C#
 Ability
 AncientTrait
 Attack
@@ -42,7 +42,7 @@ Weakness
 
 ###### Ability
 
-```
+```C#
 string Name
 string Text
 string Type
@@ -50,14 +50,14 @@ string Type
 
 ###### AncientTrait
 
-```
+```C#
 string Name
 string Text
 ```
 
 ###### Attack
 
-```
+```C#
 List<string> Cost
 string Name
 string Text
@@ -67,7 +67,7 @@ int ConvertedEnergyCost
 
 ###### BaseCard
 
-```
+```C#
 string Id
 string Name
 string ImageUrl
@@ -86,7 +86,7 @@ string SetCode
 
 Inherits from `BaseCard`
 
-```
+```C#
 int NationalPokedexNumber
 string Hp
 List<string> RetreatCost
@@ -100,7 +100,7 @@ List<Weakness> Resistances
 
 ###### SetData
 
-```
+```C#
 string Code
 string Name
 string Series
@@ -112,13 +112,13 @@ string ReleaseDate
 
 ###### SubType
 
-```
+```C#
 List<string> Types
 ```
 
 ###### SuperType
 
-```
+```C#
 List<string> Types
 ```
 
@@ -126,19 +126,19 @@ List<string> Types
 
 Inherits from `BaseCard`
 
-```
+```C#
 List<string> Text
 ```
 
 ###### TypeData
 
-```
+```C#
 List<string> Types
 ```
 
 ###### Weakness
 
-```
+```C#
 string Type
 string Value
 ```
@@ -147,48 +147,48 @@ string Value
 
 ###### Card
 
-```
-Get a card via a query string
+```C#
+// Get a card via a query string
 T Get<T>(Dictionary<string, string> query)
 
-Get a Pokemon card via a query string
+// Get a Pokemon card via a query string
 Pokemon Get(Dictionary<string, string> query)
 
-Find a card by id
+// Find a card by id
 T Find<T>(string id)
 
-Get all Pokemon cards (will take awhile)
+// Get all Pokemon cards (will take awhile)
 List<PokemonCard> All(Dictionary<string, string> query)
 ```
 
 ###### Sets
 
-```
-Find a set via a query string
+```C#
+// Find a set via a query string
 List<SetData> Find(Dictionary<string, string> query)
 
-Get all sets
+// Get all sets
 List<SetData> All(Dictionary<string, string> query)
 ```
 
 ###### SubTypes
 
-```
-Get all subtypes
+```C#
+// Get all subtypes
 List<string> All()
 ```
 
 ###### SuperTypes
 
-```
-Get all supertypes
+```C#
+// Get all supertypes
 List<string> All()
 ```
 
 ###### Types
 
-```
-Get all types
+```C#
+// Get all types
 List<string> All()
 ```
 
