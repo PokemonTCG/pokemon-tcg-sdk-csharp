@@ -4,7 +4,8 @@ This is the Pokémon TCG SDK C# implementation. It is a wrapper around the Poké
 
 ### Installation
 
-Install via NuGet (Install-Package PokemonTcgSdk -Version 1.0.0)
+Install via NuGet
+```PM> Install-Package PokemonTcgSdk -Version 1.0.0```
 
 ### Usage
 
