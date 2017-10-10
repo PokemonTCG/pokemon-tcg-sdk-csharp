@@ -2,6 +2,6 @@
 {
     public static class Config
     {
-        public const string Endpoint = "https://api.pokemontcg.io/v1/";
+        public const string Endpoint = "http://api.pokemontcg.io/v1/";
     }
 }

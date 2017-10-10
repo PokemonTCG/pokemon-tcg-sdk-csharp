@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace PokemonTcgSdk.Models
@@ -31,5 +32,9 @@ namespace PokemonTcgSdk.Models
 
         [JsonProperty("resistances")]
         public List<Weakness> Resistances { get; set; }
+
+        [DefaultValue("-")]
+        [JsonProperty("evolvesFrom", DefaultValueHandling = DefaultValueHandling.Populate)]
+        public string EvolvesFrom { get; set; }
     }
 }
