@@ -9,6 +9,9 @@ namespace PokemonTcgSdk.Models
         [JsonProperty("code")]
         public string Code { get; set; }
 
+        [JsonProperty("ptcgoCode")]
+        public string PtcgoCode { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 
