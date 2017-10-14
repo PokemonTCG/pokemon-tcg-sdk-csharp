@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokemonTcgSdk;
 using System.Collections.Generic;
+using PokemonTcgSdk.Models;
 
 namespace PokemonTest
 {
@@ -16,7 +17,7 @@ namespace PokemonTest
 
             Assert.IsTrue(cards.Count > 8000);
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
-            Assert.IsInstanceOfType(firstCard, typeof(Pokemon));
+            Assert.IsInstanceOfType(firstCard, typeof(PokemonCard));
         }
 
         [TestMethod]
@@ -37,8 +38,7 @@ namespace PokemonTest
 
             Assert.IsNotNull(cards);
             Assert.IsInstanceOfType(cards, typeof(Pokemon));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(name));
-            
+            Assert.IsFalse(string.IsNullOrWhiteSpace(name));            
         }
 
         [TestMethod]
