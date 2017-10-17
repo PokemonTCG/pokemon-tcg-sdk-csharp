@@ -30,6 +30,9 @@ namespace PokemonTcgSdk.Models
         [JsonProperty("releaseDate")]
         public string ReleaseDate { get; set; }
 
+        [JsonProperty("symbolUrl")]
+        public string SymbolUrl { get; set; }
+
         public List<string> Errors { get; set; }
     }
 }
