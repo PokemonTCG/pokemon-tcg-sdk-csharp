@@ -31,5 +31,6 @@ namespace PokemonTcgSdk
         public static readonly string Text = @"text";
         public static readonly string Types = @"types";
         public static readonly string Weaknesses = @"weakness";        
+        public static readonly string EvolvesFrom = @"evolvesFrom";        
     }
 }
