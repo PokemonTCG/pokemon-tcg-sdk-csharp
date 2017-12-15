@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using PokemonTcgSdk.Helpers;
-using System;
-using System.Linq;
-using System.Collections;
+﻿using PokemonTcgSdk.Helpers;
 using PokemonTcgSdk.Models;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
 
 namespace PokemonTcgSdk
 {

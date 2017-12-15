@@ -1,4 +1,5 @@
 using PokemonTcgSdk.Helpers;
+using PokemonTcgSdk.Mappers;
 using PokemonTcgSdk.Models;
 using System;
 using System.Collections.Generic;
@@ -45,8 +46,10 @@ namespace PokemonTcgSdk
             }
             catch (Exception ex)
             {
-                Pokemon pokemon = new Pokemon();
-                pokemon.Errors = new List<string>() { ex.Message };
+                Pokemon pokemon = new Pokemon
+                {
+                    Errors = new List<string>() { ex.Message }
+                };
                 return pokemon;
             }
         }
@@ -94,12 +97,18 @@ namespace PokemonTcgSdk
                     };
                 }
 
-                for (int i = 0; i < int.Parse(query[CardQueryTypes.PageSize]); i++)
+                var totalCount = int.Parse(query[CardQueryTypes.PageSize]);
+                var amount = 1;
+                for (int i = 0; i < totalCount; i += amount)
                 {
                     string queryString = string.Empty;
                     stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Cards);
                     if (stringTask.IsSuccessStatusCode)
                     {
+                        var info = HttpResponseToPagingInfo.MapFrom(stringTask.Headers);
+                        totalCount = info.TotalCount;
+                        amount = info.Count;
+
                         Pokemon item = QueryBuilderHelper.CreateObject<Pokemon>(stringTask);
                         query[CardQueryTypes.Page] = (int.Parse(query[CardQueryTypes.Page]) + 1).ToString();
                         items.Add(item);
@@ -125,5 +134,6 @@ namespace PokemonTcgSdk
                 return mergedList;
             }
         }
+
     }
 }

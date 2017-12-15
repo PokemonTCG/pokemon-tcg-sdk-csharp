@@ -119,5 +119,37 @@ namespace PokemonTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsTrue(sets.Count >= 1);
         }
+        
+        [TestMethod]
+        public void AllCardsBySeries()
+        {
+            var query = new Dictionary<string, string>()
+            {
+                { CardQueryTypes.Series, "XY" }
+            };
+
+            var cards = Card.All(query);
+            var name = cards[0].Name;
+
+            Assert.IsNotNull(cards);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(name));
+            Assert.IsTrue(cards.Count >= 1);
+        }
+
+        [TestMethod]
+        public void AllCardsByStandardLegal()
+        {
+            var query = new Dictionary<string, string>()
+            {
+                {  SetQueryTypes.StandardLegal, true.ToString() }
+            };
+
+            var cards = Card.All(query);
+            var name = cards[0].Name;
+
+            Assert.IsNotNull(cards);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(name));
+            Assert.IsTrue(cards.Count >= 1);
+        }
     }
 }

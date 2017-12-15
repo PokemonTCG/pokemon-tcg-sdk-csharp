@@ -46,11 +46,14 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="Helpers\QueryBuilderHelper.cs" />
+    <Compile Include="Mappers\HttpResponseToPagingInfo.cs" />
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Models\AncientTrait.cs" />
     <Compile Include="Models\Attack.cs" />
     <Compile Include="Models\BaseCard.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="Annotations\EntityHeadersAttribute.cs" />
+    <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\PokemonCard.cs" />
     <Compile Include="Models\SetData.cs" />
     <Compile Include="Models\SubType.cs" />
@@ -74,6 +77,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

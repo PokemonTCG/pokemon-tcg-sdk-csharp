@@ -1,4 +1,5 @@
 ﻿using PokemonTcgSdk.Helpers;
+using PokemonTcgSdk.Mappers;
 using PokemonTcgSdk.Models;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -51,12 +52,18 @@ namespace PokemonTcgSdk
                     };
                 }
 
-                for (int i = 0; i < 1; i++)
+                var totalCount = int.Parse(query[CardQueryTypes.PageSize]);
+                var amount = 1;
+                for (int i = 0; i < totalCount; i += amount)
                 {
                     string queryString = string.Empty;
                     stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Sets);
                     if (stringTask.IsSuccessStatusCode)
                     {
+                        var info = HttpResponseToPagingInfo.MapFrom(stringTask.Headers);
+                        totalCount = info.TotalCount;
+                        amount = info.Count;
+
                         Set item = QueryBuilderHelper.CreateObject<Set>(stringTask);
                         query[CardQueryTypes.Page] = (int.Parse(query[CardQueryTypes.Page]) + 1).ToString();
                         items.Add(item);
