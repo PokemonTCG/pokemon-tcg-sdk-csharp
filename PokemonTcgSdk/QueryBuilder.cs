@@ -39,8 +39,7 @@ namespace PokemonTcgSdk
             }
             catch (Exception ex)
             {
-                var pokemon = new Pokemon { Errors = new List<string> { ex.Message } };
-                return pokemon;
+                return new Pokemon { Errors = new List<string> { ex.Message } };
             }
         }
 
@@ -58,8 +57,7 @@ namespace PokemonTcgSdk
             }
             catch (Exception ex)
             {
-                var set = new SetData { Errors = new List<string> { ex.Message } };
-                return set;
+                return new SetData { Errors = new List<string> { ex.Message } };
             }
         }
 

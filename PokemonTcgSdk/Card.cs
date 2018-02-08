@@ -1,15 +1,15 @@
+using System;
+using System.Collections.Generic;
 using PokemonTcgSdk.Helpers;
 using PokemonTcgSdk.Mappers;
 using PokemonTcgSdk.Models;
-using System;
-using System.Collections.Generic;
 
 namespace PokemonTcgSdk
 {
     public class Card
     {
         /// <summary>
-        /// Gets cards based on the query provided or a default list of cards.
+        ///     Gets cards based on the query provided or a default list of cards.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>
@@ -20,7 +20,7 @@ namespace PokemonTcgSdk
         }
 
         /// <summary>
-        /// Gets the default list of cards or filter with a query.
+        ///     Gets the default list of cards or filter with a query.
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
@@ -33,16 +33,15 @@ namespace PokemonTcgSdk
             }
             catch (Exception ex)
             {
-                var pokemon = new Pokemon
+                return new Pokemon
                 {
-                    Errors = new List<string> { ex.Message }
+                    Errors = new List<string> {ex.Message}
                 };
-                return pokemon;
             }
         }
 
         /// <summary>
-        /// Find a card based on the id provided.
+        ///     Find a card based on the id provided.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
@@ -53,7 +52,7 @@ namespace PokemonTcgSdk
         }
 
         /// <summary>
-        /// Get all of the cards. This call will take a while to finish.
+        ///     Get all of the cards. This call will take a while to finish.
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
@@ -84,7 +83,8 @@ namespace PokemonTcgSdk
                 for (var i = 0; i < totalCount; i += amount)
                 {
                     var queryString = string.Empty;
-                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Cards);
+                    var stringTask =
+                        QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Cards);
                     if (stringTask.IsSuccessStatusCode)
                     {
                         var info = HttpResponseToPagingInfo.MapFrom(stringTask.Headers);
