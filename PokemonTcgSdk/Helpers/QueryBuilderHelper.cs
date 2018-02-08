@@ -11,7 +11,7 @@ namespace PokemonTcgSdk.Helpers
     {
         public static HttpClient SetupClient()
         {
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.BaseAddress = new Uri(Config.Endpoint);
@@ -26,32 +26,34 @@ namespace PokemonTcgSdk.Helpers
                 case "Pokemon":
                     type = ResourceTypes.Cards;
                     break;
+
                 case "Trainer":
                     type = ResourceTypes.Cards;
                     if (query != null)
-                    {
                         query.Add("supertype", "trainer");
-                    }
                     else
-                    {
                         query = new Dictionary<string, string>
                         {
-                            { "supertype", "trainer" }
+                            {"supertype", "trainer"}
                         };
-                    }
                     break;
+
                 case "TypeData":
                     type = ResourceTypes.Types;
                     break;
+
                 case "SetData":
                     type = ResourceTypes.Sets;
                     break;
+
                 case "SubType":
                     type = ResourceTypes.SubTypes;
                     break;
+
                 case "SuperType":
                     type = ResourceTypes.SuperTypes;
                     break;
+
                 default:
                     type = ResourceTypes.Cards;
                     break;
@@ -69,18 +71,23 @@ namespace PokemonTcgSdk.Helpers
                 case "Trainer":
                     type = ResourceTypes.Cards;
                     break;
+
                 case "TypeData":
                     type = ResourceTypes.Types;
                     break;
+
                 case "SetData":
                     type = ResourceTypes.Sets;
                     break;
+
                 case "SubType":
                     type = ResourceTypes.SubTypes;
                     break;
+
                 case "SuperType":
                     type = ResourceTypes.SuperTypes;
                     break;
+
                 default:
                     type = ResourceTypes.Cards;
                     break;
@@ -89,47 +96,18 @@ namespace PokemonTcgSdk.Helpers
             return type;
         }
 
-        public static HttpResponseMessage BuildTaskString(Dictionary<string, string> query, ref string queryString, HttpClient client, string type = "cards")
+        public static HttpResponseMessage BuildTaskString(Dictionary<string, string> query, ref string queryString,
+            HttpClient client, string type = "cards")
         {
             HttpResponseMessage stringTask;
             if (query != null && query.Any())
             {
                 var lastItem = query.Values.Last();
-                foreach (KeyValuePair<string, string> item in query)
+                foreach (var item in query)
                 {
                     queryString += $"{item.Key}={item.Value}";
 
-                    if (lastItem != item.Value)
-                    {
-                        queryString += "&";
-                    }
-                }
-
-                stringTask = client.GetAsync($"{type}?{queryString}").Result;
-            }
-            else
-            {
-                stringTask = client.GetAsync(type).Result;
-            }
-
-            return stringTask;
-        }
-
-        public static HttpResponseMessage BuildTaskString(Dictionary<string, string> query, ref string queryString, string type, HttpClient client)
-        {
-            HttpResponseMessage stringTask;
-            queryString = string.Empty;
-            if (query != null && query.Any())
-            {
-                var lastItem = query.Values.Last();
-                foreach (KeyValuePair<string, string> item in query)
-                {
-                    queryString += $"{item.Key}={item.Value}";
-
-                    if (lastItem != item.Value)
-                    {
-                        queryString += "&";
-                    }
+                    if (lastItem != item.Value) queryString += "&";
                 }
 
                 stringTask = client.GetAsync($"{type}?{queryString}").Result;
@@ -144,32 +122,16 @@ namespace PokemonTcgSdk.Helpers
 
         public static T CreateObject<T>(HttpResponseMessage stringTask)
         {
-            HttpContent result = stringTask.Content;
-            string data = result.ReadAsStringAsync().Result;
+            var result = stringTask.Content;
+            var data = result.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<T>(data);
         }
 
         public static bool FetchAll(ref Dictionary<string, string> query)
         {
-            if (query != null)
-            {
-                if (query.ContainsKey(CardQueryTypes.Page))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            if (query == null) return true;
+            return !query.ContainsKey(CardQueryTypes.Page);
         }
-
-        public static Dictionary<string, string> GetDefaultQuery(Dictionary<string, string> query)
-        {
-            if (query != null)
-            {
-                query = null;
-            }
-
-            return query;
-        }
+        
     }
 }

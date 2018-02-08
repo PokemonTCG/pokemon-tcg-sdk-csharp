@@ -24,7 +24,7 @@
         public static readonly string SuperType = @"supertype";
         public static readonly string Text = @"text";
         public static readonly string Types = @"types";
-        public static readonly string Weaknesses = @"weakness";        
-        public static readonly string EvolvesFrom = @"evolvesFrom";        
+        public static readonly string Weaknesses = @"weakness";
+        public static readonly string EvolvesFrom = @"evolvesFrom";
     }
 }

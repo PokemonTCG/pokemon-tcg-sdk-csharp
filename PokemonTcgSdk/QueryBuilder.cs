@@ -2,7 +2,6 @@
 using PokemonTcgSdk.Models;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 
 namespace PokemonTcgSdk
 {
@@ -12,13 +11,12 @@ namespace PokemonTcgSdk
         {
             try
             {
-                string queryString = string.Empty;
-                HttpResponseMessage stringTask;
-                string type = QueryBuilderHelper.GetType<T>(ref query);
+                var queryString = string.Empty;
+                var type = QueryBuilderHelper.GetType<T>(ref query);
 
-                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, type, client);
+                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, type);
                     return QueryBuilderHelper.CreateObject<T>(stringTask);
                 }
             }
@@ -32,19 +30,16 @@ namespace PokemonTcgSdk
         {
             try
             {
-                string queryString = string.Empty;
-                HttpResponseMessage stringTask;
-
-                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                var queryString = string.Empty;
+                using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client);
+                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client);
                     return QueryBuilderHelper.CreateObject<Pokemon>(stringTask);
                 }
             }
             catch (Exception ex)
             {
-                Pokemon pokemon = new Pokemon();
-                pokemon.Errors = new List<string>() { ex.Message };
+                var pokemon = new Pokemon { Errors = new List<string> { ex.Message } };
                 return pokemon;
             }
         }
@@ -53,19 +48,17 @@ namespace PokemonTcgSdk
         {
             try
             {
-                string queryString = string.Empty;
-                HttpResponseMessage stringTask;
+                var queryString = string.Empty;
 
-                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client);
+                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client);
                     return QueryBuilderHelper.CreateObject<SetData>(stringTask);
                 }
             }
             catch (Exception ex)
             {
-                SetData set = new SetData();
-                set.Errors = new List<string>() { ex.Message };
+                var set = new SetData { Errors = new List<string> { ex.Message } };
                 return set;
             }
         }
@@ -74,23 +67,20 @@ namespace PokemonTcgSdk
         {
             try
             {
-                string queryString = string.Empty;
-                HttpResponseMessage stringTask;
-                List<string> superTypes = new List<string>();
-                query = QueryBuilderHelper.GetDefaultQuery(query);
-
-                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                var queryString = string.Empty;
+                var superTypes = new List<string>();
+                using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.SuperTypes);
-                    SuperType type = QueryBuilderHelper.CreateObject<SuperType>(stringTask);
+                    var stringTask =
+                        QueryBuilderHelper.BuildTaskString(null, ref queryString, client, ResourceTypes.SuperTypes);
+                    var type = QueryBuilderHelper.CreateObject<SuperType>(stringTask);
                     superTypes.AddRange(type.Types);
                     return superTypes;
                 }
             }
             catch (Exception ex)
             {
-                List<string> errors = new List<string>() { ex.Message };
-                return errors;
+                return new List<string> { ex.Message };
             }
         }
 
@@ -98,23 +88,20 @@ namespace PokemonTcgSdk
         {
             try
             {
-                string queryString = string.Empty;
-                HttpResponseMessage stringTask;
-                List<string> superTypes = new List<string>();
-                query = QueryBuilderHelper.GetDefaultQuery(query);
-
-                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                var queryString = string.Empty;
+                var superTypes = new List<string>();
+                using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Types);
-                    TypeData type = QueryBuilderHelper.CreateObject<TypeData>(stringTask);
+                    var stringTask =
+                        QueryBuilderHelper.BuildTaskString(null, ref queryString, client, ResourceTypes.Types);
+                    var type = QueryBuilderHelper.CreateObject<TypeData>(stringTask);
                     superTypes.AddRange(type.Types);
                     return superTypes;
                 }
             }
             catch (Exception ex)
             {
-                List<string> errors = new List<string>() { ex.Message };
-                return errors;
+                return new List<string> { ex.Message };
             }
         }
 
@@ -122,23 +109,20 @@ namespace PokemonTcgSdk
         {
             try
             {
-                string queryString = string.Empty;
-                HttpResponseMessage stringTask;
-                List<string> superTypes = new List<string>();
-                query = QueryBuilderHelper.GetDefaultQuery(query);
-
-                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                var queryString = string.Empty;
+                var superTypes = new List<string>();
+                using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.SubTypes);
-                    SubType type = QueryBuilderHelper.CreateObject<SubType>(stringTask);
+                    var stringTask =
+                        QueryBuilderHelper.BuildTaskString(null, ref queryString, client, ResourceTypes.SubTypes);
+                    var type = QueryBuilderHelper.CreateObject<SubType>(stringTask);
                     superTypes.AddRange(type.Types);
                     return superTypes;
                 }
             }
             catch (Exception ex)
             {
-                List<string> errors = new List<string>() { ex.Message };
-                return errors;
+                return new List<string> { ex.Message };
             }
         }
 
@@ -146,11 +130,11 @@ namespace PokemonTcgSdk
         {
             try
             {
-                string type = QueryBuilderHelper.GetType<T>();
+                var type = QueryBuilderHelper.GetType<T>();
 
-                using (HttpClient client = QueryBuilderHelper.SetupClient())
+                using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    HttpResponseMessage stringTask = client.GetAsync($"{type}/{id}").Result;
+                    var stringTask = client.GetAsync($"{type}/{id}").Result;
                     return QueryBuilderHelper.CreateObject<T>(stringTask);
                 }
             }

@@ -3,7 +3,6 @@ using PokemonTcgSdk.Mappers;
 using PokemonTcgSdk.Models;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 
 namespace PokemonTcgSdk
 {
@@ -29,26 +28,14 @@ namespace PokemonTcgSdk
         {
             try
             {
-                // Make sure this actually gets the default cards
-                // from the API as described.
-                query = QueryBuilderHelper.GetDefaultQuery(query);
-
-                Pokemon pokemon = QueryBuilder.GetPokemonCards(query);
-                if (pokemon == null)
-                {
-                    pokemon.Errors = new List<string>() { "Not Found" };
-                    return pokemon;
-                }
-                else
-                {
-                    return pokemon;
-                }
+                var pokemon = QueryBuilder.GetPokemonCards();
+                return pokemon ?? new Pokemon {Errors = new List<string> {"Not Found"}};
             }
             catch (Exception ex)
             {
-                Pokemon pokemon = new Pokemon
+                var pokemon = new Pokemon
                 {
-                    Errors = new List<string>() { ex.Message }
+                    Errors = new List<string> { ex.Message }
                 };
                 return pokemon;
             }
@@ -70,53 +57,45 @@ namespace PokemonTcgSdk
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        // TODO: Make this call more generic
         public static List<PokemonCard> All(Dictionary<string, string> query = null)
         {
-            using (HttpClient client = QueryBuilderHelper.SetupClient())
+            using (var client = QueryBuilderHelper.SetupClient())
             {
-                HttpResponseMessage stringTask;
-                List<Pokemon> items = new List<Pokemon>();
-                List<PokemonCard> mergedList = new List<PokemonCard>();
-                bool fetchAll = QueryBuilderHelper.FetchAll(ref query);
+                var items = new List<Pokemon>();
+                var mergedList = new List<PokemonCard>();
+                var fetchAll = QueryBuilderHelper.FetchAll(ref query);
 
                 if (query != null)
                 {
-                    if (!query.ContainsKey(CardQueryTypes.Page))
-                    {
-                        query.Add(CardQueryTypes.Page, "1");
-                    }
+                    if (!query.ContainsKey(CardQueryTypes.Page)) query.Add(CardQueryTypes.Page, "1");
                     query.Add(CardQueryTypes.PageSize, "500");
                 }
                 else
                 {
-                    query = new Dictionary<string, string>()
+                    query = new Dictionary<string, string>
                     {
-                        { CardQueryTypes.Page, "1" },
-                        { CardQueryTypes.PageSize, "500" }
+                        {CardQueryTypes.Page, "1"},
+                        {CardQueryTypes.PageSize, "500"}
                     };
                 }
 
                 var totalCount = int.Parse(query[CardQueryTypes.PageSize]);
-                var amount = 1;
-                for (int i = 0; i < totalCount; i += amount)
+                int amount;
+                for (var i = 0; i < totalCount; i += amount)
                 {
-                    string queryString = string.Empty;
-                    stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Cards);
+                    var queryString = string.Empty;
+                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Cards);
                     if (stringTask.IsSuccessStatusCode)
                     {
                         var info = HttpResponseToPagingInfo.MapFrom(stringTask.Headers);
                         totalCount = info.TotalCount;
                         amount = info.Count;
 
-                        Pokemon item = QueryBuilderHelper.CreateObject<Pokemon>(stringTask);
+                        var item = QueryBuilderHelper.CreateObject<Pokemon>(stringTask);
                         query[CardQueryTypes.Page] = (int.Parse(query[CardQueryTypes.Page]) + 1).ToString();
                         items.Add(item);
 
-                        if (!fetchAll)
-                        {
-                            break;
-                        }
+                        if (!fetchAll) break;
                     }
                     else
                     {
@@ -124,16 +103,11 @@ namespace PokemonTcgSdk
                     }
                 }
 
-                // Create the list returned as a single list instead of
-                // a list of lists
-                foreach (Pokemon pokemon in items)
-                {
-                    mergedList.AddRange(pokemon.Cards);
-                }
+                // Create the list returned as a single list instead of a list of lists
+                foreach (var pokemon in items) mergedList.AddRange(pokemon.Cards);
 
                 return mergedList;
             }
         }
-
     }
 }

@@ -20,32 +20,22 @@ namespace PokemonTcgSdk.Mappers
                 var name = GetNameEntity(property);
                 var value = GetValueEntity(name, input);
                 if (value != null)
-                {
                     property.Value.SetValue(instance, Convert.ChangeType(value, property.Value.PropertyType), null);
-                }
             }
+
             return (PagingInfo)instance;
         }
 
-        private static object GetValueEntity(string name, HttpResponseHeaders input)
+        private static object GetValueEntity(string name, HttpHeaders input)
         {
-            IEnumerable<string> values = new List<string>();
-            if (input.TryGetValues(name, out values))
-            {
-                return values.FirstOrDefault();
-            }
-            return null;
+            IEnumerable<string> values;
+            return input.TryGetValues(name, out values) ? values.FirstOrDefault() : null;
         }
 
         private static string GetNameEntity(KeyValuePair<string, PropertyInfo> property)
         {
             var attribute = property.Value.GetCustomAttribute<EntityHeadersAttribute>();
-            if (attribute != null)
-            {
-                return attribute.Name;
-            }
-            return property.Key;
+            return attribute != null ? attribute.Name : property.Key;
         }
-
     }
 }

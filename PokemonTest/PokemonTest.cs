@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokemonTcgSdk;
-using System.Collections.Generic;
 using PokemonTcgSdk.Models;
+using System.Collections.Generic;
 
 namespace PokemonTest
 {
@@ -38,7 +38,7 @@ namespace PokemonTest
 
             Assert.IsNotNull(cards);
             Assert.IsInstanceOfType(cards, typeof(Pokemon));
-            Assert.IsFalse(string.IsNullOrWhiteSpace(name));            
+            Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
         [TestMethod]
@@ -91,9 +91,9 @@ namespace PokemonTest
         [TestMethod]
         public void FindSets()
         {
-            var query = new Dictionary<string, string>()
+            var query = new Dictionary<string, string>
             {
-                { "standardLegal", true.ToString() }
+                {"standardLegal", true.ToString()}
             };
 
             var sets = Sets.Find(query);
@@ -107,9 +107,9 @@ namespace PokemonTest
         [TestMethod]
         public void FindSet()
         {
-            var query = new Dictionary<string, string>()
+            var query = new Dictionary<string, string>
             {
-                { "name", "Base" }
+                {"name", "Base"}
             };
 
             var sets = Sets.Find(query);
@@ -119,13 +119,13 @@ namespace PokemonTest
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
             Assert.IsTrue(sets.Count >= 1);
         }
-        
+
         [TestMethod]
         public void AllCardsBySeries()
         {
-            var query = new Dictionary<string, string>()
+            var query = new Dictionary<string, string>
             {
-                { CardQueryTypes.Series, "XY" }
+                {CardQueryTypes.Series, "XY"}
             };
 
             var cards = Card.All(query);
@@ -139,9 +139,9 @@ namespace PokemonTest
         [TestMethod]
         public void AllCardsByStandardLegal()
         {
-            var query = new Dictionary<string, string>()
+            var query = new Dictionary<string, string>
             {
-                {  SetQueryTypes.StandardLegal, true.ToString() }
+                {SetQueryTypes.StandardLegal, true.ToString()}
             };
 
             var cards = Card.All(query);
