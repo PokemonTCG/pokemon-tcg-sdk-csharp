@@ -15,6 +15,9 @@ namespace PokemonTcgSdk.Models
         [JsonProperty("retreatCost")]
         public List<string> RetreatCost { get; set; }
 
+        [JsonProperty("convertedRetreatCost")]
+        public int ConvertedRetreatCost { get; set; }
+
         [JsonProperty("ability")]
         public Ability Ability { get; set; }
 
