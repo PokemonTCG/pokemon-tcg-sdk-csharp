@@ -42,6 +42,23 @@ namespace PokemonTest
         }
 
         [TestMethod]
+        public void GetPokemonCardsByQueryString()
+        {
+            Dictionary<string, string> query = new Dictionary<string, string>()
+            {
+                { "name", "Charizard" }
+            };
+            var cards = Card.Get(query);
+
+            Assert.IsNotNull(cards);
+            Assert.IsInstanceOfType(cards, typeof(Pokemon));
+            foreach (var pokemonCard in cards.Cards)
+            {
+                Assert.IsTrue(pokemonCard.Name.Contains("Charizard"));
+            }
+        }
+
+        [TestMethod]
         public void GetTrainerCards()
         {
             var cards = Card.Get<Trainer>();
