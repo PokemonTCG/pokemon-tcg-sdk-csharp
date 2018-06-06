@@ -28,7 +28,7 @@ namespace PokemonTcgSdk
         {
             try
             {
-                var pokemon = QueryBuilder.GetPokemonCards();
+                var pokemon = QueryBuilder.GetPokemonCards(query);
                 return pokemon ?? new Pokemon {Errors = new List<string> {"Not Found"}};
             }
             catch (Exception ex)

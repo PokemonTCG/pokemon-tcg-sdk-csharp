@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokemonTcgSdk;
+﻿using PokemonTcgSdk;
 using PokemonTcgSdk.Models;
 using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace PokemonTest
 {
-    [TestClass]
+    [TestFixture]
     public class PokemonTest
     {
-        [TestMethod]
+        [Test]
         public void GetAllCards()
         {
             var cards = Card.All();
@@ -17,10 +17,10 @@ namespace PokemonTest
 
             Assert.IsTrue(cards.Count > 8000);
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
-            Assert.IsInstanceOfType(firstCard, typeof(PokemonCard));
+            Assert.IsInstanceOf<PokemonCard>(firstCard);// IsInstanceOfType(firstCard, typeof(PokemonCard));
         }
 
-        [TestMethod]
+        [Test]
         public void FindPokemonCard()
         {
             var card = Card.Find<Pokemon>("base4-4");
@@ -30,29 +30,60 @@ namespace PokemonTest
             Assert.IsNotNull(card);
         }
 
-        [TestMethod]
+        [Test]
         public void GetPokemonCards()
         {
             var cards = Card.Get<Pokemon>();
             var name = cards.Cards[0].Name;
 
             Assert.IsNotNull(cards);
-            Assert.IsInstanceOfType(cards, typeof(Pokemon));
+            Assert.IsInstanceOf<Pokemon>(cards);
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
-        [TestMethod]
+        [TestCase("name", "Charizard")]
+        [TestCase("name", "Blastoise")]
+        [TestCase("name", "Venusaur")]
+        [TestCase("set", "sm6")]
+        public void GetPokemonCardsByQueryString(string field, string value)
+        {
+            var query = new Dictionary<string, string>()
+            {
+                { field, value }
+            };
+            var cards = Card.Get(query);
+
+            Assert.IsNotNull(cards);
+            Assert.IsInstanceOf<Pokemon>(cards);
+            foreach (var pokemonCard in cards.Cards)
+            {
+                switch (field)
+                {
+                    case "name":
+                        Assert.IsTrue(pokemonCard.Name.Contains(value));
+                        break;
+                    case "set":
+                        Assert.IsTrue(pokemonCard.Set.Contains(value));
+                        break;
+                    default:
+                        Assert.IsTrue(!string.IsNullOrWhiteSpace(pokemonCard.Id));
+                        break;
+                }
+            }
+        }
+
+        [Test]
         public void GetTrainerCards()
         {
             var cards = Card.Get<Trainer>();
             var name = cards.Cards[0].Name;
 
             Assert.IsNotNull(cards);
-            Assert.IsInstanceOfType(cards, typeof(Trainer));
+            Assert.IsInstanceOf<Trainer>(cards);
             Assert.IsFalse(string.IsNullOrWhiteSpace(name));
         }
 
-        [TestMethod]
+        [Test]
         public void GetSubTypes()
         {
             var subTypes = SubTypes.All();
@@ -61,7 +92,7 @@ namespace PokemonTest
             Assert.IsTrue(subTypes.Count > 1);
         }
 
-        [TestMethod]
+        [Test]
         public void GetSuperTypes()
         {
             var superTypes = SuperTypes.All();
@@ -70,7 +101,7 @@ namespace PokemonTest
             Assert.IsTrue(superTypes.Count > 1);
         }
 
-        [TestMethod]
+        [Test]
         public void GetTypes()
         {
             var types = Types.All();
@@ -79,7 +110,7 @@ namespace PokemonTest
             Assert.IsTrue(types.Count > 1);
         }
 
-        [TestMethod]
+        [Test]
         public void GetSets()
         {
             var sets = Sets.All();
@@ -88,7 +119,7 @@ namespace PokemonTest
             Assert.IsTrue(sets.Count > 1);
         }
 
-        [TestMethod]
+        [Test]
         public void FindSets()
         {
             var query = new Dictionary<string, string>
@@ -104,7 +135,7 @@ namespace PokemonTest
             Assert.IsTrue(sets.Count >= 1);
         }
 
-        [TestMethod]
+        [Test]
         public void FindSet()
         {
             var query = new Dictionary<string, string>
@@ -120,7 +151,7 @@ namespace PokemonTest
             Assert.IsTrue(sets.Count >= 1);
         }
 
-        [TestMethod]
+        [Test]
         public void AllCardsBySeries()
         {
             var query = new Dictionary<string, string>
@@ -136,7 +167,7 @@ namespace PokemonTest
             Assert.IsTrue(cards.Count >= 1);
         }
 
-        [TestMethod]
+        [Test]
         public void AllCardsByStandardLegal()
         {
             var query = new Dictionary<string, string>
