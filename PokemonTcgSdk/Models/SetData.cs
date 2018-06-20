@@ -33,6 +33,12 @@ namespace PokemonTcgSdk.Models
         [JsonProperty("symbolUrl")]
         public string SymbolUrl { get; set; }
 
+        [JsonProperty("logoUrl")]
+        public string LogoUrl { get; set; }
+
+        [JsonProperty("updatedAt")]
+        public string UpdatedAt { get; set; }
+
         public List<string> Errors { get; set; }
     }
 }
