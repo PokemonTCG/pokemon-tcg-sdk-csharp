@@ -37,7 +37,16 @@ namespace PokemonTcgSdk.Helpers
                             {"supertype", "trainer"}
                         };
                     break;
-
+                case "Energy":
+                    type = ResourceTypes.Cards;
+                    if (query != null)
+                        query.Add("supertype", "energy");
+                    else
+                        query = new Dictionary<string, string>
+                        {
+                            {"supertype", "energy"}
+                        };
+                    break;
                 case "TypeData":
                     type = ResourceTypes.Types;
                     break;
@@ -69,6 +78,9 @@ namespace PokemonTcgSdk.Helpers
             {
                 case "Pokemon":
                 case "Trainer":
+                    type = ResourceTypes.Cards;
+                    break;
+                case "Energy":
                     type = ResourceTypes.Cards;
                     break;
 

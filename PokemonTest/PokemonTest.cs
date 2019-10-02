@@ -84,6 +84,17 @@ namespace PokemonTest
         }
 
         [Test]
+        public void GetEnergyCards()
+        {
+            var cards = Card.Get<Energy>();
+            var name = cards.Cards[0].Name;
+
+            Assert.IsNotNull(cards);
+            Assert.IsInstanceOf<Energy>(cards);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(name));
+        }
+
+        [Test]
         public void GetSubTypes()
         {
             var subTypes = SubTypes.All();

@@ -83,6 +83,14 @@ string Set
 string SetCode
 ```
 
+###### EnergyCard
+
+Inherits from `BaseCard`
+
+```C#
+List<string> Text
+```
+
 ###### PokemonCard
 
 Inherits from `BaseCard`
