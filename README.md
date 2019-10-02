@@ -15,6 +15,7 @@ The following classes are available in the PokemonTcgSdk namespace
 
 ```C#
 Card
+Energy
 Pokemon
 Sets
 SubTypes
@@ -30,6 +31,7 @@ Ability
 AncientTrait
 Attack
 BaseCard
+EnergyCard
 PokemonCard
 SetData
 SubType
@@ -81,6 +83,14 @@ string Rarity
 string Series
 string Set
 string SetCode
+```
+
+###### EnergyCard
+
+Inherits from `BaseCard`
+
+```C#
+List<string> Text
 ```
 
 ###### PokemonCard
@@ -202,6 +212,10 @@ cards.Cards;
 
 // Get a default list of Pokemon cards
 var cards = Card.Get<Pokemon>();
+cards.Cards;
+
+// Get a default list of Energy cards
+var cards = Card.Get<Energy>();
 cards.Cards;
 
 // Get a list of cards via a query string
