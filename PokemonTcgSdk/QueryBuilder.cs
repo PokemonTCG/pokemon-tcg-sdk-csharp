@@ -2,12 +2,13 @@
 using PokemonTcgSdk.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PokemonTcgSdk
 {
     public class QueryBuilder
     {
-        public static T Get<T>(Dictionary<string, string> query = null)
+        public static async Task<T> Get<T>(Dictionary<string, string> query = null)
         {
             try
             {
@@ -16,7 +17,7 @@ namespace PokemonTcgSdk
 
                 using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, type);
+                    var stringTask = await QueryBuilderHelper.BuildTaskString(query, queryString, client, type);
                     return QueryBuilderHelper.CreateObject<T>(stringTask);
                 }
             }
@@ -26,14 +27,14 @@ namespace PokemonTcgSdk
             }
         }
 
-        public static Pokemon GetPokemonCards(Dictionary<string, string> query = null)
+        public static async Task<Pokemon> GetPokemonCards(Dictionary<string, string> query = null)
         {
             try
             {
                 var queryString = string.Empty;
                 using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client);
+                    var stringTask = await QueryBuilderHelper.BuildTaskString(query, queryString, client);
                     return QueryBuilderHelper.CreateObject<Pokemon>(stringTask);
                 }
             }
@@ -43,7 +44,7 @@ namespace PokemonTcgSdk
             }
         }
 
-        public static SetData GetSets(Dictionary<string, string> query = null)
+        public static async Task<SetData> GetSets(Dictionary<string, string> query = null)
         {
             try
             {
@@ -51,7 +52,7 @@ namespace PokemonTcgSdk
 
                 using (var client = QueryBuilderHelper.SetupClient())
                 {
-                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client);
+                    var stringTask = await QueryBuilderHelper.BuildTaskString(query, queryString, client);
                     return QueryBuilderHelper.CreateObject<SetData>(stringTask);
                 }
             }
@@ -61,7 +62,7 @@ namespace PokemonTcgSdk
             }
         }
 
-        public static List<string> GetSuperTypes(Dictionary<string, string> query = null)
+        public static async Task<List<string>> GetSuperTypes(Dictionary<string, string> query = null)
         {
             try
             {
@@ -70,7 +71,7 @@ namespace PokemonTcgSdk
                 using (var client = QueryBuilderHelper.SetupClient())
                 {
                     var stringTask =
-                        QueryBuilderHelper.BuildTaskString(null, ref queryString, client, ResourceTypes.SuperTypes);
+                        await QueryBuilderHelper.BuildTaskString(null, queryString, client, ResourceTypes.SuperTypes);
                     var type = QueryBuilderHelper.CreateObject<SuperType>(stringTask);
                     superTypes.AddRange(type.Types);
                     return superTypes;
@@ -82,7 +83,7 @@ namespace PokemonTcgSdk
             }
         }
 
-        public static List<string> GetTypes(Dictionary<string, string> query = null)
+        public static async Task<List<string>> GetTypes(Dictionary<string, string> query = null)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace PokemonTcgSdk
                 using (var client = QueryBuilderHelper.SetupClient())
                 {
                     var stringTask =
-                        QueryBuilderHelper.BuildTaskString(null, ref queryString, client, ResourceTypes.Types);
+                        await QueryBuilderHelper.BuildTaskString(null, queryString, client, ResourceTypes.Types);
                     var type = QueryBuilderHelper.CreateObject<TypeData>(stringTask);
                     superTypes.AddRange(type.Types);
                     return superTypes;
@@ -103,7 +104,7 @@ namespace PokemonTcgSdk
             }
         }
 
-        public static List<string> GetSubTypes(Dictionary<string, string> query = null)
+        public static async Task<List<string>> GetSubTypes(Dictionary<string, string> query = null)
         {
             try
             {
@@ -112,7 +113,7 @@ namespace PokemonTcgSdk
                 using (var client = QueryBuilderHelper.SetupClient())
                 {
                     var stringTask =
-                        QueryBuilderHelper.BuildTaskString(null, ref queryString, client, ResourceTypes.SubTypes);
+                        await QueryBuilderHelper.BuildTaskString(null, queryString, client, ResourceTypes.SubTypes);
                     var type = QueryBuilderHelper.CreateObject<SubType>(stringTask);
                     superTypes.AddRange(type.Types);
                     return superTypes;

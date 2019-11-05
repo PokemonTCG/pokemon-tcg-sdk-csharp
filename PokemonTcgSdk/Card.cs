@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using PokemonTcgSdk.Helpers;
 using PokemonTcgSdk.Mappers;
 using PokemonTcgSdk.Models;
@@ -14,9 +15,9 @@ namespace PokemonTcgSdk
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static T Get<T>(Dictionary<string, string> query = null)
+        public static async Task<T> Get<T>(Dictionary<string, string> query = null)
         {
-            return QueryBuilder.Get<T>(query);
+            return await QueryBuilder.Get<T>(query);
         }
 
         /// <summary>
@@ -24,18 +25,18 @@ namespace PokemonTcgSdk
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static Pokemon Get(Dictionary<string, string> query = null)
+        public static async Task<Pokemon> Get(Dictionary<string, string> query = null)
         {
             try
             {
-                var pokemon = QueryBuilder.GetPokemonCards(query);
-                return pokemon ?? new Pokemon {Errors = new List<string> {"Not Found"}};
+                var pokemon = await QueryBuilder.GetPokemonCards(query);
+                return pokemon ?? new Pokemon { Errors = new List<string> { "Not Found" } };
             }
             catch (Exception ex)
             {
                 return new Pokemon
                 {
-                    Errors = new List<string> {ex.Message}
+                    Errors = new List<string> { ex.Message }
                 };
             }
         }
@@ -56,7 +57,7 @@ namespace PokemonTcgSdk
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static List<PokemonCard> All(Dictionary<string, string> query = null)
+        public static async Task<List<PokemonCard>> All(Dictionary<string, string> query = null)
         {
             using (var client = QueryBuilderHelper.SetupClient())
             {
@@ -84,7 +85,7 @@ namespace PokemonTcgSdk
                 {
                     var queryString = string.Empty;
                     var stringTask =
-                        QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Cards);
+                        await QueryBuilderHelper.BuildTaskString(query, queryString, client, ResourceTypes.Cards);
                     if (stringTask.IsSuccessStatusCode)
                     {
                         var info = HttpResponseToPagingInfo.MapFrom(stringTask.Headers);

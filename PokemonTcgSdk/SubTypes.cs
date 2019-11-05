@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PokemonTcgSdk
 {
@@ -8,9 +9,9 @@ namespace PokemonTcgSdk
         /// Get all of the SubTypes.
         /// </summary>
         /// <returns></returns>
-        public static List<string> All()
+        public static async Task<List<string>> All()
         {
-            return QueryBuilder.GetSubTypes();
+            return await QueryBuilder.GetSubTypes();
         }
     }
 }

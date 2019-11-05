@@ -2,6 +2,7 @@
 using PokemonTcgSdk.Models;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace PokemonTest
 {
@@ -9,9 +10,9 @@ namespace PokemonTest
     public class PokemonTest
     {
         [Test]
-        public void GetAllCards()
+        public async Task GetAllCards()
         {
-            var cards = Card.All();
+            var cards = await Card.All();
             var firstCard = cards[0];
             var name = firstCard.Name;
 
@@ -31,9 +32,9 @@ namespace PokemonTest
         }
 
         [Test]
-        public void GetPokemonCards()
+        public async Task GetPokemonCards()
         {
-            var cards = Card.Get<Pokemon>();
+            var cards = await Card.Get<Pokemon>();
             var name = cards.Cards[0].Name;
 
             Assert.IsNotNull(cards);
@@ -45,13 +46,13 @@ namespace PokemonTest
         [TestCase("name", "Blastoise")]
         [TestCase("name", "Venusaur")]
         [TestCase("set", "sm6")]
-        public void GetPokemonCardsByQueryString(string field, string value)
+        public async Task GetPokemonCardsByQueryString(string field, string value)
         {
             var query = new Dictionary<string, string>()
             {
                 { field, value }
             };
-            var cards = Card.Get(query);
+            var cards = await Card.Get(query);
 
             Assert.IsNotNull(cards);
             Assert.IsInstanceOf<Pokemon>(cards);
@@ -73,9 +74,9 @@ namespace PokemonTest
         }
 
         [Test]
-        public void GetTrainerCards()
+        public async Task GetTrainerCards()
         {
-            var cards = Card.Get<Trainer>();
+            var cards = await Card.Get<Trainer>();
             var name = cards.Cards[0].Name;
 
             Assert.IsNotNull(cards);
@@ -84,9 +85,9 @@ namespace PokemonTest
         }
 
         [Test]
-        public void GetEnergyCards()
+        public async Task GetEnergyCards()
         {
-            var cards = Card.Get<Energy>();
+            var cards = await Card.Get<Energy>();
             var name = cards.Cards[0].Name;
 
             Assert.IsNotNull(cards);
@@ -95,50 +96,50 @@ namespace PokemonTest
         }
 
         [Test]
-        public void GetSubTypes()
+        public async Task GetSubTypes()
         {
-            var subTypes = SubTypes.All();
+            var subTypes = await SubTypes.All();
 
             Assert.IsNotNull(subTypes);
             Assert.IsTrue(subTypes.Count > 1);
         }
 
         [Test]
-        public void GetSuperTypes()
+        public async Task GetSuperTypes()
         {
-            var superTypes = SuperTypes.All();
+            var superTypes = await SuperTypes.All();
 
             Assert.IsNotNull(superTypes);
             Assert.IsTrue(superTypes.Count > 1);
         }
 
         [Test]
-        public void GetTypes()
+        public async Task GetTypes()
         {
-            var types = Types.All();
+            var types = await Types.All();
 
             Assert.IsNotNull(types);
             Assert.IsTrue(types.Count > 1);
         }
 
         [Test]
-        public void GetSets()
+        public async Task GetSets()
         {
-            var sets = Sets.All();
+            var sets = await Sets.All();
 
             Assert.IsNotNull(sets);
             Assert.IsTrue(sets.Count > 1);
         }
 
         [Test]
-        public void FindSets()
+        public async Task FindSets()
         {
             var query = new Dictionary<string, string>
             {
                 {"standardLegal", true.ToString()}
             };
 
-            var sets = Sets.Find(query);
+            var sets = await Sets.Find(query);
             var name = sets[0].Name;
 
             Assert.IsNotNull(sets);
@@ -147,14 +148,14 @@ namespace PokemonTest
         }
 
         [Test]
-        public void FindSet()
+        public async Task FindSet()
         {
             var query = new Dictionary<string, string>
             {
                 {"name", "Base"}
             };
 
-            var sets = Sets.Find(query);
+            var sets = await Sets.Find(query);
             var name = sets[0].Name;
 
             Assert.IsNotNull(sets);
@@ -163,14 +164,14 @@ namespace PokemonTest
         }
 
         [Test]
-        public void AllCardsBySeries()
+        public async Task AllCardsBySeries()
         {
             var query = new Dictionary<string, string>
             {
                 {CardQueryTypes.Series, "XY"}
             };
 
-            var cards = Card.All(query);
+            var cards = await Card.All(query);
             var name = cards[0].Name;
 
             Assert.IsNotNull(cards);
@@ -179,14 +180,14 @@ namespace PokemonTest
         }
 
         [Test]
-        public void AllCardsByStandardLegal()
+        public async Task AllCardsByStandardLegal()
         {
             var query = new Dictionary<string, string>
             {
                 {SetQueryTypes.StandardLegal, true.ToString()}
             };
 
-            var cards = Card.All(query);
+            var cards = await Card.All(query);
             var name = cards[0].Name;
 
             Assert.IsNotNull(cards);

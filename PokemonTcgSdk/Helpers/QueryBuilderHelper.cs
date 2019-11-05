@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace PokemonTcgSdk.Helpers
 {
@@ -108,7 +109,7 @@ namespace PokemonTcgSdk.Helpers
             return type;
         }
 
-        public static HttpResponseMessage BuildTaskString(Dictionary<string, string> query, ref string queryString,
+        public static async Task<HttpResponseMessage> BuildTaskString(Dictionary<string, string> query, string queryString,
             HttpClient client, string type = "cards")
         {
             HttpResponseMessage stringTask;
@@ -122,11 +123,11 @@ namespace PokemonTcgSdk.Helpers
                     if (lastItem != item.Value) queryString += "&";
                 }
 
-                stringTask = client.GetAsync($"{type}?{queryString}").Result;
+                stringTask = await client.GetAsync($"{type}?{queryString}");
             }
             else
             {
-                stringTask = client.GetAsync(type).Result;
+                stringTask = await client.GetAsync(type);
             }
 
             return stringTask;
@@ -144,6 +145,6 @@ namespace PokemonTcgSdk.Helpers
             if (query == null) return true;
             return !query.ContainsKey(CardQueryTypes.Page);
         }
-        
+
     }
 }

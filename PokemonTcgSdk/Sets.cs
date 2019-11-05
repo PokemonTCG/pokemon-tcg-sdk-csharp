@@ -2,29 +2,30 @@
 using PokemonTcgSdk.Mappers;
 using PokemonTcgSdk.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PokemonTcgSdk
 {
     public class Sets
     {
-        public static SetData Get()
+        public static async Task<SetData> Get()
         {
-            return QueryBuilder.GetSets();
+            return await QueryBuilder.GetSets();
         }
 
-        public static List<SetData> Find(Dictionary<string, string> query)
+        public static async Task<List<SetData>> Find(Dictionary<string, string> query)
         {
             var queryString = string.Empty;
             using (var client = QueryBuilderHelper.SetupClient())
             {
-                var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Sets);
+                var stringTask = await QueryBuilderHelper.BuildTaskString(query, queryString, client, ResourceTypes.Sets);
                 var set = QueryBuilderHelper.CreateObject<Set>(stringTask);
 
                 return set.Cards;
             }
         }
 
-        public static List<SetData> All(Dictionary<string, string> query = null)
+        public static async Task<List<SetData>> All(Dictionary<string, string> query = null)
         {
             using (var client = QueryBuilderHelper.SetupClient())
             {
@@ -51,7 +52,7 @@ namespace PokemonTcgSdk
                 for (var i = 0; i < totalCount; i += amount)
                 {
                     var queryString = string.Empty;
-                    var stringTask = QueryBuilderHelper.BuildTaskString(query, ref queryString, client, ResourceTypes.Sets);
+                    var stringTask = await QueryBuilderHelper.BuildTaskString(query, queryString, client, ResourceTypes.Sets);
                     if (stringTask.IsSuccessStatusCode)
                     {
                         var info = HttpResponseToPagingInfo.MapFrom(stringTask.Headers);
