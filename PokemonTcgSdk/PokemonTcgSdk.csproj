@@ -1,7 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk" >
 
   <PropertyGroup>
+    <PackageId>PokemonTcgSdk</PackageId>
+    <Version>1.1.1</Version>
+    <Authors>glinesbdev@gmail.com</Authors>
     <TargetFrameworks>netstandard2.1;netcoreapp3.1</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <ItemGroup>
