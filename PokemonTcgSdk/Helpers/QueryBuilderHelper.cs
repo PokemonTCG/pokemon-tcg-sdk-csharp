@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace PokemonTcgSdk.Helpers
 {
@@ -127,6 +128,30 @@ namespace PokemonTcgSdk.Helpers
             else
             {
                 stringTask = client.GetAsync(type).Result;
+            }
+
+            return stringTask;
+        }
+
+        public static async Task<HttpResponseMessage> BuildTaskStringAsync(Dictionary<string, string> query, string queryString,
+            HttpClient client, string type = "cards")
+        {
+            HttpResponseMessage stringTask;
+            if (query != null && query.Any())
+            {
+                var lastItem = query.Values.Last();
+                foreach (var item in query)
+                {
+                    queryString += $"{item.Key}={item.Value}";
+
+                    if (lastItem != item.Value) queryString += "&";
+                }
+
+                stringTask = await client.GetAsync($"{type}?{queryString}");
+            }
+            else
+            {
+                stringTask = await client.GetAsync(type);
             }
 
             return stringTask;

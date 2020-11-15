@@ -161,15 +161,23 @@ string Value
 ```C#
 // Get a card via a query string
 T Get<T>(Dictionary<string, string> query)
+// Async: Get a card via query string
+Task<T> GetAsync<T>(Dictionary<string, string> query)
 
 // Get a Pokemon card via a query string
 Pokemon Get(Dictionary<string, string> query)
+// Async: Get a Pokemon card via a query string
+Task<Pokemon> GetAsync(Dictionary<string, string> query)
 
 // Find a card by id
 T Find<T>(string id)
+// Async: Find a card by id
+Task<T> FindAsync<T>(string id)
 
 // Get all Pokemon cards (will take awhile)
 List<PokemonCard> All(Dictionary<string, string> query)
+// Async: Get all Pokemon cards (will take awhile)
+Task<List<PokemonCard>> AllAsync(Dictionary<string, string> query)
 ```
 
 ###### Sets
@@ -177,9 +185,13 @@ List<PokemonCard> All(Dictionary<string, string> query)
 ```C#
 // Find a set via a query string
 List<SetData> Find(Dictionary<string, string> query)
+// Async: Find a set via a query string
+Task<List<SetData>> FindAsync(Dictionary<string, string> query)
 
 // Get all sets
 List<SetData> All(Dictionary<string, string> query)
+// Async: Get all sets
+Task<List<SetData>> AllAsync(Dictionary<string, string> query)
 ```
 
 ###### SubTypes
@@ -194,6 +206,8 @@ List<string> All()
 ```C#
 // Get all supertypes
 List<string> All()
+// Async: Get all supertypes
+Task<List<string>> AllAsync()
 ```
 
 ###### Types
@@ -201,6 +215,8 @@ List<string> All()
 ```C#
 // Get all types
 List<string> All()
+// Async: Get all types
+Task<List<string>> AllAsync()
 ```
 
 ##### Examples
@@ -209,13 +225,22 @@ List<string> All()
 // Get a default list of Trainer cards
 var cards = Card.Get<Trainer>();
 cards.Cards;
+// Async: Get a default list of Trainer cards
+var cards = await Card.GetAsync<Trainer>();
+cards.Cards;
 
 // Get a default list of Pokemon cards
 var cards = Card.Get<Pokemon>();
 cards.Cards;
+// Async: Get a default list of Pokemon cards
+var cards = await Card.GetAsync<Pokemon>();
+cards.Cards;
 
 // Get a default list of Energy cards
 var cards = Card.Get<Energy>();
+cards.Cards;
+// Async: Get a default list of Energy cards
+var cards = await Card.GetAsync<Energy>();
 cards.Cards;
 
 // Get a list of cards via a query string
@@ -226,17 +251,33 @@ Dictionary<string, string> query = new Dictionary<string, string>()
 };
 var cards = Card.Get(query);
 cards.Cards;
+// Async: Get a list of cards via a query string
+Dictionary<string, string> query = new Dictionary<string, string>()
+{
+    { "name", "Charizard" },
+    { "set", "Base" }
+};
+var cards = await Card.GetAsync(query);
+cards.Cards;
 
 // Get a Pokemon card by id
 var card = Card.Find<Pokemon>("base4-4");
+card.Card;
+// Async: Get a Pokemon card by id
+var card = await Card.FindAsync<Pokemon>("base4-4");
 card.Card;
 
 // Get a Trainer card by id
 var card = Card.Find<Trainer>("xy7-79");
 card.Card;
+// Async: Get a Trainer card by id
+var card = await Card.FindAsync<Trainer>("xy7-79");
+card.Card;
 
 // Get all cards in a list
 var cards = Card.All();
+// Async: Get all cards in a list
+var cards = await Card.AllAsync();
 
 // Get a list of Sets via a query string
  var query = new Dictionary<string, string>()
@@ -244,14 +285,26 @@ var cards = Card.All();
     { "standardLegal", true.ToString() }
 };
 var sets = Sets.Find(query);
+// Async: Get a list of Sets via a query string
+ var query = new Dictionary<string, string>()
+{
+    { "standardLegal", true.ToString() }
+};
+var sets = await Sets.FindAsync(query);
 
 // Get all Sets
 var sets = Sets.All();
+// Async: Get all Sets
+var sets = await Sets.AllAsync();
 
 // Get all super/sub/types
 var supertypes = SuperTypes.All();
 var subtypes = SubTypes.All();
 var types = Types.All();
+// Async: Get all super/sub/types
+var supertypes = await SuperTypes.AllAsync();
+var subtypes = await SubTypes.AllAsync();
+var types = await Types.AllAsync();
 ```
 
 ## Contributing
