@@ -12,6 +12,6 @@ namespace PokemonTcgSdkV2.Api.Cards
 
         public string Damage { get; set; }
 
-        public int ConvertedEnergyCost { get; set; }
+        public int? ConvertedEnergyCost { get; set; }
     }
 }

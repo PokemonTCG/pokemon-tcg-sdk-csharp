@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
-using PokemonTcgSdkV2.Api.Cards;
 
 namespace PokemonTcgSdkV2.Client
 {
@@ -22,12 +20,17 @@ namespace PokemonTcgSdkV2.Client
             _client.DefaultRequestHeaders.Add("X-Api-Key", apiKey ?? "");
         }
 
-        public async Task<IEnumerable<Card>> QueryCards(string query, int page = 1)
+        public async Task<ApiCardResponse> QueryCards(string query, int page = 1)
         {
-            var options = new JsonSerializerOptions {PropertyNameCaseInsensitive = true, IncludeFields = true};
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true,
+                IgnoreNullValues = true
+            };
 
-            var cards = await _client.GetFromJsonAsync<List<Card>>($"cards?q={query}&page={page}", options) ??
-                        new List<Card>();
+            var cards = await _client.GetFromJsonAsync<ApiCardResponse>($"cards?q={query}&page={page}", options) ??
+                        new ApiCardResponse();
 
             return cards;
         }

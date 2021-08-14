@@ -17,13 +17,15 @@ namespace PokemonTcgSdkV2.Api.Cards
 
         public string Level { get; set; }
 
-        [JsonPropertyName("hp")] public int Hitpoints { get; set; }
+        [JsonPropertyName("hp")]
+        [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)] // TCGO Api encodes this as a string.
+        public int? Hitpoints { get; set; }
 
         public IEnumerable<string> Types { get; set; }
 
         public string EvolvesFrom { get; set; }
 
-        public string EvolvesTo { get; set; }
+        public IEnumerable<string> EvolvesTo { get; set; }
 
         public IEnumerable<string> Rules { get; set; }
 
@@ -39,7 +41,7 @@ namespace PokemonTcgSdkV2.Api.Cards
 
         public string RetreatCosts { get; set; }
 
-        public int ConvertedRetreatCost { get; set; }
+        public int? ConvertedRetreatCost { get; set; }
 
         public Set Set { get; set; }
 
@@ -51,7 +53,7 @@ namespace PokemonTcgSdkV2.Api.Cards
 
         public string FlavorText { get; set; }
 
-        public IEnumerable<int> NationalPokedexNumbers { get; set; }
+        public IEnumerable<int?> NationalPokedexNumbers { get; set; }
 
         public Legalities Legalities { get; set; }
 
