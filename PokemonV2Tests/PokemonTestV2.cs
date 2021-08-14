@@ -11,7 +11,15 @@ namespace PokemonV2Tests
         private ApiClient Client { get; } = new ApiClient(null);
 
         [Test]
-        public async Task GetAllCardsAsync()
+        public async Task GetAllCards()
+        {
+            var response = await Client.QueryCards("");
+
+            Assert.IsTrue(response.Cards.Any());
+        }
+
+        [Test]
+        public async Task GetAllSets()
         {
             var response = await Client.QueryCards("");
 
