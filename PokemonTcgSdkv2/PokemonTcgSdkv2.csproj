@@ -10,6 +10,7 @@
     <Version>2.0.0-alpha.0</Version>
     <Authors>glinesbdev@gmail.com</Authors>
     <Company>glinesbdev@gmail.com</Company>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
