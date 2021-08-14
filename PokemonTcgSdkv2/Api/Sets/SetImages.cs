@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PokemonTcgSdk.Api.Sets
+namespace PokemonTcgSdkV2.Api.Sets
 {
     public class SetImages
     {

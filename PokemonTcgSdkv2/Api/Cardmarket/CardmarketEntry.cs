@@ -1,4 +1,4 @@
-﻿namespace PokemonTcgSdk.Api.Cardmarket
+﻿namespace PokemonTcgSdkV2.Api.Cardmarket
 {
     public class CardmarketEntry
     {

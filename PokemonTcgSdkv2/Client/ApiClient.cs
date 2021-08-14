@@ -5,9 +5,9 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
-using PokemonTcgSdk.Api.Cards;
+using PokemonTcgSdkV2.Api.Cards;
 
-namespace PokemonTcgSdk.Client
+namespace PokemonTcgSdkV2.Client
 {
     public class ApiClient
     {

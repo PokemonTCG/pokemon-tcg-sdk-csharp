@@ -1,6 +1,6 @@
-﻿using PokemonTcgSdk.Api.Cards;
+﻿using PokemonTcgSdkV2.Api.Cards;
 
-namespace PokemonTcgSdk.Api.Sets
+namespace PokemonTcgSdkV2.Api.Sets
 {
     public class Set
     {

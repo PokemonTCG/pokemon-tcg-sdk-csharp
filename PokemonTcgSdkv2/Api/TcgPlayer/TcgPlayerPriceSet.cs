@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PokemonTcgSdk.Api.TcgPlayer
+namespace PokemonTcgSdkV2.Api.TcgPlayer
 {
     public class TcgPlayerPriceSet
     {

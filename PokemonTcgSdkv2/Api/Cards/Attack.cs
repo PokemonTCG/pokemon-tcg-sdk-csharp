@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PokemonTcgSdk.Api.Cards
+namespace PokemonTcgSdkV2.Api.Cards
 {
     public class Attack
     {

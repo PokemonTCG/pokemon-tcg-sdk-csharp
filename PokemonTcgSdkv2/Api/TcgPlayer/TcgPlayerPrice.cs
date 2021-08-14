@@ -1,4 +1,4 @@
-﻿namespace PokemonTcgSdk.Api.TcgPlayer
+﻿namespace PokemonTcgSdkV2.Api.TcgPlayer
 {
     public class TcgPlayerPrice
     {

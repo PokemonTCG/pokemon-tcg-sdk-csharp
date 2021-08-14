@@ -1,4 +1,4 @@
-﻿namespace PokemonTcgSdk.Client
+﻿namespace PokemonTcgSdkV2.Client
 {
     public class ApiResponse
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using PokemonTcgSdk.Api.Cardmarket;
-using PokemonTcgSdk.Api.Sets;
-using PokemonTcgSdk.Api.TcgPlayer;
+using PokemonTcgSdkV2.Api.Cardmarket;
+using PokemonTcgSdkV2.Api.Sets;
+using PokemonTcgSdkV2.Api.TcgPlayer;
 
-namespace PokemonTcgSdk.Api.Cards
+namespace PokemonTcgSdkV2.Api.Cards
 {
     public class Card
     {
