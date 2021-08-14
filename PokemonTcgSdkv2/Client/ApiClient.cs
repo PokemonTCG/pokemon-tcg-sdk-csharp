@@ -9,12 +9,22 @@ namespace PokemonTcgSdkV2.Client
 {
     public class ApiClient
     {
-        private readonly HttpClient _client = new HttpClient();
+        private readonly HttpClient _client;
 
-        public ApiClient(string apiKey)
+#if NETCOREAPP3_1
+        public ApiClient(string apiKey, SocketsHttpHandler handler) : this(apiKey, new HttpClient(handler))
+        {
+        }
+#endif
+
+        public ApiClient(string apiKey) : this(apiKey, new HttpClient())
+        {
+        }
+
+        private ApiClient(string apiKey, HttpClient client)
         {
             _client.BaseAddress = new Uri("https://api.pokemontcg.io/v2/");
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(
                 new ProductHeaderValue("PokemonTcgApi", GetType().Assembly.GetName().Version?.ToString())));
             _client.DefaultRequestHeaders.Add("X-Api-Key", apiKey ?? "");

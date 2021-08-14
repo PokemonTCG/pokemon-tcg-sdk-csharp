@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonTest", "PokemonTest\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonTcgSdkv2", "PokemonTcgSdkv2\PokemonTcgSdkv2.csproj", "{448324B0-7452-42CD-B6E2-E0A663A15609}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonV2Tests", "PokemonV2Tests\PokemonV2Tests.csproj", "{C5A8DF2C-2395-4217-854C-0545015148C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonV2Tests", "PokemonV2Tests\PokemonV2Tests.csproj", "{C5A8DF2C-2395-4217-854C-0545015148C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
