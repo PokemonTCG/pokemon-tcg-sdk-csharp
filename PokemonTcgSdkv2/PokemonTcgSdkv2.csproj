@@ -21,4 +21,8 @@
     <DefineConstants />
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
+
 </Project>
