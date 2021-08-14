@@ -55,7 +55,7 @@ namespace PokemonTcgSdk.Api.Cards
 
         public Legalities Legalities { get; set; }
 
-        public Images Images { get; set; }
+        public CardImages Images { get; set; }
 
         public TcgPlayerEntry TcgPlayer { get; set; }
 

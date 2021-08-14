@@ -2,7 +2,7 @@
 
 namespace PokemonTcgSdk.Api.Cards
 {
-    public class Images
+    public class CardImages
     {
         [JsonPropertyName("small")] public string SmallImageUrl { get; set; }
 
