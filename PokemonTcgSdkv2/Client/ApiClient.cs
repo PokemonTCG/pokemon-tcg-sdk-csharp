@@ -20,7 +20,7 @@ namespace PokemonTcgSdkV2.Client
             _client.DefaultRequestHeaders.Add("X-Api-Key", apiKey ?? "");
         }
 
-        public async Task<ApiCardResponse> QueryCards(string query, int page = 1)
+        public async Task<ApiCardResponse> QueryCards(string query = null, int page = 1)
         {
             var options = new JsonSerializerOptions
             {
@@ -29,10 +29,27 @@ namespace PokemonTcgSdkV2.Client
                 IgnoreNullValues = true
             };
 
-            var cards = await _client.GetFromJsonAsync<ApiCardResponse>($"cards?q={query}&page={page}", options) ??
-                        new ApiCardResponse();
+            var cards =
+                await _client.GetFromJsonAsync<ApiCardResponse>($"cards?q={query ?? ""}&page={page}", options) ??
+                new ApiCardResponse();
 
             return cards;
+        }
+
+        public async Task<ApiSetResponse> QuerySets(string query = null, int page = 1)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true,
+                IgnoreNullValues = true
+            };
+
+            var sets =
+                await _client.GetFromJsonAsync<ApiSetResponse>($"sets?q={query ?? ""}&page={page}", options) ??
+                new ApiSetResponse();
+
+            return sets;
         }
     }
 }
