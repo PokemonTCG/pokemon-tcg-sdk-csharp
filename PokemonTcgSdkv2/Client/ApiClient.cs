@@ -23,6 +23,8 @@ namespace PokemonTcgSdkV2.Client
 
         private ApiClient(string apiKey, HttpClient client)
         {
+            _client = client;
+
             _client.BaseAddress = new Uri("https://api.pokemontcg.io/v2/");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(
