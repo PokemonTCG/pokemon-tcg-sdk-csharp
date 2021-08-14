@@ -18,7 +18,8 @@ namespace PokemonTcgSdkV2.Api.Cards
         public string Level { get; set; }
 
         [JsonPropertyName("hp")]
-        [JsonNumberHandling(JsonNumberHandling.AllowReadingFromString)] // TCGO Api encodes this as a string.
+        [JsonNumberHandling(JsonNumberHandling
+            .AllowReadingFromString)] // TCGO Api encodes this as a string. -> see https://github.com/PokemonTCG/pokemon-tcg-api/issues/96
         public int? Hitpoints { get; set; }
 
         public IEnumerable<string> Types { get; set; }
