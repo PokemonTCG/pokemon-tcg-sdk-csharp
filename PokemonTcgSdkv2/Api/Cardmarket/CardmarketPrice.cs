@@ -16,7 +16,7 @@ namespace PokemonTcgSdk.Api.Cardmarket
 
         public decimal ReverseHoloSell { get; set; }
 
-        public decimal reverseHoloLow { get; set; }
+        public decimal ReverseHoloLow { get; set; }
 
         public decimal LowPriceExPlus { get; set; }
 
