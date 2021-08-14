@@ -21,9 +21,9 @@ namespace PokemonV2Tests
         [Test]
         public async Task GetAllSets()
         {
-            var response = await Client.QueryCards("");
+            var response = await Client.QuerySets("");
 
-            Assert.IsTrue(response.Cards.Any());
+            Assert.IsTrue(response.Sets.Any());
         }
     }
 }
