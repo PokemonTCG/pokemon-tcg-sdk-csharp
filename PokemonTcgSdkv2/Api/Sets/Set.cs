@@ -1,9 +1,17 @@
 ﻿using PokemonTcgSdkV2.Api.Cards;
+using PokemonTcgSdkV2.Client.Endpoints;
+using PokemonTcgSdkV2.Client.Responses;
 
 namespace PokemonTcgSdkV2.Api.Sets
 {
     public class Set : FetchableApiObject
     {
+        static Set()
+        {
+            EndpointFactory.RegisterTypeEndpoint<Set>(new SetEndpoint());
+            ResponseFactory.RegisterTypeResponse<Set, ApiSetResponse>();
+        }
+
         public string Id { get; set; }
 
         public string Name { get; set; }
