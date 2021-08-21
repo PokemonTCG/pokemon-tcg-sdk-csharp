@@ -2,7 +2,7 @@
 
 namespace PokemonTcgSdkV2.Api.Sets
 {
-    public class Set
+    public class Set : FetchableApiObject
     {
         public string Id { get; set; }
 

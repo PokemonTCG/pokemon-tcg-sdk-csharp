@@ -4,6 +4,9 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
+using PokemonTcgSdkV2.Api;
+using PokemonTcgSdkV2.Client.Endpoints;
+using PokemonTcgSdkV2.Client.Responses;
 
 namespace PokemonTcgSdkV2.Client
 {
@@ -30,6 +33,24 @@ namespace PokemonTcgSdkV2.Client
             _client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(
                 new ProductHeaderValue("PokemonTcgApi", GetType().Assembly.GetName().Version?.ToString())));
             _client.DefaultRequestHeaders.Add("X-Api-Key", apiKey ?? "");
+        }
+
+        public async Task<IApiResponse<T>> FetchData<T>() where T : FetchableApiObject
+        {
+            var endpoint = EndpointFactory.GetApiEndpoint<T>();
+            var responseType = ResponseFactory.GetApiResponse<T>();
+
+            if (endpoint == null) throw new Exception("No endpoint registered.");
+
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true,
+                IgnoreNullValues = true
+            };
+
+            var response = await _client.GetFromJsonAsync(endpoint.ApiUri(), responseType, options) as IApiResponse<T>;
+            return response;
         }
 
         public async Task<ApiCardResponse> QueryCards(string query = null, int page = 1)

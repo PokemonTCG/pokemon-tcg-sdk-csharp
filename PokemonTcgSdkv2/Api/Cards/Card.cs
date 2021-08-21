@@ -3,11 +3,19 @@ using System.Text.Json.Serialization;
 using PokemonTcgSdkV2.Api.Cardmarket;
 using PokemonTcgSdkV2.Api.Sets;
 using PokemonTcgSdkV2.Api.TcgPlayer;
+using PokemonTcgSdkV2.Client.Endpoints;
+using PokemonTcgSdkV2.Client.Responses;
 
 namespace PokemonTcgSdkV2.Api.Cards
 {
-    public class Card
+    public class Card : FetchableApiObject
     {
+        static Card()
+        {
+            EndpointFactory.RegisterTypeEndpoint<Card>(new CardEndpoint());
+            ResponseFactory.RegisterTypeResponse<Card, ApiCardResponse>();
+        }
+
         public string Id { get; set; }
         public string Name { get; set; }
 
