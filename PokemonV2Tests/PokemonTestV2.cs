@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using PokemonTcgSdkV2.Api.Cards;
+using PokemonTcgSdkV2.Api.Sets;
 using PokemonTcgSdkV2.Client;
 
 namespace PokemonV2Tests
@@ -11,19 +13,19 @@ namespace PokemonV2Tests
         private ApiClient Client { get; } = new ApiClient(null);
 
         [Test]
-        public async Task GetAllCards()
+        public async Task FetchCards()
         {
-            var response = await Client.QueryCards("");
+            var response = await Client.FetchData<Card>();
 
-            Assert.IsTrue(response.Cards.Any());
+            Assert.IsTrue(response.Data.Any());
         }
 
         [Test]
-        public async Task GetAllSets()
+        public async Task FetchSets()
         {
-            var response = await Client.QuerySets("");
+            var response = await Client.FetchData<Set>();
 
-            Assert.IsTrue(response.Sets.Any());
+            Assert.IsTrue(response.Data.Any());
         }
     }
 }
