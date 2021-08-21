@@ -38,10 +38,16 @@ namespace PokemonTcgSdkV2.Client
         public async Task<IApiResponse<T>> FetchData<T>() where T : FetchableApiObject
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();
-            var responseType = ResponseFactory.GetApiResponse<T>();
 
             if (endpoint == null) throw new Exception("No endpoint registered.");
 
+            return await FetchData<T>(endpoint.ApiUri());
+        }
+
+        public async Task<IApiResponse<T>> FetchData<T>(string requestPath) where T : FetchableApiObject
+        {
+            var responseType = ResponseFactory.GetApiResponse<T>();
+
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
@@ -49,40 +55,8 @@ namespace PokemonTcgSdkV2.Client
                 IgnoreNullValues = true
             };
 
-            var response = await _client.GetFromJsonAsync(endpoint.ApiUri(), responseType, options) as IApiResponse<T>;
+            var response = await _client.GetFromJsonAsync(requestPath, responseType, options) as IApiResponse<T>;
             return response;
-        }
-
-        public async Task<ApiCardResponse> QueryCards(string query = null, int page = 1)
-        {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                IncludeFields = true,
-                IgnoreNullValues = true
-            };
-
-            var cards =
-                await _client.GetFromJsonAsync<ApiCardResponse>($"cards?q={query ?? ""}&page={page}", options) ??
-                new ApiCardResponse();
-
-            return cards;
-        }
-
-        public async Task<ApiSetResponse> QuerySets(string query = null, int page = 1)
-        {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-                IncludeFields = true,
-                IgnoreNullValues = true
-            };
-
-            var sets =
-                await _client.GetFromJsonAsync<ApiSetResponse>($"sets?q={query ?? ""}&page={page}", options) ??
-                new ApiSetResponse();
-
-            return sets;
         }
     }
 }
