@@ -55,5 +55,23 @@ namespace PokemonV2Tests
 
             Assert.AreEqual(expectedSetName, response.Data.Name);
         }
+
+        [Test]
+        public async Task FetchMultiplePages()
+        {
+            var response = await Client.FetchData<Card>();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(1, response.Page);
+            Assert.IsTrue(response.TotalPages > 1);
+
+            response = await response.FetchNextPage();
+            Assert.IsNotNull(response);
+            Assert.AreEqual(2, response.Page);
+
+            response = await response.FetchPage(response.TotalPages);
+            Assert.IsNotNull(response);
+            Assert.AreEqual(response.TotalPages, response.Page);
+        }
     }
 }
