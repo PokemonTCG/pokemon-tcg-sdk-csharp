@@ -3,7 +3,7 @@ using PokemonTcgSdkV2.Api;
 
 namespace PokemonTcgSdkV2.Client.Responses
 {
-    public class IterableApiResponse<T> : IApiResponse<IEnumerable<T>> where T : FetchableApiObject
+    public class EnumerableApiResponse<T> : IApiResponse<IEnumerable<T>> where T : FetchableApiObject
     {
         public int Page { get; set; }
 
