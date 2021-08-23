@@ -4,6 +4,7 @@ using NUnit.Framework;
 using PokemonTcgSdkV2.Api.Cards;
 using PokemonTcgSdkV2.Api.Sets;
 using PokemonTcgSdkV2.Client;
+using PokemonTcgSdkV2.Utils;
 
 namespace PokemonV2Tests
 {
@@ -72,6 +73,16 @@ namespace PokemonV2Tests
             response = await response.FetchPage(response.TotalPages);
             Assert.IsNotNull(response);
             Assert.AreEqual(response.TotalPages, response.Page);
+        }
+
+        [TestCase("name", "charizard", "name:charizard")]
+        [TestCase("name", "charizard v", @"name:""charizard v""")]
+        [TestCase("name", @"""charizard v""", @"name:""charizard v""")]
+        public void TestQueryBuilderSimple(string key, string value, string expected)
+        {
+            var query = QueryBuilder.StartQuery(key, value);
+
+            Assert.AreEqual(expected, query.BuildQuery());
         }
     }
 }
