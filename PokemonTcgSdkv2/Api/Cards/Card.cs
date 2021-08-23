@@ -4,19 +4,16 @@ using PokemonTcgSdkV2.Api.Cardmarket;
 using PokemonTcgSdkV2.Api.Sets;
 using PokemonTcgSdkV2.Api.TcgPlayer;
 using PokemonTcgSdkV2.Client.Endpoints;
-using PokemonTcgSdkV2.Client.Responses;
 
 namespace PokemonTcgSdkV2.Api.Cards
 {
-    public class Card : FetchableApiObject
+    public class Card : FetchableApiObject, IApiObjectWithId
     {
         static Card()
         {
             EndpointFactory.RegisterTypeEndpoint<Card>(new CardEndpoint());
-            ResponseFactory.RegisterTypeResponse<Card, ApiCardResponse>();
         }
 
-        public string Id { get; set; }
         public string Name { get; set; }
 
         public string Supertype { get; set; }
@@ -71,5 +68,7 @@ namespace PokemonTcgSdkV2.Api.Cards
         public TcgPlayerEntry TcgPlayer { get; set; }
 
         public CardmarketEntry Cardmarket { get; set; }
+
+        public string Id { get; set; }
     }
 }

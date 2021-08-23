@@ -1,18 +1,7 @@
-﻿using System.Collections.Generic;
-using PokemonTcgSdkV2.Api;
-
-namespace PokemonTcgSdkV2.Client.Responses
+﻿namespace PokemonTcgSdkV2.Client.Responses
 {
-    public interface IApiResponse<T> where T : FetchableApiObject
+    public interface IApiResponse<T>
     {
-        IEnumerable<T> Data { get; set; }
-
-        int Page { get; set; }
-
-        int PageSize { get; set; }
-
-        int Count { get; set; }
-
-        int TotalCount { get; set; }
+        T Data { get; set; }
     }
 }

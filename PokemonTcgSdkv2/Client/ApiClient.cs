@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -35,19 +36,10 @@ namespace PokemonTcgSdkV2.Client
             _client.DefaultRequestHeaders.Add("X-Api-Key", apiKey ?? "");
         }
 
-        public async Task<IApiResponse<T>> FetchData<T>() where T : FetchableApiObject
+        public async Task<TResponseType>
+            FetchData<TResponseType, TResponseGeneric>(string requestPath)
+            where TResponseType : IApiResponse<TResponseGeneric>, new()
         {
-            var endpoint = EndpointFactory.GetApiEndpoint<T>();
-
-            if (endpoint == null) throw new Exception("No endpoint registered.");
-
-            return await FetchData<T>(endpoint.ApiUri());
-        }
-
-        public async Task<IApiResponse<T>> FetchData<T>(string requestPath) where T : FetchableApiObject
-        {
-            var responseType = ResponseFactory.GetApiResponse<T>();
-
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
@@ -55,8 +47,26 @@ namespace PokemonTcgSdkV2.Client
                 IgnoreNullValues = true
             };
 
-            var response = await _client.GetFromJsonAsync(requestPath, responseType, options) as IApiResponse<T>;
+            var response = await _client.GetFromJsonAsync<TResponseType>(requestPath, options);
             return response;
+        }
+
+        public async Task<IterableApiResponse<T>> FetchData<T>() where T : FetchableApiObject
+        {
+            var endpoint = EndpointFactory.GetApiEndpoint<T>();
+
+            if (endpoint == null) throw new Exception("No endpoint registered.");
+
+            return await FetchData<IterableApiResponse<T>, List<T>>(endpoint.ApiUri());
+        }
+
+        public async Task<SingleApiResponse<T>> FetchById<T>(string id) where T : FetchableApiObject, IApiObjectWithId
+        {
+            var endpoint = EndpointFactory.GetApiEndpoint<T>();
+
+            if (endpoint == null) throw new Exception("No endpoint registered.");
+
+            return await FetchData<SingleApiResponse<T>, T>($"{endpoint.ApiUri()}/{id}");
         }
     }
 }
