@@ -34,14 +34,26 @@ namespace PokemonV2Tests
 
         [TestCase("swsh45sv-SV044", "Morpeko")]
         [TestCase("base4-4", "Charizard")]
-        public async Task FindCard(string cardId, string cardName)
+        public async Task FindCard(string cardId, string expectedCardName)
         {
             var response = await Client.FetchById<Card>(cardId);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.Data);
 
-            Assert.AreEqual(cardName, response.Data.Name);
+            Assert.AreEqual(expectedCardName, response.Data.Name);
+        }
+
+        [TestCase("base1", "Base")]
+        [TestCase("sm12", "Cosmic Eclipse")]
+        public async Task FindSet(string setId, string expectedSetName)
+        {
+            var response = await Client.FetchById<Set>(setId);
+
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.Data);
+
+            Assert.AreEqual(expectedSetName, response.Data.Name);
         }
     }
 }
