@@ -3,14 +3,12 @@ using PokemonTcgSdkV2.Client.Endpoints;
 
 namespace PokemonTcgSdkV2.Api.Sets
 {
-    public class Set : FetchableApiObject
+    public class Set : FetchableApiObject, IApiObjectWithId
     {
         static Set()
         {
             EndpointFactory.RegisterTypeEndpoint<Set>(new SetEndpoint());
         }
-
-        public string Id { get; set; }
 
         public string Name { get; set; }
 
@@ -29,5 +27,7 @@ namespace PokemonTcgSdkV2.Api.Sets
         public string UpdatedAt { get; set; }
 
         public SetImages Images { get; set; }
+
+        public string Id { get; set; }
     }
 }

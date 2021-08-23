@@ -6,7 +6,7 @@ namespace PokemonTcgSdkV2.Client.Endpoints
     {
         public string ApiUri()
         {
-            return "cards";
+            return "sets";
         }
 
         public string BuildQueryString(string query)
