@@ -48,16 +48,20 @@ namespace PokemonTcgSdkV2.Client
             };
 
             var response = await _client.GetFromJsonAsync<TResponseType>(requestPath, options);
+
+            if (response is IPageAbleApiResponse<TResponseType, TResponseGeneric> pageAbleApiResponse)
+                pageAbleApiResponse.CurrentApiClient = this;
+
             return response;
         }
 
-        public async Task<EnumerableApiResponse<T>> FetchData<T>() where T : FetchableApiObject
+        public async Task<EnumerableApiResponse<T>> FetchData<T>(int page = 1) where T : FetchableApiObject
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();
 
             if (endpoint == null) throw new Exception("No endpoint registered.");
 
-            return await FetchData<EnumerableApiResponse<T>, IEnumerable<T>>(endpoint.ApiUri());
+            return await FetchData<EnumerableApiResponse<T>, IEnumerable<T>>($"{endpoint.ApiUri()}?page={page}");
         }
 
         public async Task<SingleApiResponse<T>> FetchById<T>(string id) where T : FetchableApiObject, IApiObjectWithId
