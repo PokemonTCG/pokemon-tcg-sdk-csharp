@@ -89,6 +89,8 @@ namespace PokemonV2Tests
         [TestCase(new[] {"name", "name"}, new[] {"charizard v", "morpeko v"},
             @"(name:""charizard v"" OR name:""morpeko v""")]
         [TestCase(new[] {"name", "set.id"}, new[] {"charizard", "swsh4-25"}, "name:charizard set.id:swsh4-25")]
+        [TestCase(new[] {"name", "set.id", "name"}, new[] {"charizard", "swsh4-25", "lugia"},
+            "(name:charizard OR name:lugia) set.id:swsh4-25")]
         public void TestQueryBuilderMultipleValues(string[] keys, string[] values, string expected)
         {
             Assert.AreEqual(keys.Length, values.Length);
