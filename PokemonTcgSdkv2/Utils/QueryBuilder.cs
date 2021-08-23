@@ -39,7 +39,7 @@ namespace PokemonTcgSdkV2.Utils
                 "",
                 (current, queryEntriesKey) =>
                     current +
-                    $"({string.Join(" OR ", QueryEntries[queryEntriesKey].Select(s => $"{queryEntriesKey}:{EscapeValue(s)}"))})");
+                    $"({string.Join(" OR ", QueryEntries[queryEntriesKey].Select(s => $"{queryEntriesKey}:{EscapeValue(s)}"))}) ");
 
             return query.Trim();
         }
