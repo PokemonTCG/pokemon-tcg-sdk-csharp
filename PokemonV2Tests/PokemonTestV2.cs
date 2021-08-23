@@ -84,5 +84,20 @@ namespace PokemonV2Tests
 
             Assert.AreEqual(expected, query.BuildQuery());
         }
+
+        [TestCase(new[] {"name", "name"}, new[] {"charizard", "morpeko"}, "(name:charizard OR name:morpeko")]
+        [TestCase(new[] {"name", "name"}, new[] {"charizard v", "morpeko v"},
+            @"(name:""charizard v"" OR name:""morpeko v""")]
+        [TestCase(new[] {"name", "set.id"}, new[] {"charizard", "swsh4-25"}, "name:charizard set.id:swsh4-25")]
+        public void TestQueryBuilderMultipleValues(string[] keys, string[] values, string expected)
+        {
+            Assert.AreEqual(keys.Length, values.Length);
+
+            var query = new QueryBuilder();
+
+            for (var i = 0; i < keys.Length; i++) query.Add(keys[i], values[i]);
+
+            Assert.AreEqual(expected, query.BuildQuery());
+        }
     }
 }
