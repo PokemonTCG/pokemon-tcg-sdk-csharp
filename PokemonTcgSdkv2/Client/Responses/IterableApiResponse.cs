@@ -3,7 +3,7 @@ using PokemonTcgSdkV2.Api;
 
 namespace PokemonTcgSdkV2.Client.Responses
 {
-    public class IterableApiResponse<T> : IApiResponse<List<T>> where T : FetchableApiObject
+    public class IterableApiResponse<T> : IApiResponse<IEnumerable<T>> where T : FetchableApiObject
     {
         public int Page { get; set; }
 
@@ -13,6 +13,6 @@ namespace PokemonTcgSdkV2.Client.Responses
 
         public int TotalCount { get; set; }
 
-        public List<T> Data { get; set; }
+        public IEnumerable<T> Data { get; set; }
     }
 }

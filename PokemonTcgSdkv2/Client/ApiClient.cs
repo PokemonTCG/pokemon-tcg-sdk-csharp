@@ -57,7 +57,7 @@ namespace PokemonTcgSdkV2.Client
 
             if (endpoint == null) throw new Exception("No endpoint registered.");
 
-            return await FetchData<IterableApiResponse<T>, List<T>>(endpoint.ApiUri());
+            return await FetchData<IterableApiResponse<T>, IEnumerable<T>>(endpoint.ApiUri());
         }
 
         public async Task<SingleApiResponse<T>> FetchById<T>(string id) where T : FetchableApiObject, IApiObjectWithId
