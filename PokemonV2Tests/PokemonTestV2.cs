@@ -32,15 +32,16 @@ namespace PokemonV2Tests
             Assert.IsTrue(response.Data.Any());
         }
 
-        [Test]
-        public async Task FindCard()
+        [TestCase("swsh45sv-SV044", "Morpeko")]
+        [TestCase("base4-4", "Charizard")]
+        public async Task FindCard(string cardId, string cardName)
         {
-            var response = await Client.FetchById<Card>("swsh45sv-SV044");
+            var response = await Client.FetchById<Card>(cardId);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.Data);
 
-            Assert.AreEqual("Morpeko", response.Data.Name);
+            Assert.AreEqual(cardName, response.Data.Name);
         }
     }
 }
