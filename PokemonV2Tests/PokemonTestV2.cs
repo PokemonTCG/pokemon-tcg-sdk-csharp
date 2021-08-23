@@ -75,9 +75,9 @@ namespace PokemonV2Tests
             Assert.AreEqual(response.TotalPages, response.Page);
         }
 
-        [TestCase("name", "charizard", "name:charizard")]
-        [TestCase("name", "charizard v", @"name:""charizard v""")]
-        [TestCase("name", @"""charizard v""", @"name:""charizard v""")]
+        [TestCase("name", "charizard", "(name:charizard)")]
+        [TestCase("name", "charizard v", @"(name:""charizard v"")")]
+        [TestCase("name", @"""charizard v""", @"(name:""charizard v"")")]
         public void TestQueryBuilderSimple(string key, string value, string expected)
         {
             var query = QueryBuilder.StartQuery(key, value);
@@ -85,12 +85,12 @@ namespace PokemonV2Tests
             Assert.AreEqual(expected, query.BuildQuery());
         }
 
-        [TestCase(new[] {"name", "name"}, new[] {"charizard", "morpeko"}, "(name:charizard OR name:morpeko")]
+        [TestCase(new[] {"name", "name"}, new[] {"charizard", "morpeko"}, "(name:charizard OR name:morpeko)")]
         [TestCase(new[] {"name", "name"}, new[] {"charizard v", "morpeko v"},
-            @"(name:""charizard v"" OR name:""morpeko v""")]
-        [TestCase(new[] {"name", "set.id"}, new[] {"charizard", "swsh4-25"}, "name:charizard set.id:swsh4-25")]
+            @"(name:""charizard v"" OR name:""morpeko v"")")]
+        [TestCase(new[] {"name", "set.id"}, new[] {"charizard", "swsh4-25"}, "(name:charizard) (set.id:swsh4-25)")]
         [TestCase(new[] {"name", "set.id", "name"}, new[] {"charizard", "swsh4-25", "lugia"},
-            "(name:charizard OR name:lugia) set.id:swsh4-25")]
+            "(name:charizard OR name:lugia) (set.id:swsh4-25)")]
         public void TestQueryBuilderMultipleValues(string[] keys, string[] values, string expected)
         {
             Assert.AreEqual(keys.Length, values.Length);
