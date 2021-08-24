@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PokemonTcgSdkV2.Api.Cards;
@@ -100,6 +101,20 @@ namespace PokemonV2Tests
             for (var i = 0; i < keys.Length; i++) query.Add(keys[i], values[i]);
 
             Assert.AreEqual(expected, query.BuildQuery());
+        }
+
+        [TestCase("mew")]
+        [TestCase("pikachu")]
+        [TestCase("jigglypuff")]
+        public async Task TestFetchWithQuery(string searchName)
+        {
+            var query = QueryBuilder.StartQuery("name", searchName);
+
+            var response = await Client.FetchData<Card>(query);
+
+            Assert.IsNotNull(response);
+            foreach (var card in response.Data)
+                Assert.IsTrue(card.Name.Contains(searchName, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
