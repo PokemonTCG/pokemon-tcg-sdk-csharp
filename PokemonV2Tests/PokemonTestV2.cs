@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using PokemonTcgSdkV2.Api.Cards;
 using PokemonTcgSdkV2.Api.Sets;
 using PokemonTcgSdkV2.Client;
+using PokemonTcgSdkV2.Client.Endpoints;
+using PokemonTcgSdkV2.Client.Responses;
 using PokemonTcgSdkV2.Utils;
 
 namespace PokemonV2Tests
@@ -74,6 +77,34 @@ namespace PokemonV2Tests
             response = await response.FetchPage(response.TotalPages);
             Assert.IsNotNull(response);
             Assert.AreEqual(response.TotalPages, response.Page);
+        }
+
+        [TestCase("pikachu")]
+        public async Task FetchMultiplePagesWithRememberedQuery(string searchName)
+        {
+            var query = QueryBuilder.StartQuery("name", searchName);
+            var queryStr = query.BuildQuery();
+
+            var requestUri = $"{EndpointFactory.GetApiEndpoint<Card>().ApiUri()}/?pageSize=10&page=1&q={queryStr}";
+
+            var response = await Client.FetchData<EnumerableApiResponse<Card>, IEnumerable<Card>>(requestUri);
+            // check response for first page and mutiple pages in total
+            Assert.IsNotNull(response);
+            Assert.IsTrue(response.TotalPages > 1);
+            Assert.AreEqual(1, response.Page);
+
+            // check all cards match the query
+            foreach (var card in response.Data)
+                Assert.IsTrue(card.Name.Contains(searchName, StringComparison.InvariantCultureIgnoreCase));
+
+            // get next page
+            response = await response.FetchNextPage();
+            // check response still valie
+            Assert.IsNotNull(response);
+            Assert.AreEqual(2, response.Page);
+            // check the query still is being applied
+            foreach (var card in response.Data)
+                Assert.IsTrue(card.Name.Contains(searchName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         [TestCase("name", "charizard", "(name:charizard)")]
