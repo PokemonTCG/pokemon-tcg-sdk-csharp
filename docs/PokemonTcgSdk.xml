@@ -1,0 +1,590 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PokemonTcgSdk-v2-alpha</name>
+    </assembly>
+    <members>
+        <member name="T:PokemonTcgSdkV2.Api.Cardmarket.CardmarketEntry">
+            <summary>
+                The https://www.cardmarket.com/ information for a given card.
+            </summary>
+            <remarks>
+                All prices are in Euros.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketEntry.Url">
+            <summary>
+                The URL to the cardmarket store page to purchase this card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketEntry.UpdatedAt">
+            <summary>
+                A date that the price was last updated. In the format of YYYY/MM/DD
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketEntry.Prices">
+            <summary>
+                Price information for the card.
+            </summary>
+            <remarks>
+                All prices are in Euros.
+            </remarks>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice">
+            <summary>
+                Price information for a card.
+            </summary>
+            <remarks>All prices are in Euros.</remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.AverageSellPrice">
+            <summary>
+                The average sell price as shown in the chart at the website for non-foils.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.LowPrice">
+            <summary>
+                The lowest price at the market for non-foils.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.TrendPrice">
+            <summary>
+                The trend price as shown at the website (and in the chart) for non-foils.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.GermanProLow">
+            <summary>
+                The lowest sell price from German professional sellers.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.SuggestedPrice">
+            <summary>
+                A suggested sell price for professional users, determined by an internal algorithm; this algorithm is controlled by
+                cardmarket, not this API.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.ReverseHoloSell">
+            <summary>
+                The average sell price as shown in the chart at the website for reverse holos.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.ReverseHoloLow">
+            <summary>
+                The lowest price at the market as shown at the website (for condition EX+) for reverse holos.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.ReverseHoloTrend">
+            <summary>
+                The trend price as shown at the website (and in the chart) for reverse holos.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.LowPriceExPlus">
+            <summary>
+                The lowest price at the market for non-foils with condition EX or better.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.AverageDay">
+            <summary>
+                The average sale price over the last day.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.AverageWeek">
+            <summary>
+                The average sale price over the last 7 days.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.AverageMonth">
+            <summary>
+                The average sale price over the last 30 days.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.AverageDayReverseHolo">
+            <summary>
+                The average sale price over the last day for reverse holos.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.AverageWeekReverseHolo">
+            <summary>
+                The average sale price over the last 7 days for reverse holos.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.AverageMonthReverseHolo">
+            <summary>
+                The average sale price over the last 30 days for reverse holos.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Cards.Ability">
+            <summary>
+                One or more abilities for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Ability.Name">
+            <summary>
+                The name of the ability.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Ability.Text">
+            <summary>
+                The text value of the ability.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Ability.Type">
+            <summary>
+                The type of the ability, such as Ability or Pokémon-Power.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Cards.AncientTrait">
+            <summary>
+                The ancient trait for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.AncientTrait.Name">
+            <summary>
+                The name of the ancient trait.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.AncientTrait.Text">
+            <summary>
+                The text value of the ancient trait.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Cards.Attack">
+            <summary>
+                One or more attacks for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Attack.Costs">
+            <summary>
+                The cost of the attack represented by a list of energy types.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Attack.Name">
+            <summary>
+                The name of the attack.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Attack.Text">
+            <summary>
+                The text or description associated with the attack.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Attack.Damage">
+            <summary>
+                The damage amount of the attack.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Attack.ConvertedEnergyCost">
+            <summary>
+                The total cost of the attack. For example, if it costs 2 fire energy, the converted energy cost is simply 2.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Cards.Card">
+            <summary>
+                Represents a single Pokémon card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Name">
+            <summary>
+                The name of the card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Supertype">
+            <summary>
+                The supertype of the card, such as Pokémon, Energy, or Trainer.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Subtypes">
+            <summary>
+                A list of subtypes, such as Basic, EX, Mega, Rapid Strike, etc.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Level">
+            <summary>
+                The level of the card. This only pertains to cards from older sets and those of supertype Pokémon.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Hitpoints">
+            <summary>
+                The hit points of the card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Types">
+            <summary>
+                The energy types for a card, such as Fire, Water, Grass, etc.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.EvolvesFrom">
+            <summary>
+                Which Pokémon this card evolves from.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.EvolvesTo">
+            <summary>
+                Which Pokémon this card evolves to.
+            </summary>
+            <remarks>
+                Can be multiple, for example, Eeve, which has multiple evolutions.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Rules">
+            <summary>
+                Any rules associated with the card. For example, VMAX rules, Mega rules, or various trainer rules.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.AncientTrait">
+            <summary>
+                The ancient trait for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Abilities">
+            <summary>
+                One or more abilities for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Attacks">
+            <summary>
+                One or more attacks for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Weakness">
+            <summary>
+                One or more weaknesses for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Resistances">
+            <summary>
+                One or more resistances for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.RetreatCosts">
+            <summary>
+                A list of costs it takes to retreat and return the card to your bench. Each cost is an energy type, such as Water
+                or Fire.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.ConvertedRetreatCost">
+            <summary>
+                The converted retreat cost for a card is the count of energy types found within the retreatCost field. For example,
+                ["Fire", "Water"] has a converted retreat cost of 2.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Set">
+            <summary>
+                The set details embedded into the card.
+            </summary>
+            <remarks>
+                See the <see cref="P:PokemonTcgSdkV2.Api.Cards.Card.Set" /> object for more details.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Number">
+            <summary>
+                The number of the card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Artist">
+            <summary>
+                The artist of the card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Rarity">
+            <summary>
+                The rarity of the card, such as "Common" or "Rare Rainbow".
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.FlavorText">
+            <summary>
+                The flavor text of the card. This is the text that can be found on some Pokémon cards that is usually italicized
+                near the bottom of the card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.NationalPokedexNumbers">
+            <summary>
+                The national pokedex numbers associated with any Pokémon featured on a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Legalities">
+            <summary>
+                The legalities for a given card.
+            </summary>
+            <remarks>
+                A legality will not be present in the <see cref="P:PokemonTcgSdkV2.Api.Cards.Card.Legalities" /> if it is not legal. If it is legal or banned, it
+                will be present.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Images">
+            <summary>
+                The images for a card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.TcgPlayer">
+            <summary>
+                The https://www.tcgplayer.com information for a given card.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+            <remarks>
+                See the <see cref="T:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerEntry" /> object for more details.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Cardmarket">
+            <summary>
+                The https://www.cardmarket.com/ information for a given card.
+            </summary>
+            <remarks>
+                All prices are in Euros.
+            </remarks>
+            <remarks>
+                See the <see cref="T:PokemonTcgSdkV2.Api.Cardmarket.CardmarketEntry" /> object for more details.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.CardImages.SmallImageUrl">
+            <summary>
+                A smaller, lower-res image for a card.
+            </summary>
+            <remarks>
+                This is a URL.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.CardImages.LargeImageUrl">
+            <summary>
+                A larger, higher-res image for a card.
+            </summary>
+            <remarks>
+                This is a URL.
+            </remarks>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Cards.Legalities">
+            <summary>
+                The legalities for a given card.
+            </summary>
+            <remarks>
+                A legality will not be present in the <see cref="T:PokemonTcgSdkV2.Api.Cards.Legalities" /> if it is not legal. If it is legal or banned, it
+                will be present.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Legalities.Standard">
+            <summary>
+                The legality ruling for Standard. Can be either Legal, Banned, or not present.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Legalities.Expanded">
+            <summary>
+                The legality ruling for Expanded. Can be either Legal, Banned, or not present.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Legalities.Unlimited">
+            <summary>
+                The legality ruling for Unlimited. Can be either Legal, Banned, or not present.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Cards.WeaknessOrResistance">
+            <summary>
+                Weakness or Resistance for a given card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.WeaknessOrResistance.Type">
+            <summary>
+                The type of weakness or resistance, such as Fire or Water.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.WeaknessOrResistance.Value">
+            <summary>
+                The value of the weakness or resistance.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.FetchableApiObject">
+            <summary>
+                Base class being used for any objects of the API, which can be fetched.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.IApiObjectWithId">
+            <summary>
+                Represents an object from the API which supports an id.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.IApiObjectWithId.Id">
+            <summary>
+                String representation of the objects id.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Sets.Set">
+            <summary>
+                Represents a set of Pokémon <see cref="T:PokemonTcgSdkV2.Api.Cards.Card" />.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.Name">
+            <summary>
+                The name of the set.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.Series">
+            <summary>
+                The series the set belongs to, like Sword and Shield or Base.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.PrintedTotal">
+            <summary>
+                The number printed on the card that represents the total.
+            </summary>
+            <remarks>
+                This total does not include secret rares.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.Total">
+            <summary>
+                The total number of cards in the set, including secret rares, alternate art, etc.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.Legalities">
+            <summary>
+                The legalities for a given card.
+            </summary>
+            <remarks>
+                A legality will not be present in the <see cref="P:PokemonTcgSdkV2.Api.Sets.Set.Legalities" /> if it is not legal. If it is legal or banned, it
+                will be present.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.PtcgoCode">
+            <summary>
+                The code the Pokémon Trading Card Game Online uses to identify a set.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.ReleaseDate">
+            <summary>
+                The date the set was released (in the USA). Format is YYYY/MM/DD.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.UpdatedAt">
+            <summary>
+                The date and time the set was updated. Format is YYYY/MM/DD HH:MM:SS.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.Images">
+            <summary>
+                Any images associated with the set, such as symbol and logo.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Sets.SetImages">
+            <summary>
+                Any images associated with the set, such as symbol and logo.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.SetImages.SymbolImageUrl">
+            <summary>
+                The url to the symbol image.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.SetImages.LogoImageUrl">
+            <summary>
+                The url to the logo image.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerEntry">
+            <summary>
+                The https://www.tcgplayer.com information for a given card.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerEntry.Url">
+            <summary>
+                The URL to the TCGPlayer store page to purchase this card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerEntry.UpdatedAt">
+            <summary>
+                A date that the price was last updated. In the format of YYYY/MM/DD
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerEntry.Prices">
+            <summary>
+                Price information for the card.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPrice">
+            <summary>
+                The price information for card.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPrice.Low">
+            <summary>
+                The low price of the card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPrice.Mid">
+            <summary>
+                The mid price of the card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPrice.High">
+            <summary>
+                The high price of the card.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPrice.Market">
+            <summary>
+                The market value of the card. This is usually the best representation of what people are willing to pay.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPrice.DirectLow">
+            <summary>
+                The direct low price of the card.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPriceSet">
+            <summary>
+                Price information for the card.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPriceSet.Normal">
+            <summary>
+                The price information for a normal card type.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPriceSet.HoloFoil">
+            <summary>
+                The price information for a holo foil card type.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPriceSet.ReverseHolofoil">
+            <summary>
+                The price information for a reverse hholos foil card type.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPriceSet.FirstEditionHolofoil">
+            <summary>
+                The price information for an 1st edition holo foil card type.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPriceSet.FirstEditionNormal">
+            <summary>
+                The price information for an 1st edition normal card type.
+            </summary>
+            <remarks>
+                All prices are in US Dollars.
+            </remarks>
+        </member>
+    </members>
+</doc>
