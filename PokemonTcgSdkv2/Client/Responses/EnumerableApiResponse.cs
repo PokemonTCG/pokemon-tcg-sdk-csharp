@@ -28,7 +28,7 @@ namespace PokemonTcgSdkV2.Client.Responses
 
         public async Task<EnumerableApiResponse<T>> FetchPage(int page)
         {
-            return await CurrentApiClient.FetchData<T>(page);
+            return await CurrentApiClient.FetchData<T>(null, page);
         }
     }
 }
