@@ -3,6 +3,9 @@
     /// <summary>
     ///     The https://www.cardmarket.com/ information for a given card.
     /// </summary>
+    /// <remarks>
+    ///     All prices are in Euros.
+    /// </remarks>
     public class CardmarketEntry
     {
         /// <summary>
@@ -18,7 +21,9 @@
         /// <summary>
         ///     Price information for the card.
         /// </summary>
-        /// <remarks>All prices are in Euros.</remarks>
+        /// <remarks>
+        ///     All prices are in Euros.
+        /// </remarks>
         public CardmarketPrice Prices { get; set; }
     }
 }
