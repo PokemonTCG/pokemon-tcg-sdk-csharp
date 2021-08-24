@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PokemonTcgSdkV2.Api;
 
@@ -9,6 +10,8 @@ namespace PokemonTcgSdkV2.Client.Responses
         IPageAbleApiResponse<EnumerableApiResponse<T>, IEnumerable<T>>
         where T : FetchableApiObject
     {
+        private string RequestUri { get; set; }
+
         public int TotalPages => (int) Math.Ceiling((decimal) TotalCount / PageSize);
 
         public IEnumerable<T> Data { get; set; }
@@ -28,7 +31,15 @@ namespace PokemonTcgSdkV2.Client.Responses
 
         public async Task<EnumerableApiResponse<T>> FetchPage(int page)
         {
-            return await CurrentApiClient.FetchData<T>(null, page);
+            var requestUri = RequestUri + "&page=" + page;
+            return await CurrentApiClient.FetchData<EnumerableApiResponse<T>, IEnumerable<T>>(requestUri);
+        }
+
+        public void RemberRequestUri(string requestUri)
+        {
+            // Remember full Uri without page
+            requestUri = Regex.Replace(requestUri, @"page=\d*&?", "");
+            RequestUri = requestUri;
         }
     }
 }

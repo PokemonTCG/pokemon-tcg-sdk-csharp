@@ -38,7 +38,7 @@ namespace PokemonTcgSdkV2.Client
         }
 
         public async Task<TResponseType>
-            FetchData<TResponseType, TResponseGeneric>(string requestPath)
+            FetchData<TResponseType, TResponseGeneric>(string requestUri)
             where TResponseType : IApiResponse<TResponseGeneric>, new()
         {
             var options = new JsonSerializerOptions
@@ -48,10 +48,13 @@ namespace PokemonTcgSdkV2.Client
                 IgnoreNullValues = true
             };
 
-            var response = await _client.GetFromJsonAsync<TResponseType>(requestPath, options);
+            var response = await _client.GetFromJsonAsync<TResponseType>(requestUri, options);
 
             if (response is IPageAbleApiResponse<TResponseType, TResponseGeneric> pageAbleApiResponse)
+            {
                 pageAbleApiResponse.CurrentApiClient = this;
+                pageAbleApiResponse.RemberRequestUri(requestUri);
+            }
 
             return response;
         }

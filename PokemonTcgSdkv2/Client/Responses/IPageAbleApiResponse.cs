@@ -15,6 +15,8 @@ namespace PokemonTcgSdkV2.Client.Responses
 
         int TotalCount { get; set; }
 
+        void RemberRequestUri(string requestUri);
+
         Task<TResponseType> FetchNextPage();
 
         Task<TResponseType> FetchPage(int page);
