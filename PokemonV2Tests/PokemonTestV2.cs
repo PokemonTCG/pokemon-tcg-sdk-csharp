@@ -85,6 +85,7 @@ namespace PokemonV2Tests
             var query = QueryBuilder.StartQuery("name", searchName);
             var queryStr = query.BuildQuery();
 
+            // reduce pageSize to ensure it will be more results than pagesize
             var requestUri = $"{EndpointFactory.GetApiEndpoint<Card>().ApiUri()}/?pageSize=10&page=1&q={queryStr}";
 
             var response = await Client.FetchData<EnumerableApiResponse<Card>, IEnumerable<Card>>(requestUri);
