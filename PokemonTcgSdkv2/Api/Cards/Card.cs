@@ -8,7 +8,7 @@ using PokemonTcgSdkV2.Client.Endpoints;
 namespace PokemonTcgSdkV2.Api.Cards
 {
     /// <summary>
-    ///     Represents a single card.
+    ///     Represents a single Pokémon card.
     /// </summary>
     public class Card : FetchableApiObject, IApiObjectWithId
     {
