@@ -2,7 +2,7 @@
 
 namespace PokemonTcgSdkV2.Client.Endpoints
 {
-    public class CardEndpoint : IQueryableApiEndpoint, ISupportsIdApiEndpoint<string>
+    public class CardEndpoint : IQueryableApiEndpoint, ISupportsIdApiEndpoint
     {
         public string ApiUri()
         {
