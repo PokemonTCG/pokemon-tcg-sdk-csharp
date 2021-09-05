@@ -8,7 +8,7 @@ using PokemonTcgSdkV2.Api.Sets;
 using PokemonTcgSdkV2.Client;
 using PokemonTcgSdkV2.Client.Endpoints;
 using PokemonTcgSdkV2.Client.Responses;
-using PokemonTcgSdkV2.Utils;
+using PokemonTcgSdkV2.Utils.Query;
 
 namespace PokemonV2Tests
 {
