@@ -63,7 +63,6 @@ namespace PokemonTcgSdkV2.Client
             where T : FetchableApiObject
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();
-            if (endpoint == null) throw new Exception("No endpoint registered.");
 
             var queryStr = "";
             if (query != null) queryStr = query.BuildQuery();
@@ -75,8 +74,6 @@ namespace PokemonTcgSdkV2.Client
         public async Task<SingleApiResponse<T>> FetchById<T>(string id) where T : FetchableApiObject, IApiObjectWithId
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();
-
-            if (endpoint == null) throw new Exception("No endpoint registered.");
 
             return await FetchData<SingleApiResponse<T>, T>($"{endpoint.ApiUri()}/{id}");
         }
