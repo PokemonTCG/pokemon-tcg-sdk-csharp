@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using PokemonTcgSdkV2.Api;
 using PokemonTcgSdkV2.Client.Endpoints;
 using PokemonTcgSdkV2.Client.Responses;
-using PokemonTcgSdkV2.Utils;
+using PokemonTcgSdkV2.Utils.Query;
 
 namespace PokemonTcgSdkV2.Client
 {
@@ -63,7 +63,6 @@ namespace PokemonTcgSdkV2.Client
             where T : FetchableApiObject
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();
-            if (endpoint == null) throw new Exception("No endpoint registered.");
 
             var queryStr = "";
             if (query != null) queryStr = query.BuildQuery();
@@ -75,8 +74,6 @@ namespace PokemonTcgSdkV2.Client
         public async Task<SingleApiResponse<T>> FetchById<T>(string id) where T : FetchableApiObject, IApiObjectWithId
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();
-
-            if (endpoint == null) throw new Exception("No endpoint registered.");
 
             return await FetchData<SingleApiResponse<T>, T>($"{endpoint.ApiUri()}/{id}");
         }

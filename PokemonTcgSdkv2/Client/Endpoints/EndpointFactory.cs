@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using PokemonTcgSdkV2.Api;
+using PokemonTcgSdkV2.Utils.Exceptions;
 
 namespace PokemonTcgSdkV2.Client.Endpoints
 {
@@ -53,7 +54,7 @@ namespace PokemonTcgSdkV2.Client.Endpoints
                 typeof(T) == endpointMappingKey))
                 return EndpointMapping[endpointMappingKey];
 
-            throw new Exception("No endpoint registered.");
+            throw new MissingEndpointException($"No endpoint had been found for ${typeof(T).FullName}");
         }
     }
 }
