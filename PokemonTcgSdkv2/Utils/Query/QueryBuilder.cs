@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PokemonTcgSdkV2.Utils
+namespace PokemonTcgSdkV2.Utils.Query
 {
     public class QueryBuilder
     {
