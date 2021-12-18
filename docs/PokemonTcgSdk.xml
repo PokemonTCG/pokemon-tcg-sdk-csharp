@@ -632,6 +632,9 @@
                 Endpoint to fetch one or more <see cref="T:PokemonTcgSdkV2.Api.Cards.Card" />.
             </summary>
         </member>
+        <member name="M:PokemonTcgSdkV2.Client.Endpoints.CardEndpoint.ApiUri">
+            <inheritdoc />
+        </member>
         <member name="T:PokemonTcgSdkV2.Client.Endpoints.EndpointFactory">
             <summary>
                 Factory, to match an API endpoint with the class of a <see cref="T:PokemonTcgSdkV2.Api.FetchableApiObject" />.
@@ -673,23 +676,13 @@
                 API uri as string.
             </returns>
         </member>
-        <member name="T:PokemonTcgSdkV2.Client.Endpoints.ISupportsIdApiEndpoint">
-            <summary>
-                Interface for special endpoints, which support fetch by id.
-            </summary>
-        </member>
-        <member name="M:PokemonTcgSdkV2.Client.Endpoints.ISupportsIdApiEndpoint.IdPath">
-            <summary>
-                <see cref="T:System.String" /> representation of the id in the uri.
-            </summary>
-            <returns>
-                Returns the uri of the id.
-            </returns>
-        </member>
         <member name="T:PokemonTcgSdkV2.Client.Endpoints.SetEndpoint">
             <summary>
                 Endpoint to fetch one or more <see cref="T:PokemonTcgSdkV2.Api.Sets.Set" />.
             </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Endpoints.SetEndpoint.ApiUri">
+            <inheritdoc />
         </member>
         <member name="T:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1">
             <summary>

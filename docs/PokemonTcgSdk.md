@@ -49,6 +49,7 @@
   - [Types](#P-PokemonTcgSdkV2-Api-Cards-Card-Types 'PokemonTcgSdkV2.Api.Cards.Card.Types')
   - [Weakness](#P-PokemonTcgSdkV2-Api-Cards-Card-Weakness 'PokemonTcgSdkV2.Api.Cards.Card.Weakness')
 - [CardEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-CardEndpoint 'PokemonTcgSdkV2.Client.Endpoints.CardEndpoint')
+  - [ApiUri()](#M-PokemonTcgSdkV2-Client-Endpoints-CardEndpoint-ApiUri 'PokemonTcgSdkV2.Client.Endpoints.CardEndpoint.ApiUri')
 - [CardImages](#T-PokemonTcgSdkV2-Api-Cards-CardImages 'PokemonTcgSdkV2.Api.Cards.CardImages')
   - [LargeImageUrl](#P-PokemonTcgSdkV2-Api-Cards-CardImages-LargeImageUrl 'PokemonTcgSdkV2.Api.Cards.CardImages.LargeImageUrl')
   - [SmallImageUrl](#P-PokemonTcgSdkV2-Api-Cards-CardImages-SmallImageUrl 'PokemonTcgSdkV2.Api.Cards.CardImages.SmallImageUrl')
@@ -102,8 +103,6 @@
   - [FetchNextPage()](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchNextPage 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchNextPage')
   - [FetchPage(page)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchPage-System-Int32- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchPage(System.Int32)')
   - [RemberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-RemberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.RemberRequestUri(System.String)')
-- [ISupportsIdApiEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-ISupportsIdApiEndpoint 'PokemonTcgSdkV2.Client.Endpoints.ISupportsIdApiEndpoint')
-  - [IdPath()](#M-PokemonTcgSdkV2-Client-Endpoints-ISupportsIdApiEndpoint-IdPath 'PokemonTcgSdkV2.Client.Endpoints.ISupportsIdApiEndpoint.IdPath')
 - [Legalities](#T-PokemonTcgSdkV2-Api-Cards-Legalities 'PokemonTcgSdkV2.Api.Cards.Legalities')
   - [Expanded](#P-PokemonTcgSdkV2-Api-Cards-Legalities-Expanded 'PokemonTcgSdkV2.Api.Cards.Legalities.Expanded')
   - [Standard](#P-PokemonTcgSdkV2-Api-Cards-Legalities-Standard 'PokemonTcgSdkV2.Api.Cards.Legalities.Standard')
@@ -131,6 +130,7 @@
   - [Total](#P-PokemonTcgSdkV2-Api-Sets-Set-Total 'PokemonTcgSdkV2.Api.Sets.Set.Total')
   - [UpdatedAt](#P-PokemonTcgSdkV2-Api-Sets-Set-UpdatedAt 'PokemonTcgSdkV2.Api.Sets.Set.UpdatedAt')
 - [SetEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-SetEndpoint 'PokemonTcgSdkV2.Client.Endpoints.SetEndpoint')
+  - [ApiUri()](#M-PokemonTcgSdkV2-Client-Endpoints-SetEndpoint-ApiUri 'PokemonTcgSdkV2.Client.Endpoints.SetEndpoint.ApiUri')
 - [SetImages](#T-PokemonTcgSdkV2-Api-Sets-SetImages 'PokemonTcgSdkV2.Api.Sets.SetImages')
   - [LogoImageUrl](#P-PokemonTcgSdkV2-Api-Sets-SetImages-LogoImageUrl 'PokemonTcgSdkV2.Api.Sets.SetImages.LogoImageUrl')
   - [SymbolImageUrl](#P-PokemonTcgSdkV2-Api-Sets-SetImages-SymbolImageUrl 'PokemonTcgSdkV2.Api.Sets.SetImages.SymbolImageUrl')
@@ -586,6 +586,17 @@ PokemonTcgSdkV2.Client.Endpoints
 ##### Summary
 
 Endpoint to fetch one or more [Card](#T-PokemonTcgSdkV2-Api-Cards-Card 'PokemonTcgSdkV2.Api.Cards.Card').
+
+<a name='M-PokemonTcgSdkV2-Client-Endpoints-CardEndpoint-ApiUri'></a>
+### ApiUri() `method`
+
+##### Summary
+
+*Inherit from parent.*
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='T-PokemonTcgSdkV2-Api-Cards-CardImages'></a>
 ## CardImages `type`
@@ -1122,32 +1133,6 @@ Remembers the current query.
 | ---- | ---- | ----------- |
 | requestUri | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
-<a name='T-PokemonTcgSdkV2-Client-Endpoints-ISupportsIdApiEndpoint'></a>
-## ISupportsIdApiEndpoint `type`
-
-##### Namespace
-
-PokemonTcgSdkV2.Client.Endpoints
-
-##### Summary
-
-Interface for special endpoints, which support fetch by id.
-
-<a name='M-PokemonTcgSdkV2-Client-Endpoints-ISupportsIdApiEndpoint-IdPath'></a>
-### IdPath() `method`
-
-##### Summary
-
-[String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') representation of the id in the uri.
-
-##### Returns
-
-Returns the uri of the id.
-
-##### Parameters
-
-This method has no parameters.
-
 <a name='T-PokemonTcgSdkV2-Api-Cards-Legalities'></a>
 ## Legalities `type`
 
@@ -1433,6 +1418,17 @@ PokemonTcgSdkV2.Client.Endpoints
 ##### Summary
 
 Endpoint to fetch one or more [Set](#T-PokemonTcgSdkV2-Api-Sets-Set 'PokemonTcgSdkV2.Api.Sets.Set').
+
+<a name='M-PokemonTcgSdkV2-Client-Endpoints-SetEndpoint-ApiUri'></a>
+### ApiUri() `method`
+
+##### Summary
+
+*Inherit from parent.*
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='T-PokemonTcgSdkV2-Api-Sets-SetImages'></a>
 ## SetImages `type`
