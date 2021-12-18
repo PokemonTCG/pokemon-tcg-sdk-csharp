@@ -586,5 +586,307 @@
                 All prices are in US Dollars.
             </remarks>
         </member>
+        <member name="T:PokemonTcgSdkV2.Client.ApiClient">
+            <summary>
+                The client implementation to communicate with the web api.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.ApiClient.#ctor(System.String)">
+            <summary>
+                Creates a new <see cref="T:PokemonTcgSdkV2.Client.ApiClient" /> with a given api key and socket handler.
+            </summary>
+            <param name="apiKey">Api key to use.</param>
+            <remarks>Usage without <paramref name="apiKey" /> is allowed.</remarks>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchData``2(System.String)">
+            <summary>
+                Sends a request to the web api and fetches data.
+            </summary>
+            <typeparam name="TResponseType">Response type to build as return type.</typeparam>
+            <typeparam name="TResponseGeneric">
+                Generic <see cref="T:PokemonTcgSdkV2.Api.FetchableApiObject" /> of the
+                <typeparamref name="TResponseType" />.
+            </typeparam>
+            <param name="requestUri"></param>
+            <returns>Api result of specified typings for specified request.</returns>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchData``1(PokemonTcgSdkV2.Utils.Query.QueryBuilder,System.Int32)">
+            <summary>
+                Sends a request to the web api and fetches data for a given query.
+            </summary>
+            <typeparam name="T">Type of object to fetch.</typeparam>
+            <param name="query">Search query.</param>
+            <param name="page">Page to fetch.</param>
+            <returns>Pageable api response for given search query.</returns>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchById``1(System.String)">
+            <summary>
+                Sends a request to the web api and fetches data for a given Id.
+            </summary>
+            <typeparam name="T">Type of object to fetch.</typeparam>
+            <param name="id">Id to fetch.</param>
+            <returns>Singel api response with the result for the given Id search value.</returns>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Endpoints.CardEndpoint">
+            <summary>
+                Endpoint to fetch one or more <see cref="T:PokemonTcgSdkV2.Api.Cards.Card" />.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Endpoints.EndpointFactory">
+            <summary>
+                Factory, to match an API endpoint with the class of a <see cref="T:PokemonTcgSdkV2.Api.FetchableApiObject" />.
+            </summary>
+            <remarks>
+                Add a class constructor to your own implementations of <see cref="T:PokemonTcgSdkV2.Api.FetchableApiObject" /> and call
+                <see cref="M:PokemonTcgSdkV2.Client.Endpoints.EndpointFactory.RegisterTypeEndpoint``1(PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint)" /> with its endpoint instance to publish it to the factory.
+            </remarks>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Endpoints.EndpointFactory.RegisterTypeEndpoint``1(PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint)">
+            <summary>
+                Register an endpoint for a type of object.
+            </summary>
+            <typeparam name="T">
+                Type of object the API endpoint will be used for. Must inherit from
+                <see cref="T:PokemonTcgSdkV2.Api.FetchableApiObject" />.
+            </typeparam>
+            <param name="endpoint">Endpoint instance to register.</param>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Endpoints.EndpointFactory.GetApiEndpoint``1">
+            <summary>
+                Gets an endpoint for an object type.
+            </summary>
+            <typeparam name="T">Type of object you want the API endpoint for. Must inherit from <see cref="T:PokemonTcgSdkV2.Api.FetchableApiObject" />.</typeparam>
+            <returns>
+                Instance of the API endpoint.
+            </returns>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint">
+            <summary>
+                Interface for API endpoints.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint.ApiUri">
+            <summary>
+                The uri of the specific endpoint.
+            </summary>
+            <returns>
+                API uri as string.
+            </returns>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Endpoints.ISupportsIdApiEndpoint">
+            <summary>
+                Interface for special endpoints, which support fetch by id.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Endpoints.ISupportsIdApiEndpoint.IdPath">
+            <summary>
+                <see cref="T:System.String" /> representation of the id in the uri.
+            </summary>
+            <returns>
+                Returns the uri of the id.
+            </returns>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Endpoints.SetEndpoint">
+            <summary>
+                Endpoint to fetch one or more <see cref="T:PokemonTcgSdkV2.Api.Sets.Set" />.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1">
+            <summary>
+                Enumerable api response of a fetchable api object.
+            </summary>
+            <typeparam name="T">Any <see cref="T:PokemonTcgSdkV2.Api.FetchableApiObject" />.</typeparam>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.TotalPages">
+            <summary>
+                Total pages of the result.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.Data">
+            <summary>
+                Enumerable with the date from current page.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.CurrentApiClient">
+            <summary>
+                Current instance of the used <see cref="T:PokemonTcgSdkV2.Client.ApiClient" /> to perform the paging requests.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.Page">
+            <summary>
+                Current page of results.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.PageSize">
+            <summary>
+                Currently used page size.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.Count">
+            <summary>
+                Amount of data entries on the current page.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.TotalCount">
+            <summary>
+                Total amount of results among all pages.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchNextPage">
+            <summary>
+                Fetches the next page of the current query.
+            </summary>
+            <returns>The next page of the current query.</returns>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchPage(System.Int32)">
+            <summary>
+                Fetches a specific page of the current query.
+            </summary>
+            <param name="page">Page to fetch.</param>
+            <returns>Specified page of the current query.</returns>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.RemberRequestUri(System.String)">
+            <summary>
+                Remembers the current query.
+            </summary>
+            <param name="requestUri"></param>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Responses.IApiResponse`1">
+            <summary>
+                Simple interface for api responses.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.IApiResponse`1.Data">
+            <summary>
+                Data of the specific api response.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2">
+            <summary>
+                Interface for a pageable api response.
+            </summary>
+            <typeparam name="TResponseType"></typeparam>
+            <typeparam name="TResponseGeneric"></typeparam>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.CurrentApiClient">
+            <summary>
+                Current instance of the used <see cref="T:PokemonTcgSdkV2.Client.ApiClient" /> to perform the paging requests.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.Page">
+            <summary>
+                Current page of results.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.PageSize">
+            <summary>
+                Currently used page size.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.Count">
+            <summary>
+                Amount of data entries on the current page.
+            </summary>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.TotalCount">
+            <summary>
+                Total amount of results among all pages.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.RemberRequestUri(System.String)">
+            <summary>
+                Remembers the current query.
+            </summary>
+            <param name="requestUri"></param>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchNextPage">
+            <summary>
+                Fetches the next page of the current query.
+            </summary>
+            <returns>The next page of the current query.</returns>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchPage(System.Int32)">
+            <summary>
+                Fetches a specific page of the current query.
+            </summary>
+            <param name="page">Page to fetch.</param>
+            <returns>Specified page of the current query.</returns>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Client.Responses.SingleApiResponse`1">
+            <summary>
+                Single response object of an api request.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Client.Responses.SingleApiResponse`1.Data">
+            <summary>
+                Data object of the api request.
+            </summary>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Utils.Exceptions.MissingEndpointException">
+            <summary>
+                Exception which hints that an expected endpoint ist missing.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Exceptions.MissingEndpointException.#ctor">
+            <inheritdoc />
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Exceptions.MissingEndpointException.#ctor(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Exceptions.MissingEndpointException.#ctor(System.String,System.Exception)">
+            <inheritdoc />
+        </member>
+        <member name="T:PokemonTcgSdkV2.Utils.Exceptions.PokemonTcgException">
+            <summary>
+                Exception classed used for exceptions caused in the Pokémon TCG api.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Exceptions.PokemonTcgException.#ctor">
+            <summary>
+                Creates a new Exception instance.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Exceptions.PokemonTcgException.#ctor(System.String)">
+            <summary>
+                Creates a new Exception instance with a message.
+            </summary>
+            <param name="message">Message of the exception.</param>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Exceptions.PokemonTcgException.#ctor(System.String,System.Exception)">
+            <summary>
+                Creates a new Exception instance with a message and a contained inner exception.
+            </summary>
+            <param name="message">Message of the exception.</param>
+            <param name="innerException">Contained inner exception.</param>
+        </member>
+        <member name="T:PokemonTcgSdkV2.Utils.Query.QueryBuilder">
+            <summary>
+                A utility class to easily build a search query.
+            </summary>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Query.QueryBuilder.StartQuery(System.String,System.String)">
+            <summary>
+                Starts building a new search query.
+            </summary>
+            <param name="key">Key to search for.</param>
+            <param name="value">Value to search for.</param>
+            <returns>A new search query instance ready to use or to extend with more filters.</returns>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Query.QueryBuilder.Add(System.String,System.String)">
+            <summary>
+                Adds a new search filter.
+            </summary>
+            <param name="key">Key to search for.</param>
+            <param name="value">Value to search for.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PokemonTcgSdkV2.Utils.Query.QueryBuilder.BuildQuery">
+            <summary>
+                Builds the query string from configured filters.
+            </summary>
+            <returns>Query string.</returns>
+        </member>
     </members>
 </doc>

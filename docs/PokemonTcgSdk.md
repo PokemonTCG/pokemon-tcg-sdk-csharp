@@ -10,6 +10,11 @@
 - [AncientTrait](#T-PokemonTcgSdkV2-Api-Cards-AncientTrait 'PokemonTcgSdkV2.Api.Cards.AncientTrait')
   - [Name](#P-PokemonTcgSdkV2-Api-Cards-AncientTrait-Name 'PokemonTcgSdkV2.Api.Cards.AncientTrait.Name')
   - [Text](#P-PokemonTcgSdkV2-Api-Cards-AncientTrait-Text 'PokemonTcgSdkV2.Api.Cards.AncientTrait.Text')
+- [ApiClient](#T-PokemonTcgSdkV2-Client-ApiClient 'PokemonTcgSdkV2.Client.ApiClient')
+  - [#ctor(apiKey)](#M-PokemonTcgSdkV2-Client-ApiClient-#ctor-System-String- 'PokemonTcgSdkV2.Client.ApiClient.#ctor(System.String)')
+  - [FetchById\`\`1(id)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchById``1-System-String- 'PokemonTcgSdkV2.Client.ApiClient.FetchById``1(System.String)')
+  - [FetchData\`\`1(query,page)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchData``1-PokemonTcgSdkV2-Utils-Query-QueryBuilder,System-Int32- 'PokemonTcgSdkV2.Client.ApiClient.FetchData``1(PokemonTcgSdkV2.Utils.Query.QueryBuilder,System.Int32)')
+  - [FetchData\`\`2(requestUri)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchData``2-System-String- 'PokemonTcgSdkV2.Client.ApiClient.FetchData``2(System.String)')
 - [Attack](#T-PokemonTcgSdkV2-Api-Cards-Attack 'PokemonTcgSdkV2.Api.Cards.Attack')
   - [ConvertedEnergyCost](#P-PokemonTcgSdkV2-Api-Cards-Attack-ConvertedEnergyCost 'PokemonTcgSdkV2.Api.Cards.Attack.ConvertedEnergyCost')
   - [Costs](#P-PokemonTcgSdkV2-Api-Cards-Attack-Costs 'PokemonTcgSdkV2.Api.Cards.Attack.Costs')
@@ -43,6 +48,7 @@
   - [TcgPlayer](#P-PokemonTcgSdkV2-Api-Cards-Card-TcgPlayer 'PokemonTcgSdkV2.Api.Cards.Card.TcgPlayer')
   - [Types](#P-PokemonTcgSdkV2-Api-Cards-Card-Types 'PokemonTcgSdkV2.Api.Cards.Card.Types')
   - [Weakness](#P-PokemonTcgSdkV2-Api-Cards-Card-Weakness 'PokemonTcgSdkV2.Api.Cards.Card.Weakness')
+- [CardEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-CardEndpoint 'PokemonTcgSdkV2.Client.Endpoints.CardEndpoint')
 - [CardImages](#T-PokemonTcgSdkV2-Api-Cards-CardImages 'PokemonTcgSdkV2.Api.Cards.CardImages')
   - [LargeImageUrl](#P-PokemonTcgSdkV2-Api-Cards-CardImages-LargeImageUrl 'PokemonTcgSdkV2.Api.Cards.CardImages.LargeImageUrl')
   - [SmallImageUrl](#P-PokemonTcgSdkV2-Api-Cards-CardImages-SmallImageUrl 'PokemonTcgSdkV2.Api.Cards.CardImages.SmallImageUrl')
@@ -66,13 +72,54 @@
   - [ReverseHoloTrend](#P-PokemonTcgSdkV2-Api-Cardmarket-CardmarketPrice-ReverseHoloTrend 'PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.ReverseHoloTrend')
   - [SuggestedPrice](#P-PokemonTcgSdkV2-Api-Cardmarket-CardmarketPrice-SuggestedPrice 'PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.SuggestedPrice')
   - [TrendPrice](#P-PokemonTcgSdkV2-Api-Cardmarket-CardmarketPrice-TrendPrice 'PokemonTcgSdkV2.Api.Cardmarket.CardmarketPrice.TrendPrice')
+- [EndpointFactory](#T-PokemonTcgSdkV2-Client-Endpoints-EndpointFactory 'PokemonTcgSdkV2.Client.Endpoints.EndpointFactory')
+  - [GetApiEndpoint\`\`1()](#M-PokemonTcgSdkV2-Client-Endpoints-EndpointFactory-GetApiEndpoint``1 'PokemonTcgSdkV2.Client.Endpoints.EndpointFactory.GetApiEndpoint``1')
+  - [RegisterTypeEndpoint\`\`1(endpoint)](#M-PokemonTcgSdkV2-Client-Endpoints-EndpointFactory-RegisterTypeEndpoint``1-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint- 'PokemonTcgSdkV2.Client.Endpoints.EndpointFactory.RegisterTypeEndpoint``1(PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint)')
+- [EnumerableApiResponse\`1](#T-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1')
+  - [Count](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-Count 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.Count')
+  - [CurrentApiClient](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-CurrentApiClient 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.CurrentApiClient')
+  - [Data](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-Data 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.Data')
+  - [Page](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-Page 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.Page')
+  - [PageSize](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-PageSize 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.PageSize')
+  - [TotalCount](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-TotalCount 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.TotalCount')
+  - [TotalPages](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-TotalPages 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.TotalPages')
+  - [FetchNextPage()](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchNextPage 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchNextPage')
+  - [FetchPage(page)](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchPage-System-Int32- 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchPage(System.Int32)')
+  - [RemberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-RemberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.RemberRequestUri(System.String)')
 - [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject')
+- [IApiEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint 'PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint')
+  - [ApiUri()](#M-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint-ApiUri 'PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint.ApiUri')
 - [IApiObjectWithId](#T-PokemonTcgSdkV2-Api-IApiObjectWithId 'PokemonTcgSdkV2.Api.IApiObjectWithId')
   - [Id](#P-PokemonTcgSdkV2-Api-IApiObjectWithId-Id 'PokemonTcgSdkV2.Api.IApiObjectWithId.Id')
+- [IApiResponse\`1](#T-PokemonTcgSdkV2-Client-Responses-IApiResponse`1 'PokemonTcgSdkV2.Client.Responses.IApiResponse`1')
+  - [Data](#P-PokemonTcgSdkV2-Client-Responses-IApiResponse`1-Data 'PokemonTcgSdkV2.Client.Responses.IApiResponse`1.Data')
+- [IPageAbleApiResponse\`2](#T-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2')
+  - [Count](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-Count 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.Count')
+  - [CurrentApiClient](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-CurrentApiClient 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.CurrentApiClient')
+  - [Page](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-Page 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.Page')
+  - [PageSize](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-PageSize 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.PageSize')
+  - [TotalCount](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-TotalCount 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.TotalCount')
+  - [FetchNextPage()](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchNextPage 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchNextPage')
+  - [FetchPage(page)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchPage-System-Int32- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchPage(System.Int32)')
+  - [RemberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-RemberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.RemberRequestUri(System.String)')
+- [ISupportsIdApiEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-ISupportsIdApiEndpoint 'PokemonTcgSdkV2.Client.Endpoints.ISupportsIdApiEndpoint')
+  - [IdPath()](#M-PokemonTcgSdkV2-Client-Endpoints-ISupportsIdApiEndpoint-IdPath 'PokemonTcgSdkV2.Client.Endpoints.ISupportsIdApiEndpoint.IdPath')
 - [Legalities](#T-PokemonTcgSdkV2-Api-Cards-Legalities 'PokemonTcgSdkV2.Api.Cards.Legalities')
   - [Expanded](#P-PokemonTcgSdkV2-Api-Cards-Legalities-Expanded 'PokemonTcgSdkV2.Api.Cards.Legalities.Expanded')
   - [Standard](#P-PokemonTcgSdkV2-Api-Cards-Legalities-Standard 'PokemonTcgSdkV2.Api.Cards.Legalities.Standard')
   - [Unlimited](#P-PokemonTcgSdkV2-Api-Cards-Legalities-Unlimited 'PokemonTcgSdkV2.Api.Cards.Legalities.Unlimited')
+- [MissingEndpointException](#T-PokemonTcgSdkV2-Utils-Exceptions-MissingEndpointException 'PokemonTcgSdkV2.Utils.Exceptions.MissingEndpointException')
+  - [#ctor()](#M-PokemonTcgSdkV2-Utils-Exceptions-MissingEndpointException-#ctor 'PokemonTcgSdkV2.Utils.Exceptions.MissingEndpointException.#ctor')
+  - [#ctor()](#M-PokemonTcgSdkV2-Utils-Exceptions-MissingEndpointException-#ctor-System-String- 'PokemonTcgSdkV2.Utils.Exceptions.MissingEndpointException.#ctor(System.String)')
+  - [#ctor()](#M-PokemonTcgSdkV2-Utils-Exceptions-MissingEndpointException-#ctor-System-String,System-Exception- 'PokemonTcgSdkV2.Utils.Exceptions.MissingEndpointException.#ctor(System.String,System.Exception)')
+- [PokemonTcgException](#T-PokemonTcgSdkV2-Utils-Exceptions-PokemonTcgException 'PokemonTcgSdkV2.Utils.Exceptions.PokemonTcgException')
+  - [#ctor()](#M-PokemonTcgSdkV2-Utils-Exceptions-PokemonTcgException-#ctor 'PokemonTcgSdkV2.Utils.Exceptions.PokemonTcgException.#ctor')
+  - [#ctor(message)](#M-PokemonTcgSdkV2-Utils-Exceptions-PokemonTcgException-#ctor-System-String- 'PokemonTcgSdkV2.Utils.Exceptions.PokemonTcgException.#ctor(System.String)')
+  - [#ctor(message,innerException)](#M-PokemonTcgSdkV2-Utils-Exceptions-PokemonTcgException-#ctor-System-String,System-Exception- 'PokemonTcgSdkV2.Utils.Exceptions.PokemonTcgException.#ctor(System.String,System.Exception)')
+- [QueryBuilder](#T-PokemonTcgSdkV2-Utils-Query-QueryBuilder 'PokemonTcgSdkV2.Utils.Query.QueryBuilder')
+  - [Add(key,value)](#M-PokemonTcgSdkV2-Utils-Query-QueryBuilder-Add-System-String,System-String- 'PokemonTcgSdkV2.Utils.Query.QueryBuilder.Add(System.String,System.String)')
+  - [BuildQuery()](#M-PokemonTcgSdkV2-Utils-Query-QueryBuilder-BuildQuery 'PokemonTcgSdkV2.Utils.Query.QueryBuilder.BuildQuery')
+  - [StartQuery(key,value)](#M-PokemonTcgSdkV2-Utils-Query-QueryBuilder-StartQuery-System-String,System-String- 'PokemonTcgSdkV2.Utils.Query.QueryBuilder.StartQuery(System.String,System.String)')
 - [Set](#T-PokemonTcgSdkV2-Api-Sets-Set 'PokemonTcgSdkV2.Api.Sets.Set')
   - [Images](#P-PokemonTcgSdkV2-Api-Sets-Set-Images 'PokemonTcgSdkV2.Api.Sets.Set.Images')
   - [Legalities](#P-PokemonTcgSdkV2-Api-Sets-Set-Legalities 'PokemonTcgSdkV2.Api.Sets.Set.Legalities')
@@ -83,9 +130,12 @@
   - [Series](#P-PokemonTcgSdkV2-Api-Sets-Set-Series 'PokemonTcgSdkV2.Api.Sets.Set.Series')
   - [Total](#P-PokemonTcgSdkV2-Api-Sets-Set-Total 'PokemonTcgSdkV2.Api.Sets.Set.Total')
   - [UpdatedAt](#P-PokemonTcgSdkV2-Api-Sets-Set-UpdatedAt 'PokemonTcgSdkV2.Api.Sets.Set.UpdatedAt')
+- [SetEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-SetEndpoint 'PokemonTcgSdkV2.Client.Endpoints.SetEndpoint')
 - [SetImages](#T-PokemonTcgSdkV2-Api-Sets-SetImages 'PokemonTcgSdkV2.Api.Sets.SetImages')
   - [LogoImageUrl](#P-PokemonTcgSdkV2-Api-Sets-SetImages-LogoImageUrl 'PokemonTcgSdkV2.Api.Sets.SetImages.LogoImageUrl')
   - [SymbolImageUrl](#P-PokemonTcgSdkV2-Api-Sets-SetImages-SymbolImageUrl 'PokemonTcgSdkV2.Api.Sets.SetImages.SymbolImageUrl')
+- [SingleApiResponse\`1](#T-PokemonTcgSdkV2-Client-Responses-SingleApiResponse`1 'PokemonTcgSdkV2.Client.Responses.SingleApiResponse`1')
+  - [Data](#P-PokemonTcgSdkV2-Client-Responses-SingleApiResponse`1-Data 'PokemonTcgSdkV2.Client.Responses.SingleApiResponse`1.Data')
 - [TcgPlayerEntry](#T-PokemonTcgSdkV2-Api-TcgPlayer-TcgPlayerEntry 'PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerEntry')
   - [Prices](#P-PokemonTcgSdkV2-Api-TcgPlayer-TcgPlayerEntry-Prices 'PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerEntry.Prices')
   - [UpdatedAt](#P-PokemonTcgSdkV2-Api-TcgPlayer-TcgPlayerEntry-UpdatedAt 'PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerEntry.UpdatedAt')
@@ -162,6 +212,106 @@ The name of the ancient trait.
 ##### Summary
 
 The text value of the ancient trait.
+
+<a name='T-PokemonTcgSdkV2-Client-ApiClient'></a>
+## ApiClient `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client
+
+##### Summary
+
+The client implementation to communicate with the web api.
+
+<a name='M-PokemonTcgSdkV2-Client-ApiClient-#ctor-System-String-'></a>
+### #ctor(apiKey) `constructor`
+
+##### Summary
+
+Creates a new [ApiClient](#T-PokemonTcgSdkV2-Client-ApiClient 'PokemonTcgSdkV2.Client.ApiClient') with a given api key and socket handler.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| apiKey | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Api key to use. |
+
+##### Remarks
+
+Usage without `apiKey` is allowed.
+
+<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchById``1-System-String-'></a>
+### FetchById\`\`1(id) `method`
+
+##### Summary
+
+Sends a request to the web api and fetches data for a given Id.
+
+##### Returns
+
+Singel api response with the result for the given Id search value.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| id | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Id to fetch. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | Type of object to fetch. |
+
+<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchData``1-PokemonTcgSdkV2-Utils-Query-QueryBuilder,System-Int32-'></a>
+### FetchData\`\`1(query,page) `method`
+
+##### Summary
+
+Sends a request to the web api and fetches data for a given query.
+
+##### Returns
+
+Pageable api response for given search query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| query | [PokemonTcgSdkV2.Utils.Query.QueryBuilder](#T-PokemonTcgSdkV2-Utils-Query-QueryBuilder 'PokemonTcgSdkV2.Utils.Query.QueryBuilder') | Search query. |
+| page | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Page to fetch. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | Type of object to fetch. |
+
+<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchData``2-System-String-'></a>
+### FetchData\`\`2(requestUri) `method`
+
+##### Summary
+
+Sends a request to the web api and fetches data.
+
+##### Returns
+
+Api result of specified typings for specified request.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| requestUri | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TResponseType | Response type to build as return type. |
+| TResponseGeneric | Generic [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject') of the
+    `TResponseType`. |
 
 <a name='T-PokemonTcgSdkV2-Api-Cards-Attack'></a>
 ## Attack `type`
@@ -426,6 +576,17 @@ The energy types for a card, such as Fire, Water, Grass, etc.
 
 One or more weaknesses for a given card.
 
+<a name='T-PokemonTcgSdkV2-Client-Endpoints-CardEndpoint'></a>
+## CardEndpoint `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Endpoints
+
+##### Summary
+
+Endpoint to fetch one or more [Card](#T-PokemonTcgSdkV2-Api-Cards-Card 'PokemonTcgSdkV2.Api.Cards.Card').
+
 <a name='T-PokemonTcgSdkV2-Api-Cards-CardImages'></a>
 ## CardImages `type`
 
@@ -616,6 +777,174 @@ A suggested sell price for professional users, determined by an internal algorit
 
 The trend price as shown at the website (and in the chart) for non-foils.
 
+<a name='T-PokemonTcgSdkV2-Client-Endpoints-EndpointFactory'></a>
+## EndpointFactory `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Endpoints
+
+##### Summary
+
+Factory, to match an API endpoint with the class of a [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject').
+
+##### Remarks
+
+Add a class constructor to your own implementations of [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject') and call
+    [RegisterTypeEndpoint\`\`1](#M-PokemonTcgSdkV2-Client-Endpoints-EndpointFactory-RegisterTypeEndpoint``1-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint- 'PokemonTcgSdkV2.Client.Endpoints.EndpointFactory.RegisterTypeEndpoint``1(PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint)') with its endpoint instance to publish it to the factory.
+
+<a name='M-PokemonTcgSdkV2-Client-Endpoints-EndpointFactory-GetApiEndpoint``1'></a>
+### GetApiEndpoint\`\`1() `method`
+
+##### Summary
+
+Gets an endpoint for an object type.
+
+##### Returns
+
+Instance of the API endpoint.
+
+##### Parameters
+
+This method has no parameters.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | Type of object you want the API endpoint for. Must inherit from [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject'). |
+
+<a name='M-PokemonTcgSdkV2-Client-Endpoints-EndpointFactory-RegisterTypeEndpoint``1-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint-'></a>
+### RegisterTypeEndpoint\`\`1(endpoint) `method`
+
+##### Summary
+
+Register an endpoint for a type of object.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| endpoint | [PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint 'PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint') | Endpoint instance to register. |
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | Type of object the API endpoint will be used for. Must inherit from
+    [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject'). |
+
+<a name='T-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1'></a>
+## EnumerableApiResponse\`1 `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Responses
+
+##### Summary
+
+Enumerable api response of a fetchable api object.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T | Any [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject'). |
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-Count'></a>
+### Count `property`
+
+##### Summary
+
+Amount of data entries on the current page.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-CurrentApiClient'></a>
+### CurrentApiClient `property`
+
+##### Summary
+
+Current instance of the used [ApiClient](#T-PokemonTcgSdkV2-Client-ApiClient 'PokemonTcgSdkV2.Client.ApiClient') to perform the paging requests.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-Data'></a>
+### Data `property`
+
+##### Summary
+
+Enumerable with the date from current page.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-Page'></a>
+### Page `property`
+
+##### Summary
+
+Current page of results.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-PageSize'></a>
+### PageSize `property`
+
+##### Summary
+
+Currently used page size.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-TotalCount'></a>
+### TotalCount `property`
+
+##### Summary
+
+Total amount of results among all pages.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-TotalPages'></a>
+### TotalPages `property`
+
+##### Summary
+
+Total pages of the result.
+
+<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchNextPage'></a>
+### FetchNextPage() `method`
+
+##### Summary
+
+Fetches the next page of the current query.
+
+##### Returns
+
+The next page of the current query.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchPage-System-Int32-'></a>
+### FetchPage(page) `method`
+
+##### Summary
+
+Fetches a specific page of the current query.
+
+##### Returns
+
+Specified page of the current query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| page | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Page to fetch. |
+
+<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-RemberRequestUri-System-String-'></a>
+### RemberRequestUri(requestUri) `method`
+
+##### Summary
+
+Remembers the current query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| requestUri | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
 <a name='T-PokemonTcgSdkV2-Api-FetchableApiObject'></a>
 ## FetchableApiObject `type`
 
@@ -626,6 +955,32 @@ PokemonTcgSdkV2.Api
 ##### Summary
 
 Base class being used for any objects of the API, which can be fetched.
+
+<a name='T-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint'></a>
+## IApiEndpoint `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Endpoints
+
+##### Summary
+
+Interface for API endpoints.
+
+<a name='M-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint-ApiUri'></a>
+### ApiUri() `method`
+
+##### Summary
+
+The uri of the specific endpoint.
+
+##### Returns
+
+API uri as string.
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='T-PokemonTcgSdkV2-Api-IApiObjectWithId'></a>
 ## IApiObjectWithId `type`
@@ -644,6 +999,154 @@ Represents an object from the API which supports an id.
 ##### Summary
 
 String representation of the objects id.
+
+<a name='T-PokemonTcgSdkV2-Client-Responses-IApiResponse`1'></a>
+## IApiResponse\`1 `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Responses
+
+##### Summary
+
+Simple interface for api responses.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T |  |
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-IApiResponse`1-Data'></a>
+### Data `property`
+
+##### Summary
+
+Data of the specific api response.
+
+<a name='T-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2'></a>
+## IPageAbleApiResponse\`2 `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Responses
+
+##### Summary
+
+Interface for a pageable api response.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| TResponseType |  |
+| TResponseGeneric |  |
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-Count'></a>
+### Count `property`
+
+##### Summary
+
+Amount of data entries on the current page.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-CurrentApiClient'></a>
+### CurrentApiClient `property`
+
+##### Summary
+
+Current instance of the used [ApiClient](#T-PokemonTcgSdkV2-Client-ApiClient 'PokemonTcgSdkV2.Client.ApiClient') to perform the paging requests.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-Page'></a>
+### Page `property`
+
+##### Summary
+
+Current page of results.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-PageSize'></a>
+### PageSize `property`
+
+##### Summary
+
+Currently used page size.
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-TotalCount'></a>
+### TotalCount `property`
+
+##### Summary
+
+Total amount of results among all pages.
+
+<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchNextPage'></a>
+### FetchNextPage() `method`
+
+##### Summary
+
+Fetches the next page of the current query.
+
+##### Returns
+
+The next page of the current query.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchPage-System-Int32-'></a>
+### FetchPage(page) `method`
+
+##### Summary
+
+Fetches a specific page of the current query.
+
+##### Returns
+
+Specified page of the current query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| page | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Page to fetch. |
+
+<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-RemberRequestUri-System-String-'></a>
+### RemberRequestUri(requestUri) `method`
+
+##### Summary
+
+Remembers the current query.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| requestUri | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='T-PokemonTcgSdkV2-Client-Endpoints-ISupportsIdApiEndpoint'></a>
+## ISupportsIdApiEndpoint `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Endpoints
+
+##### Summary
+
+Interface for special endpoints, which support fetch by id.
+
+<a name='M-PokemonTcgSdkV2-Client-Endpoints-ISupportsIdApiEndpoint-IdPath'></a>
+### IdPath() `method`
+
+##### Summary
+
+[String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') representation of the id in the uri.
+
+##### Returns
+
+Returns the uri of the id.
+
+##### Parameters
+
+This method has no parameters.
 
 <a name='T-PokemonTcgSdkV2-Api-Cards-Legalities'></a>
 ## Legalities `type`
@@ -681,6 +1184,161 @@ The legality ruling for Standard. Can be either Legal, Banned, or not present.
 ##### Summary
 
 The legality ruling for Unlimited. Can be either Legal, Banned, or not present.
+
+<a name='T-PokemonTcgSdkV2-Utils-Exceptions-MissingEndpointException'></a>
+## MissingEndpointException `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Utils.Exceptions
+
+##### Summary
+
+Exception which hints that an expected endpoint ist missing.
+
+<a name='M-PokemonTcgSdkV2-Utils-Exceptions-MissingEndpointException-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+*Inherit from parent.*
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='M-PokemonTcgSdkV2-Utils-Exceptions-MissingEndpointException-#ctor-System-String-'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+*Inherit from parent.*
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='M-PokemonTcgSdkV2-Utils-Exceptions-MissingEndpointException-#ctor-System-String,System-Exception-'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+*Inherit from parent.*
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='T-PokemonTcgSdkV2-Utils-Exceptions-PokemonTcgException'></a>
+## PokemonTcgException `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Utils.Exceptions
+
+##### Summary
+
+Exception classed used for exceptions caused in the Pokémon TCG api.
+
+<a name='M-PokemonTcgSdkV2-Utils-Exceptions-PokemonTcgException-#ctor'></a>
+### #ctor() `constructor`
+
+##### Summary
+
+Creates a new Exception instance.
+
+##### Parameters
+
+This constructor has no parameters.
+
+<a name='M-PokemonTcgSdkV2-Utils-Exceptions-PokemonTcgException-#ctor-System-String-'></a>
+### #ctor(message) `constructor`
+
+##### Summary
+
+Creates a new Exception instance with a message.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message of the exception. |
+
+<a name='M-PokemonTcgSdkV2-Utils-Exceptions-PokemonTcgException-#ctor-System-String,System-Exception-'></a>
+### #ctor(message,innerException) `constructor`
+
+##### Summary
+
+Creates a new Exception instance with a message and a contained inner exception.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| message | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Message of the exception. |
+| innerException | [System.Exception](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Exception 'System.Exception') | Contained inner exception. |
+
+<a name='T-PokemonTcgSdkV2-Utils-Query-QueryBuilder'></a>
+## QueryBuilder `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Utils.Query
+
+##### Summary
+
+A utility class to easily build a search query.
+
+<a name='M-PokemonTcgSdkV2-Utils-Query-QueryBuilder-Add-System-String,System-String-'></a>
+### Add(key,value) `method`
+
+##### Summary
+
+Adds a new search filter.
+
+##### Returns
+
+
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| key | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Key to search for. |
+| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Value to search for. |
+
+<a name='M-PokemonTcgSdkV2-Utils-Query-QueryBuilder-BuildQuery'></a>
+### BuildQuery() `method`
+
+##### Summary
+
+Builds the query string from configured filters.
+
+##### Returns
+
+Query string.
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-PokemonTcgSdkV2-Utils-Query-QueryBuilder-StartQuery-System-String,System-String-'></a>
+### StartQuery(key,value) `method`
+
+##### Summary
+
+Starts building a new search query.
+
+##### Returns
+
+A new search query instance ready to use or to extend with more filters.
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| key | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Key to search for. |
+| value | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') | Value to search for. |
 
 <a name='T-PokemonTcgSdkV2-Api-Sets-Set'></a>
 ## Set `type`
@@ -765,6 +1423,17 @@ The total number of cards in the set, including secret rares, alternate art, etc
 
 The date and time the set was updated. Format is YYYY/MM/DD HH:MM:SS.
 
+<a name='T-PokemonTcgSdkV2-Client-Endpoints-SetEndpoint'></a>
+## SetEndpoint `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Endpoints
+
+##### Summary
+
+Endpoint to fetch one or more [Set](#T-PokemonTcgSdkV2-Api-Sets-Set 'PokemonTcgSdkV2.Api.Sets.Set').
+
 <a name='T-PokemonTcgSdkV2-Api-Sets-SetImages'></a>
 ## SetImages `type`
 
@@ -789,6 +1458,30 @@ The url to the logo image.
 ##### Summary
 
 The url to the symbol image.
+
+<a name='T-PokemonTcgSdkV2-Client-Responses-SingleApiResponse`1'></a>
+## SingleApiResponse\`1 `type`
+
+##### Namespace
+
+PokemonTcgSdkV2.Client.Responses
+
+##### Summary
+
+Single response object of an api request.
+
+##### Generic Types
+
+| Name | Description |
+| ---- | ----------- |
+| T |  |
+
+<a name='P-PokemonTcgSdkV2-Client-Responses-SingleApiResponse`1-Data'></a>
+### Data `property`
+
+##### Summary
+
+Data object of the api request.
 
 <a name='T-PokemonTcgSdkV2-Api-TcgPlayer-TcgPlayerEntry'></a>
 ## TcgPlayerEntry `type`
