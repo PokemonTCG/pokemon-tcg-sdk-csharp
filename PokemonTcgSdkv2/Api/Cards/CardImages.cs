@@ -2,6 +2,9 @@
 
 namespace PokemonTcgSdkV2.Api.Cards
 {
+    /// <summary>
+    ///     Image data of a <see cref="Card" />.
+    /// </summary>
     public class CardImages
     {
         /// <summary>

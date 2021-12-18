@@ -59,7 +59,7 @@ namespace PokemonTcgSdkV2.Api.Cards
         ///     Which Pokémon this card evolves to.
         /// </summary>
         /// <remarks>
-        ///     Can be multiple, for example, Eeve, which has multiple evolutions.
+        ///     Can be multiple, for example, Eevee, which has multiple evolutions.
         /// </remarks>
         public IEnumerable<string> EvolvesTo { get; set; }
 
@@ -175,6 +175,7 @@ namespace PokemonTcgSdkV2.Api.Cards
         /// </remarks>
         public CardmarketEntry Cardmarket { get; set; }
 
+        /// <inheritdoc />
         public string Id { get; set; }
     }
 }

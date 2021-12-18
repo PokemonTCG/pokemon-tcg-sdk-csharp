@@ -60,7 +60,7 @@ namespace PokemonTcgSdkV2.Client
         ///     <typeparamref name="TResponseType" />.
         /// </typeparam>
         /// <param name="requestUri"></param>
-        /// <returns>Api result of specified typings for specified request.</returns>
+        /// <returns>Api result of specified typing for specified request.</returns>
         public async Task<TResponseType>
             FetchData<TResponseType, TResponseGeneric>(string requestUri)
             where TResponseType : IApiResponse<TResponseGeneric>, new()
@@ -77,7 +77,7 @@ namespace PokemonTcgSdkV2.Client
             if (response is IPageAbleApiResponse<TResponseType, TResponseGeneric> pageAbleApiResponse)
             {
                 pageAbleApiResponse.CurrentApiClient = this;
-                pageAbleApiResponse.RemberRequestUri(requestUri);
+                pageAbleApiResponse.RememberRequestUri(requestUri);
             }
 
             return response;
@@ -107,7 +107,7 @@ namespace PokemonTcgSdkV2.Client
         /// </summary>
         /// <typeparam name="T">Type of object to fetch.</typeparam>
         /// <param name="id">Id to fetch.</param>
-        /// <returns>Singel api response with the result for the given Id search value.</returns>
+        /// <returns>Single api response with the result for the given Id search value.</returns>
         public async Task<SingleApiResponse<T>> FetchById<T>(string id) where T : FetchableApiObject, IApiObjectWithId
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();

@@ -75,7 +75,7 @@ namespace PokemonTcgSdkV2.Client.Responses
         ///     Remembers the current query.
         /// </summary>
         /// <param name="requestUri"></param>
-        public void RemberRequestUri(string requestUri)
+        public void RememberRequestUri(string requestUri)
         {
             // Remember full Uri without page
             requestUri = Regex.Replace(requestUri, @"page=\d*&?", "");

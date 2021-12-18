@@ -65,6 +65,7 @@ namespace PokemonTcgSdkV2.Api.Sets
         /// </summary>
         public SetImages Images { get; set; }
 
+        /// <inheritdoc />
         public string Id { get; set; }
     }
 }

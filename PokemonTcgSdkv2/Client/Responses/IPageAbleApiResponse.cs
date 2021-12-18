@@ -39,7 +39,7 @@ namespace PokemonTcgSdkV2.Client.Responses
         ///     Remembers the current query.
         /// </summary>
         /// <param name="requestUri"></param>
-        void RemberRequestUri(string requestUri);
+        void RememberRequestUri(string requestUri);
 
         /// <summary>
         ///     Fetches the next page of the current query.

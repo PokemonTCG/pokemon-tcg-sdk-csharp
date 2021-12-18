@@ -27,7 +27,7 @@ namespace PokemonTcgSdkV2.Api.TcgPlayer
         public TcgPlayerPrice HoloFoil { get; set; }
 
         /// <summary>
-        ///     The price information for a reverse hholos foil card type.
+        ///     The price information for a reverse holos foil card type.
         /// </summary>
         /// <remarks>
         ///     All prices are in US Dollars.

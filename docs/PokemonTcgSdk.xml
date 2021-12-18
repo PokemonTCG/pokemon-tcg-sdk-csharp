@@ -222,7 +222,7 @@
                 Which Pokémon this card evolves to.
             </summary>
             <remarks>
-                Can be multiple, for example, Eeve, which has multiple evolutions.
+                Can be multiple, for example, Eevee, which has multiple evolutions.
             </remarks>
         </member>
         <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Rules">
@@ -336,6 +336,14 @@
             <remarks>
                 See the <see cref="T:PokemonTcgSdkV2.Api.Cardmarket.CardmarketEntry" /> object for more details.
             </remarks>
+        </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Id">
+            <inheritdoc />
+        </member>
+        <member name="T:PokemonTcgSdkV2.Api.Cards.CardImages">
+            <summary>
+                Image data of a <see cref="T:PokemonTcgSdkV2.Api.Cards.Card" />.
+            </summary>
         </member>
         <member name="P:PokemonTcgSdkV2.Api.Cards.CardImages.SmallImageUrl">
             <summary>
@@ -464,6 +472,9 @@
                 Any images associated with the set, such as symbol and logo.
             </summary>
         </member>
+        <member name="P:PokemonTcgSdkV2.Api.Sets.Set.Id">
+            <inheritdoc />
+        </member>
         <member name="T:PokemonTcgSdkV2.Api.Sets.SetImages">
             <summary>
                 Any images associated with the set, such as symbol and logo.
@@ -564,7 +575,7 @@
         </member>
         <member name="P:PokemonTcgSdkV2.Api.TcgPlayer.TcgPlayerPriceSet.ReverseHolofoil">
             <summary>
-                The price information for a reverse hholos foil card type.
+                The price information for a reverse holos foil card type.
             </summary>
             <remarks>
                 All prices are in US Dollars.
@@ -608,7 +619,7 @@
                 <typeparamref name="TResponseType" />.
             </typeparam>
             <param name="requestUri"></param>
-            <returns>Api result of specified typings for specified request.</returns>
+            <returns>Api result of specified typing for specified request.</returns>
         </member>
         <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchData``1(PokemonTcgSdkV2.Utils.Query.QueryBuilder,System.Int32)">
             <summary>
@@ -625,7 +636,7 @@
             </summary>
             <typeparam name="T">Type of object to fetch.</typeparam>
             <param name="id">Id to fetch.</param>
-            <returns>Singel api response with the result for the given Id search value.</returns>
+            <returns>Single api response with the result for the given Id search value.</returns>
         </member>
         <member name="T:PokemonTcgSdkV2.Client.Endpoints.CardEndpoint">
             <summary>
@@ -738,7 +749,7 @@
             <param name="page">Page to fetch.</param>
             <returns>Specified page of the current query.</returns>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.RemberRequestUri(System.String)">
+        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.RememberRequestUri(System.String)">
             <summary>
                 Remembers the current query.
             </summary>
@@ -787,7 +798,7 @@
                 Total amount of results among all pages.
             </summary>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.RemberRequestUri(System.String)">
+        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.RememberRequestUri(System.String)">
             <summary>
                 Remembers the current query.
             </summary>

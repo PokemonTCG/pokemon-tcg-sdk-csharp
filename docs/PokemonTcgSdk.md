@@ -32,6 +32,7 @@
   - [EvolvesTo](#P-PokemonTcgSdkV2-Api-Cards-Card-EvolvesTo 'PokemonTcgSdkV2.Api.Cards.Card.EvolvesTo')
   - [FlavorText](#P-PokemonTcgSdkV2-Api-Cards-Card-FlavorText 'PokemonTcgSdkV2.Api.Cards.Card.FlavorText')
   - [Hitpoints](#P-PokemonTcgSdkV2-Api-Cards-Card-Hitpoints 'PokemonTcgSdkV2.Api.Cards.Card.Hitpoints')
+  - [Id](#P-PokemonTcgSdkV2-Api-Cards-Card-Id 'PokemonTcgSdkV2.Api.Cards.Card.Id')
   - [Images](#P-PokemonTcgSdkV2-Api-Cards-Card-Images 'PokemonTcgSdkV2.Api.Cards.Card.Images')
   - [Legalities](#P-PokemonTcgSdkV2-Api-Cards-Card-Legalities 'PokemonTcgSdkV2.Api.Cards.Card.Legalities')
   - [Level](#P-PokemonTcgSdkV2-Api-Cards-Card-Level 'PokemonTcgSdkV2.Api.Cards.Card.Level')
@@ -86,7 +87,7 @@
   - [TotalPages](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-TotalPages 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.TotalPages')
   - [FetchNextPage()](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchNextPage 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchNextPage')
   - [FetchPage(page)](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchPage-System-Int32- 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchPage(System.Int32)')
-  - [RemberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-RemberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.RemberRequestUri(System.String)')
+  - [RememberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-RememberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.RememberRequestUri(System.String)')
 - [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject')
 - [IApiEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint 'PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint')
   - [ApiUri()](#M-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint-ApiUri 'PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint.ApiUri')
@@ -102,7 +103,7 @@
   - [TotalCount](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-TotalCount 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.TotalCount')
   - [FetchNextPage()](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchNextPage 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchNextPage')
   - [FetchPage(page)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchPage-System-Int32- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchPage(System.Int32)')
-  - [RemberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-RemberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.RemberRequestUri(System.String)')
+  - [RememberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-RememberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.RememberRequestUri(System.String)')
 - [Legalities](#T-PokemonTcgSdkV2-Api-Cards-Legalities 'PokemonTcgSdkV2.Api.Cards.Legalities')
   - [Expanded](#P-PokemonTcgSdkV2-Api-Cards-Legalities-Expanded 'PokemonTcgSdkV2.Api.Cards.Legalities.Expanded')
   - [Standard](#P-PokemonTcgSdkV2-Api-Cards-Legalities-Standard 'PokemonTcgSdkV2.Api.Cards.Legalities.Standard')
@@ -120,6 +121,7 @@
   - [BuildQuery()](#M-PokemonTcgSdkV2-Utils-Query-QueryBuilder-BuildQuery 'PokemonTcgSdkV2.Utils.Query.QueryBuilder.BuildQuery')
   - [StartQuery(key,value)](#M-PokemonTcgSdkV2-Utils-Query-QueryBuilder-StartQuery-System-String,System-String- 'PokemonTcgSdkV2.Utils.Query.QueryBuilder.StartQuery(System.String,System.String)')
 - [Set](#T-PokemonTcgSdkV2-Api-Sets-Set 'PokemonTcgSdkV2.Api.Sets.Set')
+  - [Id](#P-PokemonTcgSdkV2-Api-Sets-Set-Id 'PokemonTcgSdkV2.Api.Sets.Set.Id')
   - [Images](#P-PokemonTcgSdkV2-Api-Sets-Set-Images 'PokemonTcgSdkV2.Api.Sets.Set.Images')
   - [Legalities](#P-PokemonTcgSdkV2-Api-Sets-Set-Legalities 'PokemonTcgSdkV2.Api.Sets.Set.Legalities')
   - [Name](#P-PokemonTcgSdkV2-Api-Sets-Set-Name 'PokemonTcgSdkV2.Api.Sets.Set.Name')
@@ -250,7 +252,7 @@ Sends a request to the web api and fetches data for a given Id.
 
 ##### Returns
 
-Singel api response with the result for the given Id search value.
+Single api response with the result for the given Id search value.
 
 ##### Parameters
 
@@ -297,7 +299,7 @@ Sends a request to the web api and fetches data.
 
 ##### Returns
 
-Api result of specified typings for specified request.
+Api result of specified typing for specified request.
 
 ##### Parameters
 
@@ -433,7 +435,7 @@ Which Pokémon this card evolves to.
 
 ##### Remarks
 
-Can be multiple, for example, Eeve, which has multiple evolutions.
+Can be multiple, for example, Eevee, which has multiple evolutions.
 
 <a name='P-PokemonTcgSdkV2-Api-Cards-Card-FlavorText'></a>
 ### FlavorText `property`
@@ -449,6 +451,13 @@ The flavor text of the card. This is the text that can be found on some Pokémon
 ##### Summary
 
 The hit points of the card.
+
+<a name='P-PokemonTcgSdkV2-Api-Cards-Card-Id'></a>
+### Id `property`
+
+##### Summary
+
+*Inherit from parent.*
 
 <a name='P-PokemonTcgSdkV2-Api-Cards-Card-Images'></a>
 ### Images `property`
@@ -604,6 +613,10 @@ This method has no parameters.
 ##### Namespace
 
 PokemonTcgSdkV2.Api.Cards
+
+##### Summary
+
+Image data of a [Card](#T-PokemonTcgSdkV2-Api-Cards-Card 'PokemonTcgSdkV2.Api.Cards.Card').
 
 <a name='P-PokemonTcgSdkV2-Api-Cards-CardImages-LargeImageUrl'></a>
 ### LargeImageUrl `property`
@@ -943,8 +956,8 @@ Specified page of the current query.
 | ---- | ---- | ----------- |
 | page | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Page to fetch. |
 
-<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-RemberRequestUri-System-String-'></a>
-### RemberRequestUri(requestUri) `method`
+<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-RememberRequestUri-System-String-'></a>
+### RememberRequestUri(requestUri) `method`
 
 ##### Summary
 
@@ -1120,8 +1133,8 @@ Specified page of the current query.
 | ---- | ---- | ----------- |
 | page | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Page to fetch. |
 
-<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-RemberRequestUri-System-String-'></a>
-### RemberRequestUri(requestUri) `method`
+<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-RememberRequestUri-System-String-'></a>
+### RememberRequestUri(requestUri) `method`
 
 ##### Summary
 
@@ -1335,6 +1348,13 @@ PokemonTcgSdkV2.Api.Sets
 ##### Summary
 
 Represents a set of Pokémon [Card](#T-PokemonTcgSdkV2-Api-Cards-Card 'PokemonTcgSdkV2.Api.Cards.Card').
+
+<a name='P-PokemonTcgSdkV2-Api-Sets-Set-Id'></a>
+### Id `property`
+
+##### Summary
+
+*Inherit from parent.*
 
 <a name='P-PokemonTcgSdkV2-Api-Sets-Set-Images'></a>
 ### Images `property`
@@ -1633,7 +1653,7 @@ All prices are in US Dollars.
 
 ##### Summary
 
-The price information for a reverse hholos foil card type.
+The price information for a reverse holos foil card type.
 
 ##### Remarks
 
