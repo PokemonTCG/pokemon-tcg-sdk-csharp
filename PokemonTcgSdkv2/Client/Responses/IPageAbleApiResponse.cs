@@ -45,13 +45,13 @@ namespace PokemonTcgSdkV2.Client.Responses
         ///     Fetches the next page of the current query.
         /// </summary>
         /// <returns>The next page of the current query.</returns>
-        Task<TResponseType> FetchNextPage();
+        Task<TResponseType> FetchNextPageAsync();
 
         /// <summary>
         ///     Fetches a specific page of the current query.
         /// </summary>
         /// <param name="page">Page to fetch.</param>
         /// <returns>Specified page of the current query.</returns>
-        Task<TResponseType> FetchPage(int page);
+        Task<TResponseType> FetchPageAsync(int page);
     }
 }

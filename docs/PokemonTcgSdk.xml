@@ -609,7 +609,7 @@
             <param name="apiKey">Api key to use.</param>
             <remarks>Usage without <paramref name="apiKey" /> is allowed.</remarks>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchData``2(System.String)">
+        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchDataAsync``2(System.String)">
             <summary>
                 Sends a request to the web api and fetches data.
             </summary>
@@ -621,7 +621,7 @@
             <param name="requestUri"></param>
             <returns>Api result of specified typing for specified request.</returns>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchData``1(PokemonTcgSdkV2.Utils.Query.QueryBuilder,System.Int32)">
+        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchDataAsync``1(PokemonTcgSdkV2.Utils.Query.QueryBuilder,System.Int32)">
             <summary>
                 Sends a request to the web api and fetches data for a given query.
             </summary>
@@ -630,7 +630,7 @@
             <param name="page">Page to fetch.</param>
             <returns>Pageable api response for given search query.</returns>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchById``1(System.String)">
+        <member name="M:PokemonTcgSdkV2.Client.ApiClient.FetchByIdAsync``1(System.String)">
             <summary>
                 Sends a request to the web api and fetches data for a given Id.
             </summary>
@@ -736,13 +736,13 @@
                 Total amount of results among all pages.
             </summary>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchNextPage">
+        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchNextPageAsync">
             <summary>
                 Fetches the next page of the current query.
             </summary>
             <returns>The next page of the current query.</returns>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchPage(System.Int32)">
+        <member name="M:PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchPageAsync(System.Int32)">
             <summary>
                 Fetches a specific page of the current query.
             </summary>
@@ -804,13 +804,13 @@
             </summary>
             <param name="requestUri"></param>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchNextPage">
+        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchNextPageAsync">
             <summary>
                 Fetches the next page of the current query.
             </summary>
             <returns>The next page of the current query.</returns>
         </member>
-        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchPage(System.Int32)">
+        <member name="M:PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchPageAsync(System.Int32)">
             <summary>
                 Fetches a specific page of the current query.
             </summary>

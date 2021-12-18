@@ -20,7 +20,7 @@ namespace PokemonV2Tests
         [Test]
         public async Task FetchCards()
         {
-            var response = await Client.FetchData<Card>();
+            var response = await Client.FetchDataAsync<Card>();
 
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.Data);
@@ -30,7 +30,7 @@ namespace PokemonV2Tests
         [Test]
         public async Task FetchSets()
         {
-            var response = await Client.FetchData<Set>();
+            var response = await Client.FetchDataAsync<Set>();
 
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.Data);
@@ -41,7 +41,7 @@ namespace PokemonV2Tests
         [TestCase("base4-4", "Charizard")]
         public async Task FindCard(string cardId, string expectedCardName)
         {
-            var response = await Client.FetchById<Card>(cardId);
+            var response = await Client.FetchByIdAsync<Card>(cardId);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.Data);
@@ -53,7 +53,7 @@ namespace PokemonV2Tests
         [TestCase("sm12", "Cosmic Eclipse")]
         public async Task FindSet(string setId, string expectedSetName)
         {
-            var response = await Client.FetchById<Set>(setId);
+            var response = await Client.FetchByIdAsync<Set>(setId);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull(response.Data);
@@ -64,17 +64,17 @@ namespace PokemonV2Tests
         [Test]
         public async Task FetchMultiplePages()
         {
-            var response = await Client.FetchData<Card>();
+            var response = await Client.FetchDataAsync<Card>();
 
             Assert.IsNotNull(response);
             Assert.AreEqual(1, response.Page);
             Assert.IsTrue(response.TotalPages > 1);
 
-            response = await response.FetchNextPage();
+            response = await response.FetchNextPageAsync();
             Assert.IsNotNull(response);
             Assert.AreEqual(2, response.Page);
 
-            response = await response.FetchPage(response.TotalPages);
+            response = await response.FetchPageAsync(response.TotalPages);
             Assert.IsNotNull(response);
             Assert.AreEqual(response.TotalPages, response.Page);
         }
@@ -88,7 +88,7 @@ namespace PokemonV2Tests
             // reduce pageSize to ensure it will be more results than pagesize
             var requestUri = $"{EndpointFactory.GetApiEndpoint<Card>().ApiUri()}/?pageSize=10&page=1&q={queryStr}";
 
-            var response = await Client.FetchData<EnumerableApiResponse<Card>, IEnumerable<Card>>(requestUri);
+            var response = await Client.FetchDataAsync<EnumerableApiResponse<Card>, IEnumerable<Card>>(requestUri);
             // check response for first page and mutiple pages in total
             Assert.IsNotNull(response);
             Assert.IsTrue(response.TotalPages > 1);
@@ -99,7 +99,7 @@ namespace PokemonV2Tests
                 Assert.IsTrue(card.Name.Contains(searchName, StringComparison.InvariantCultureIgnoreCase));
 
             // get next page
-            response = await response.FetchNextPage();
+            response = await response.FetchNextPageAsync();
             // check response still valie
             Assert.IsNotNull(response);
             Assert.AreEqual(2, response.Page);
@@ -142,7 +142,7 @@ namespace PokemonV2Tests
         {
             var query = QueryBuilder.StartQuery("name", searchName);
 
-            var response = await Client.FetchData<Card>(query);
+            var response = await Client.FetchDataAsync<Card>(query);
 
             Assert.IsNotNull(response);
             foreach (var card in response.Data)

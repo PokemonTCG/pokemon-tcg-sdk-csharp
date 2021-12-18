@@ -12,9 +12,9 @@
   - [Text](#P-PokemonTcgSdkV2-Api-Cards-AncientTrait-Text 'PokemonTcgSdkV2.Api.Cards.AncientTrait.Text')
 - [ApiClient](#T-PokemonTcgSdkV2-Client-ApiClient 'PokemonTcgSdkV2.Client.ApiClient')
   - [#ctor(apiKey)](#M-PokemonTcgSdkV2-Client-ApiClient-#ctor-System-String- 'PokemonTcgSdkV2.Client.ApiClient.#ctor(System.String)')
-  - [FetchById\`\`1(id)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchById``1-System-String- 'PokemonTcgSdkV2.Client.ApiClient.FetchById``1(System.String)')
-  - [FetchData\`\`1(query,page)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchData``1-PokemonTcgSdkV2-Utils-Query-QueryBuilder,System-Int32- 'PokemonTcgSdkV2.Client.ApiClient.FetchData``1(PokemonTcgSdkV2.Utils.Query.QueryBuilder,System.Int32)')
-  - [FetchData\`\`2(requestUri)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchData``2-System-String- 'PokemonTcgSdkV2.Client.ApiClient.FetchData``2(System.String)')
+  - [FetchByIdAsync\`\`1(id)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchByIdAsync``1-System-String- 'PokemonTcgSdkV2.Client.ApiClient.FetchByIdAsync``1(System.String)')
+  - [FetchDataAsync\`\`1(query,page)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchDataAsync``1-PokemonTcgSdkV2-Utils-Query-QueryBuilder,System-Int32- 'PokemonTcgSdkV2.Client.ApiClient.FetchDataAsync``1(PokemonTcgSdkV2.Utils.Query.QueryBuilder,System.Int32)')
+  - [FetchDataAsync\`\`2(requestUri)](#M-PokemonTcgSdkV2-Client-ApiClient-FetchDataAsync``2-System-String- 'PokemonTcgSdkV2.Client.ApiClient.FetchDataAsync``2(System.String)')
 - [Attack](#T-PokemonTcgSdkV2-Api-Cards-Attack 'PokemonTcgSdkV2.Api.Cards.Attack')
   - [ConvertedEnergyCost](#P-PokemonTcgSdkV2-Api-Cards-Attack-ConvertedEnergyCost 'PokemonTcgSdkV2.Api.Cards.Attack.ConvertedEnergyCost')
   - [Costs](#P-PokemonTcgSdkV2-Api-Cards-Attack-Costs 'PokemonTcgSdkV2.Api.Cards.Attack.Costs')
@@ -85,8 +85,8 @@
   - [PageSize](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-PageSize 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.PageSize')
   - [TotalCount](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-TotalCount 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.TotalCount')
   - [TotalPages](#P-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-TotalPages 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.TotalPages')
-  - [FetchNextPage()](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchNextPage 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchNextPage')
-  - [FetchPage(page)](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchPage-System-Int32- 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchPage(System.Int32)')
+  - [FetchNextPageAsync()](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchNextPageAsync 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchNextPageAsync')
+  - [FetchPageAsync(page)](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchPageAsync-System-Int32- 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.FetchPageAsync(System.Int32)')
   - [RememberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-RememberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.EnumerableApiResponse`1.RememberRequestUri(System.String)')
 - [FetchableApiObject](#T-PokemonTcgSdkV2-Api-FetchableApiObject 'PokemonTcgSdkV2.Api.FetchableApiObject')
 - [IApiEndpoint](#T-PokemonTcgSdkV2-Client-Endpoints-IApiEndpoint 'PokemonTcgSdkV2.Client.Endpoints.IApiEndpoint')
@@ -101,8 +101,8 @@
   - [Page](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-Page 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.Page')
   - [PageSize](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-PageSize 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.PageSize')
   - [TotalCount](#P-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-TotalCount 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.TotalCount')
-  - [FetchNextPage()](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchNextPage 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchNextPage')
-  - [FetchPage(page)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchPage-System-Int32- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchPage(System.Int32)')
+  - [FetchNextPageAsync()](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchNextPageAsync 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchNextPageAsync')
+  - [FetchPageAsync(page)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchPageAsync-System-Int32- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.FetchPageAsync(System.Int32)')
   - [RememberRequestUri(requestUri)](#M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-RememberRequestUri-System-String- 'PokemonTcgSdkV2.Client.Responses.IPageAbleApiResponse`2.RememberRequestUri(System.String)')
 - [Legalities](#T-PokemonTcgSdkV2-Api-Cards-Legalities 'PokemonTcgSdkV2.Api.Cards.Legalities')
   - [Expanded](#P-PokemonTcgSdkV2-Api-Cards-Legalities-Expanded 'PokemonTcgSdkV2.Api.Cards.Legalities.Expanded')
@@ -243,8 +243,8 @@ Creates a new [ApiClient](#T-PokemonTcgSdkV2-Client-ApiClient 'PokemonTcgSdkV2.C
 
 Usage without `apiKey` is allowed.
 
-<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchById``1-System-String-'></a>
-### FetchById\`\`1(id) `method`
+<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchByIdAsync``1-System-String-'></a>
+### FetchByIdAsync\`\`1(id) `method`
 
 ##### Summary
 
@@ -266,8 +266,8 @@ Single api response with the result for the given Id search value.
 | ---- | ----------- |
 | T | Type of object to fetch. |
 
-<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchData``1-PokemonTcgSdkV2-Utils-Query-QueryBuilder,System-Int32-'></a>
-### FetchData\`\`1(query,page) `method`
+<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchDataAsync``1-PokemonTcgSdkV2-Utils-Query-QueryBuilder,System-Int32-'></a>
+### FetchDataAsync\`\`1(query,page) `method`
 
 ##### Summary
 
@@ -290,8 +290,8 @@ Pageable api response for given search query.
 | ---- | ----------- |
 | T | Type of object to fetch. |
 
-<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchData``2-System-String-'></a>
-### FetchData\`\`2(requestUri) `method`
+<a name='M-PokemonTcgSdkV2-Client-ApiClient-FetchDataAsync``2-System-String-'></a>
+### FetchDataAsync\`\`2(requestUri) `method`
 
 ##### Summary
 
@@ -924,8 +924,8 @@ Total amount of results among all pages.
 
 Total pages of the result.
 
-<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchNextPage'></a>
-### FetchNextPage() `method`
+<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchNextPageAsync'></a>
+### FetchNextPageAsync() `method`
 
 ##### Summary
 
@@ -939,8 +939,8 @@ The next page of the current query.
 
 This method has no parameters.
 
-<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchPage-System-Int32-'></a>
-### FetchPage(page) `method`
+<a name='M-PokemonTcgSdkV2-Client-Responses-EnumerableApiResponse`1-FetchPageAsync-System-Int32-'></a>
+### FetchPageAsync(page) `method`
 
 ##### Summary
 
@@ -1101,8 +1101,8 @@ Currently used page size.
 
 Total amount of results among all pages.
 
-<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchNextPage'></a>
-### FetchNextPage() `method`
+<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchNextPageAsync'></a>
+### FetchNextPageAsync() `method`
 
 ##### Summary
 
@@ -1116,8 +1116,8 @@ The next page of the current query.
 
 This method has no parameters.
 
-<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchPage-System-Int32-'></a>
-### FetchPage(page) `method`
+<a name='M-PokemonTcgSdkV2-Client-Responses-IPageAbleApiResponse`2-FetchPageAsync-System-Int32-'></a>
+### FetchPageAsync(page) `method`
 
 ##### Summary
 

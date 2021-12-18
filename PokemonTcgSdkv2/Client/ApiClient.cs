@@ -62,7 +62,7 @@ namespace PokemonTcgSdkV2.Client
         /// <param name="requestUri"></param>
         /// <returns>Api result of specified typing for specified request.</returns>
         public async Task<TResponseType>
-            FetchData<TResponseType, TResponseGeneric>(string requestUri)
+            FetchDataAsync<TResponseType, TResponseGeneric>(string requestUri)
             where TResponseType : IApiResponse<TResponseGeneric>, new()
         {
             var options = new JsonSerializerOptions
@@ -90,7 +90,7 @@ namespace PokemonTcgSdkV2.Client
         /// <param name="query">Search query.</param>
         /// <param name="page">Page to fetch.</param>
         /// <returns>Pageable api response for given search query.</returns>
-        public async Task<EnumerableApiResponse<T>> FetchData<T>(QueryBuilder query = null, int page = 1)
+        public async Task<EnumerableApiResponse<T>> FetchDataAsync<T>(QueryBuilder query = null, int page = 1)
             where T : FetchableApiObject
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();
@@ -98,7 +98,7 @@ namespace PokemonTcgSdkV2.Client
             var queryStr = "";
             if (query != null) queryStr = query.BuildQuery();
 
-            return await FetchData<EnumerableApiResponse<T>, IEnumerable<T>>(
+            return await FetchDataAsync<EnumerableApiResponse<T>, IEnumerable<T>>(
                 $"{endpoint.ApiUri()}?page={page}&q={queryStr}");
         }
 
@@ -108,11 +108,12 @@ namespace PokemonTcgSdkV2.Client
         /// <typeparam name="T">Type of object to fetch.</typeparam>
         /// <param name="id">Id to fetch.</param>
         /// <returns>Single api response with the result for the given Id search value.</returns>
-        public async Task<SingleApiResponse<T>> FetchById<T>(string id) where T : FetchableApiObject, IApiObjectWithId
+        public async Task<SingleApiResponse<T>> FetchByIdAsync<T>(string id)
+            where T : FetchableApiObject, IApiObjectWithId
         {
             var endpoint = EndpointFactory.GetApiEndpoint<T>();
 
-            return await FetchData<SingleApiResponse<T>, T>($"{endpoint.ApiUri()}/{id}");
+            return await FetchDataAsync<SingleApiResponse<T>, T>($"{endpoint.ApiUri()}/{id}");
         }
     }
 }

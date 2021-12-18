@@ -55,9 +55,9 @@ namespace PokemonTcgSdkV2.Client.Responses
         ///     Fetches the next page of the current query.
         /// </summary>
         /// <returns>The next page of the current query.</returns>
-        public async Task<EnumerableApiResponse<T>> FetchNextPage()
+        public async Task<EnumerableApiResponse<T>> FetchNextPageAsync()
         {
-            return await FetchPage(Page + 1);
+            return await FetchPageAsync(Page + 1);
         }
 
         /// <summary>
@@ -65,10 +65,10 @@ namespace PokemonTcgSdkV2.Client.Responses
         /// </summary>
         /// <param name="page">Page to fetch.</param>
         /// <returns>Specified page of the current query.</returns>
-        public async Task<EnumerableApiResponse<T>> FetchPage(int page)
+        public async Task<EnumerableApiResponse<T>> FetchPageAsync(int page)
         {
             var requestUri = RequestUri + "&page=" + page;
-            return await CurrentApiClient.FetchData<EnumerableApiResponse<T>, IEnumerable<T>>(requestUri);
+            return await CurrentApiClient.FetchDataAsync<EnumerableApiResponse<T>, IEnumerable<T>>(requestUri);
         }
 
         /// <summary>
