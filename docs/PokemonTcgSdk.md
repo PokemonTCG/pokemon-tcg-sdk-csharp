@@ -40,6 +40,7 @@
   - [NationalPokedexNumbers](#P-PokemonTcgSdkV2-Api-Cards-Card-NationalPokedexNumbers 'PokemonTcgSdkV2.Api.Cards.Card.NationalPokedexNumbers')
   - [Number](#P-PokemonTcgSdkV2-Api-Cards-Card-Number 'PokemonTcgSdkV2.Api.Cards.Card.Number')
   - [Rarity](#P-PokemonTcgSdkV2-Api-Cards-Card-Rarity 'PokemonTcgSdkV2.Api.Cards.Card.Rarity')
+  - [RegulationMark](#P-PokemonTcgSdkV2-Api-Cards-Card-RegulationMark 'PokemonTcgSdkV2.Api.Cards.Card.RegulationMark')
   - [Resistances](#P-PokemonTcgSdkV2-Api-Cards-Card-Resistances 'PokemonTcgSdkV2.Api.Cards.Card.Resistances')
   - [RetreatCosts](#P-PokemonTcgSdkV2-Api-Cards-Card-RetreatCosts 'PokemonTcgSdkV2.Api.Cards.Card.RetreatCosts')
   - [Rules](#P-PokemonTcgSdkV2-Api-Cards-Card-Rules 'PokemonTcgSdkV2.Api.Cards.Card.Rules')
@@ -512,6 +513,14 @@ The number of the card.
 ##### Summary
 
 The rarity of the card, such as "Common" or "Rare Rainbow".
+
+<a name='P-PokemonTcgSdkV2-Api-Cards-Card-RegulationMark'></a>
+### RegulationMark `property`
+
+##### Summary
+
+A letter symbol found on each card that identifies whether it is legal to use in tournament play. Regulation marks
+    were introduced on cards in the Sword and Shield Series.
 
 <a name='P-PokemonTcgSdkV2-Api-Cards-Card-Resistances'></a>
 ### Resistances `property`

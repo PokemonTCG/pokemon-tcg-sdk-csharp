@@ -149,6 +149,12 @@ namespace PokemonTcgSdkV2.Api.Cards
         public Legalities Legalities { get; set; }
 
         /// <summary>
+        ///     A letter symbol found on each card that identifies whether it is legal to use in tournament play. Regulation marks
+        ///     were introduced on cards in the Sword and Shield Series.
+        /// </summary>
+        public string RegulationMark { get; set; }
+
+        /// <summary>
         ///     The images for a card.
         /// </summary>
         public CardImages Images { get; set; }

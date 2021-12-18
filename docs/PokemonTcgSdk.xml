@@ -310,6 +310,12 @@
                 will be present.
             </remarks>
         </member>
+        <member name="P:PokemonTcgSdkV2.Api.Cards.Card.RegulationMark">
+            <summary>
+                A letter symbol found on each card that identifies whether it is legal to use in tournament play. Regulation marks
+                were introduced on cards in the Sword and Shield Series.
+            </summary>
+        </member>
         <member name="P:PokemonTcgSdkV2.Api.Cards.Card.Images">
             <summary>
                 The images for a card.
