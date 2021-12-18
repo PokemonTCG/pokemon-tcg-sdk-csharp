@@ -39,7 +39,7 @@ namespace PokemonTcgSdkV2.Utils.Query
             return this;
         }
 
-        private string EscapeValue(string value)
+        private static string EscapeValue(string value)
         {
             value = value.Replace(@"""", ""); // Remove quotations
 
