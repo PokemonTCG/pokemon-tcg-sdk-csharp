@@ -1,6 +1,11 @@
-﻿namespace PokemonTcgSdkV2.Client.Endpoints
+﻿using PokemonTcgSdkV2.Api.Sets;
+
+namespace PokemonTcgSdkV2.Client.Endpoints
 {
-    public class SetEndpoint : ISupportsIdApiEndpoint<string>
+    /// <summary>
+    ///     Endpoint to fetch one or more <see cref="Set" />.
+    /// </summary>
+    public class SetEndpoint : ISupportsIdApiEndpoint
     {
         public string ApiUri()
         {
