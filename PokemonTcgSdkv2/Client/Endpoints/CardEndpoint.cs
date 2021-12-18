@@ -1,6 +1,11 @@
-﻿namespace PokemonTcgSdkV2.Client.Endpoints
+﻿using PokemonTcgSdkV2.Api.Cards;
+
+namespace PokemonTcgSdkV2.Client.Endpoints
 {
-    public class CardEndpoint : ISupportsIdApiEndpoint<string>
+    /// <summary>
+    ///     Endpoint to fetch one or more <see cref="Card" />.
+    /// </summary>
+    public class CardEndpoint : ISupportsIdApiEndpoint
     {
         public string ApiUri()
         {
