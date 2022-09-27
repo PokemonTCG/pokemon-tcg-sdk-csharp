@@ -5,57 +5,49 @@
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using Extensions;
-    using Microsoft.Extensions.Options;
+
     using Newtonsoft.Json.Converters;
     using Newtonsoft.Json.Linq;
     using Newtonsoft.Json.Serialization;
     using Newtonsoft.Json;
     using PokemonTcgSdk.Standard.Infrastructure.Common;
-    using PokemonTcgSdk.Standard.Infrastructure.HttpClients.Set;
+    using Set;
 
     public class PokemonApiClient
     {
-        private HttpClient _client;
-
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly HttpClient _client;
 
         private readonly object _clientLock = new object();
 
-        private readonly ServicesProjectOptions _options;
-
-        public PokemonApiClient(IHttpClientFactory clientFactory, IOptions<ServicesProjectOptions> options)
+        /// <summary>
+        /// Create the api client
+        /// </summary>
+        /// <param name="client">User managed either through httpclientfactory.create or by passing in new httpclient</param>
+        /// <param name="key">Optional: Registered api key. See doc limitations when empty string is passed in</param>
+        /// <returns>Api client</returns>
+        public PokemonApiClient(HttpClient client, string key = "")
         {
-            _clientFactory = clientFactory;
-            _options = options.Value;
-            _client = GetClient();
+            // We want the end user to pass in their httpclient to manage it
+            // See https://github.com/dotnet/aspnetcore/issues/28385#issuecomment-480548175
+            _client = GetClient(client, key);
         }
 
-        private HttpClient GetClient()
+        private HttpClient GetClient(HttpClient client, string key = "")
         {
-            if (_client == null)
+            lock (_clientLock)
             {
-                lock (_clientLock)
-                {
-                    if (_client == null)
-                    {
-                        _client = _clientFactory.CreateClient();
-                        _client.BaseAddress = new Uri("https://api.pokemontcg.io/v2/");
-                        _client.DefaultRequestHeaders.Add("Accept", "*/*");
-                        _client.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
-                        _client.DefaultRequestHeaders.Add("X-Api-Key", _options.ApiKey);
-                        _client.Timeout = TimeSpan.FromMinutes(10);
-                    }
-                }
+                client.BaseAddress = new Uri("https://api.pokemontcg.io/v2/");
+                client.DefaultRequestHeaders.Add("Accept", "*/*");
+                client.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
+                client.DefaultRequestHeaders.Add("X-Api-Key", key);
+                client.Timeout = TimeSpan.FromMinutes(10);
+                return client;
             }
-
-            return _client;
         }
-
 
         public async Task<Attempt<SetResponse>> GetSets()
         {
-            var sets = await AttemptGet<SetResponse>($"/sets/");
+            var sets = await AttemptGet<SetResponse>($"sets/");
             return sets;
         }
 
@@ -114,7 +106,7 @@
                 requestMessage.Content = content;
             }
 
-            var response = await GetClient().SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
+            var response = await _client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
             return response;
         }
 
