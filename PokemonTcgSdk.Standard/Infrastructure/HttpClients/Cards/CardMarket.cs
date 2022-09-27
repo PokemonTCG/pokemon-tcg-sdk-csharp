@@ -71,37 +71,37 @@
         /// <summary>
         ///     The average sale price over the last day.
         /// </summary>
-        [JsonPropertyName("avg1")]
+        [JsonProperty("avg1")]
         public decimal? AverageDay { get; set; }
 
         /// <summary>
         ///     The average sale price over the last 7 days.
         /// </summary>
-        [JsonPropertyName("avg7")]
+        [JsonProperty("avg7")]
         public decimal? AverageWeek { get; set; }
 
         /// <summary>
         ///     The average sale price over the last 30 days.
         /// </summary>
-        [JsonPropertyName("avg30")]
+        [JsonProperty("avg30")]
         public decimal? AverageMonth { get; set; }
 
         /// <summary>
         ///     The average sale price over the last day for reverse holos.
         /// </summary>
-        [JsonPropertyName("reverseHoloAvg1")]
+        [JsonProperty("reverseHoloAvg1")]
         public decimal? AverageDayReverseHolo { get; set; }
 
         /// <summary>
         ///     The average sale price over the last 7 days for reverse holos.
         /// </summary>
-        [JsonPropertyName("reverseHoloAvg7")]
+        [JsonProperty("reverseHoloAvg7")]
         public decimal? AverageWeekReverseHolo { get; set; }
 
         /// <summary>
         ///     The average sale price over the last 30 days for reverse holos.
         /// </summary>
-        [JsonPropertyName("reverseHoloAvg30")]
+        [JsonProperty("reverseHoloAvg30")]
         public decimal? AverageMonthReverseHolo { get; set; }
     }
 }
