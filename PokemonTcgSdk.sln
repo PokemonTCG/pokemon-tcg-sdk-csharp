@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonTest", "PokemonTest\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonTcgSdk.Standard", "PokemonTcgSdk.Standard\PokemonTcgSdk.Standard.csproj", "{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonTcgSdk.Standard.Tests", "PokemonTcgSdk.Standard.Tests\PokemonTcgSdk.Standard.Tests.csproj", "{F1630557-B7EC-4A11-A510-4E2FF3F25647}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1630557-B7EC-4A11-A510-4E2FF3F25647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1630557-B7EC-4A11-A510-4E2FF3F25647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1630557-B7EC-4A11-A510-4E2FF3F25647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1630557-B7EC-4A11-A510-4E2FF3F25647}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
