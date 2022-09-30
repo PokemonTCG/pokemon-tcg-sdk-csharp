@@ -1,12 +1,13 @@
 ﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.Set
 {
-    using Common.Models;
+    using CommonModels;
     using Newtonsoft.Json;
 
-    public class Set
+    public class Set : ApiResource
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
+        public override string Id { get; set; }
+
+        internal new static string ApiEndpoint { get; } = "sets";
 
         [JsonProperty("name")]
         public string Name { get; set; }

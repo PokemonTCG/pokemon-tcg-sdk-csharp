@@ -1,26 +1,28 @@
 ﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.Cards;
 
 using System.Collections.Generic;
-using Common.Models;
+using CommonModels;
+using Models;
 using Newtonsoft.Json;
 using Set;
 using SubTypes;
 using SuperTypes;
 using Types;
 
-public class Card
+public class Card : ApiResource
 {
-    [JsonProperty("id")]
-    public string Id { get; set; }
+    public override string Id { get; set; }
+
+    internal new static string ApiEndpoint { get; } = "cards";
 
     [JsonProperty("name")]
     public string Name { get; set; }
 
     [JsonProperty("supertype")]
-    public SuperTypesResponse Supertype { get; set; }
+    public string Supertype { get; set; }
 
     [JsonProperty("subtypes")]
-    public SubTypesResponse Subtypes { get; set; }
+    public List<string> Subtypes { get; set; }
 
     [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
     public string Level { get; set; }
@@ -29,7 +31,7 @@ public class Card
     public int Hp { get; set; }
 
     [JsonProperty("types")]
-    public List<TypesResponse> Types { get; set; }
+    public List<string> Types { get; set; }
 
     [JsonProperty("evolvesFrom", NullValueHandling = NullValueHandling.Ignore)]
     public string EvolvesFrom { get; set; }

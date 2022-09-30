@@ -1,4 +1,4 @@
-﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.Common.Models;
+﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.CommonModels;
 
 using Newtonsoft.Json;
 

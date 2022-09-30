@@ -1,4 +1,4 @@
-﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.Cards
+﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.Cards.Models
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +13,7 @@
         public string UpdatedAt { get; set; }
 
         [JsonProperty("prices")] 
-        public List<CardMarketPrices> Prices { get; set; }
+        public CardMarketPrices Prices { get; set; }
     }
 
     /// <summary>
@@ -36,17 +36,6 @@
         ///     The trend price as shown at the website (and in the chart) for non-foils.
         /// </summary>
         public decimal? TrendPrice { get; set; }
-
-        /// <summary>
-        ///     The lowest sell price from German professional sellers.
-        /// </summary>
-        public decimal? GermanProLow { get; set; }
-
-        /// <summary>
-        ///     A suggested sell price for professional users, determined by an internal algorithm; this algorithm is controlled by
-        ///     cardmarket, not this API.
-        /// </summary>
-        public decimal? SuggestedPrice { get; set; }
 
         /// <summary>
         ///     The average sell price as shown in the chart at the website for reverse holos.
