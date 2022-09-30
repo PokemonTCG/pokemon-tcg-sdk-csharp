@@ -1,151 +1,308 @@
 ﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients
 {
     using System;
-    using System.Net;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
-    using System.Text;
+    using System.Net.Http.Headers;
+    using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
-
-    using Newtonsoft.Json.Converters;
-    using Newtonsoft.Json.Linq;
-    using Newtonsoft.Json.Serialization;
+    using Base;
+    using Features.CacheManager;
     using Newtonsoft.Json;
-    using PokemonTcgSdk.Standard.Infrastructure.Common;
     using Set;
 
-    public class PokemonApiClient
+    public class PokemonApiClient : IDisposable
     {
         private readonly HttpClient _client;
-
-        private readonly object _clientLock = new object();
+        private readonly Uri _baseUri = new Uri("https://api.pokemontcg.io/v2/");
+        private readonly ResourceCacheManager _resourceCache = new ResourceCacheManager();
+        private readonly ResourceListCacheManager _resourceListCache = new ResourceListCacheManager();
 
         /// <summary>
-        /// Create the api client
+        /// Constructor with message handler and `Api key` header value.
+        /// Without the api key it will work but you will be rate limited. See docs
         /// </summary>
-        /// <param name="client">User managed either through httpclientfactory.create or by passing in new httpclient</param>
-        /// <param name="key">Optional: Registered api key. See doc limitations when empty string is passed in</param>
-        /// <returns>Api client</returns>
-        public PokemonApiClient(HttpClient client, string key = "")
+        /// <param name="messageHandler">Message handler implementation</param>
+        /// <param name="apiKey">The value for the developers api key.</param>
+        public PokemonApiClient(HttpMessageHandler messageHandler, string apiKey = "")
         {
-            // We want the end user to pass in their httpclient to manage it
-            // See https://github.com/dotnet/aspnetcore/issues/28385#issuecomment-480548175
-            _client = GetClient(client, key);
+            _client = new HttpClient(messageHandler) { BaseAddress = _baseUri };
+            _client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
         }
 
-        private HttpClient GetClient(HttpClient client, string key = "")
+        /// <summary>
+        /// Construct accepting directly a HttpClient. Useful when used in projects where
+        /// IHttpClientFactory is used to create and configure HttpClient instances with different policies.
+        /// See https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+        /// </summary>
+        /// <param name="httpClient">HttpClient implementation. Should include api key in header else you will be rate limited. See docs</param>
+        public PokemonApiClient(HttpClient httpClient)
         {
-            lock (_clientLock)
+            _client = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _client.BaseAddress = _baseUri;
+        }
+
+        /// <summary>
+        /// Close resources
+        /// </summary>
+        public void Dispose()
+        {
+            _client.Dispose();
+            _resourceCache.Dispose();
+            _resourceListCache.Dispose();
+        }
+
+        /// <summary>
+        /// Send a request to the api and serialize the response into the specified type
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="apiParam">The name or id of the resource</param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <exception cref="HttpRequestException">Something went wrong with your request</exception>
+        /// <returns>An instance of the specified type with data from the request</returns>
+        private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam, CancellationToken cancellationToken)
+            where T : ResourceBase
+        {
+            // check for case sensitive API endpoint
+            bool isApiEndpointCaseSensitive = IsApiEndpointCaseSensitive<T>();
+            string sanitizedApiParam = isApiEndpointCaseSensitive ? apiParam : apiParam.ToLowerInvariant();
+            string apiEndpoint = GetApiEndpointString<T>();
+
+            return await GetAsync<T>($"{apiEndpoint}/{sanitizedApiParam}/", cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets a resource from a navigation url; resource is retrieved from cache if possible
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="url">Navigation url</param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <exception cref="NotSupportedException">Navigation url doesn't contain the resource id</exception>
+        /// <returns>The object of the resource</returns>
+        private async Task<T> GetResourceByUrlAsync<T>(string url, CancellationToken cancellationToken)
+            where T : ResourceBase
+        {
+            // need to parse out the id in order to check if it's cached.
+            // navigation urls always use the id of the resource
+            string trimmedUrl = url.TrimEnd('/');
+            string resourceId = trimmedUrl.Substring(trimmedUrl.LastIndexOf('/') + 1);
+
+            if (!int.TryParse(resourceId, out int id))
             {
-                client.BaseAddress = new Uri("https://api.pokemontcg.io/v2/");
-                client.DefaultRequestHeaders.Add("Accept", "*/*");
-                client.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
-                client.DefaultRequestHeaders.Add("X-Api-Key", key);
-                client.Timeout = TimeSpan.FromMinutes(10);
-                return client;
-            }
-        }
-
-        public async Task<Attempt<SetResponse>> GetSets()
-        {
-            var sets = await AttemptGet<SetResponse>($"sets/");
-            return sets;
-        }
-
-        private async Task<Attempt<TResponse>> AttemptGet<TResponse>(string relativeUrl)
-        {
-            return await AttemptAction<TResponse, object>(async () => await SendSync(HttpMethod.Get, relativeUrl));
-        }
-
-        private async Task<Attempt<TResponse>> AttemptPost<TResponse, TRequest>(string relativeUrl, TRequest value, Guid? overrideSessionToken = null, bool logPayload = true)
-        {
-            return await AttemptAction<TResponse, TRequest>(async () => await SendSync(HttpMethod.Post, relativeUrl,
-                GetJsonContent(value), overrideSessionToken, logPayload));
-        }
-
-        private async Task<Attempt<TResponse>> AttemptAction<TResponse, TRequest>(Func<Task<HttpResponseMessage>> clientRequest)
-        {
-            var requestUrl = string.Empty;
-            try
-            {
-                var result = await clientRequest.Invoke();
-                var content = await result.Content.ReadAsStringAsync();
-                requestUrl = result.RequestMessage?.RequestUri?.ToString();
-
-                if (result.IsSuccessStatusCode)
-                {
-                    var response = JsonConvert.DeserializeObject<TResponse>(content, JsonSettings());
-                    return Attempt<TResponse>.Succeed(response);
-                }
-
-                var errorMessage = LogResponse(content, result, requestUrl);
-
-                if (result.StatusCode == HttpStatusCode.NotFound)
-                {
-                    return Attempt<TResponse>.Fail(new NotFoundError(errorMessage));
-                }
-
-                if (result.StatusCode == HttpStatusCode.Forbidden)
-                {
-                    return Attempt<TResponse>.Fail(new ForbiddenError(errorMessage));
-                }
-
-                return Attempt<TResponse>.Fail(new Error(errorMessage));
-            }
-            catch (Exception ex)
-            {
-                return Attempt<TResponse>.Fail($"Error connecting to API {requestUrl}", ex);
-            }
-        }
-
-        private async Task<HttpResponseMessage> SendSync(HttpMethod method, string relativeUrl, HttpContent content = null, Guid? overrideSessionToken = null, bool logPayload = true)
-        {
-            var requestMessage = new HttpRequestMessage(method, relativeUrl);
-
-            if (content != null)
-            {
-                requestMessage.Content = content;
+                // not sure what to do here...
+                throw new NotSupportedException($"Navigation url '{url}' is in an unexpected format");
             }
 
-            var response = await _client.SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead);
-            return response;
-        }
-
-        private StringContent GetJsonContent<TRequest>(TRequest content)
-        {
-            var json = JsonConvert.SerializeObject(content, JsonSettings());
-            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-            return stringContent;
-        }
-
-        public static JsonSerializerSettings JsonSettings()
-        {
-            var serializerSettings = new JsonSerializerSettings()
+            T resource = _resourceCache.Get<T>(id);
+            if (resource == null)
             {
-                Formatting = Formatting.Indented,
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
-
-            serializerSettings.Converters.Add(new IsoDateTimeConverter());
-            serializerSettings.Converters.Add(new StringEnumConverter());
-            return serializerSettings;
-        }
-
-        private string LogResponse(string responseContent, HttpResponseMessage result, string requestUrl)
-        {
-            if (result.Content.Headers.ContentType?.MediaType == "application/json")
-            {
-                responseContent = JToken.Parse(responseContent).ToString(Formatting.Indented);
+                resource = await GetResourcesWithParamsAsync<T>(resourceId, cancellationToken);
+                _resourceCache.Store<T>(resource);
             }
 
-            // If we add in logging
-            var message = $"{Environment.NewLine} *** Api Response *** {Environment.NewLine}" +
-                          $"Requested Url: {requestUrl} ({result.RequestMessage?.Method}) {Environment.NewLine}" +
-                          $"Status code: {(int)result.StatusCode} {Environment.NewLine}" +
-                          $"Reason: {result.ReasonPhrase} {Environment.NewLine}" +
-                          $"Content:{Environment.NewLine}{responseContent}{Environment.NewLine}";
+            return resource;
+        }
 
+        public async Task<T> GetStringResourceAsync<T>() where T : ResourceBase
+        {
+            string url = GetApiEndpointString<T>();
+            return await GetAsync<T>(url, CancellationToken.None);
+        }
 
-            return $"{(int)result.StatusCode}) {result.ReasonPhrase}";
+        /// <summary>
+        /// Clears all cached data for both resources and resource lists
+        /// </summary>
+        public void ClearCache()
+        {
+            _resourceCache.ClearAll();
+            _resourceListCache.ClearAll();
+        }
+
+        /// <summary>
+        /// Clears the cached data for a specific resource
+        /// </summary>
+        /// <typeparam name="T">The type of cache</typeparam>
+        public void ClearResourceCache<T>()
+            where T : ResourceBase
+        {
+            _resourceCache.Clear<T>();
+        }
+
+        /// <summary>
+        /// Clears the cached data for all resource types
+        /// </summary>
+        public void ClearResourceCache()
+        {
+            _resourceCache.ClearAll();
+        }
+
+        /// <summary>
+        /// Clears the cached data for all resource lists
+        /// </summary>
+        public void ClearResourceListCache()
+        {
+            _resourceListCache.ClearAll();
+        }
+
+        /// <summary>
+        /// Clears the cached data for a specific resource list
+        /// </summary>
+        /// <typeparam name="T">The type of cache</typeparam>
+        public void ClearResourceListCache<T>()
+            where T : ResourceBase
+        {
+            _resourceListCache.Clear<T>();
+        }
+
+        /// <summary>
+        /// Gets a single page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(CancellationToken cancellationToken = default)
+            where T : ApiResource
+        {
+            string url = GetApiEndpointString<T>();
+            return InternalGetApiResourcePageAsync<T>(AddPaginationParamsToUrl(url), cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets the specified page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="take">The number of cards to return</param>
+        /// <param name="skip">Page offset/skip</param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(int take, int skip, CancellationToken cancellationToken = default)
+            where T : ApiResource
+        {
+            string url = GetApiEndpointString<T>();
+            return InternalGetApiResourcePageAsync<T>(AddPaginationParamsToUrl(url, take, skip), cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets the specified page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="filters">Dictionary of filters based on data fields. e.g name=base </param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(Dictionary<string, string> filters, CancellationToken cancellationToken = default)
+            where T : ApiResource
+        {
+            string url = GetApiEndpointString<T>();
+            return InternalGetApiResourcePageAsync<T>(AddQueryFilterParamsToUrl(url, filters), cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets the specified page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="take">The number of cards to return</param>
+        /// <param name="skip">Page offset/skip</param>
+        /// <param name="filters">Dictionary of filters based on data fields. e.g name=base </param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(int take , int skip, Dictionary<string, string> filters, CancellationToken cancellationToken = default)
+            where T : ApiResource
+        {
+            string url = GetApiEndpointString<T>();
+            return InternalGetApiResourcePageAsync<T>(AddQueryFilterParamsToUrl(url, filters, take, skip), cancellationToken);
+        }
+
+        private async Task<ApiResourceList<T>> InternalGetApiResourcePageAsync<T>(string url, CancellationToken cancellationToken)
+            where T : ApiResource
+        {
+            var resources = _resourceListCache.GetApiResourceList<T>(url);
+            if (resources == null)
+            {
+                resources = await GetAsync<ApiResourceList<T>>(url, cancellationToken);
+                _resourceListCache.Store(url, resources);
+            }
+
+            return resources;
+        }
+
+        /// <summary>
+        /// Handles all outbound API requests to the Pokemon API server and deserializes the response
+        /// </summary>
+        private async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken)
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
+            using var response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
+
+            #if DEBUG
+            // For debugging respose pre deserialisation
+            var responseStr = response.Content.ReadAsStringAsync().Result;
+            #endif
+
+            response.EnsureSuccessStatusCode();
+            return DeserializeStream<T>(await response.Content.ReadAsStreamAsync());
+        }
+
+        /// <summary>
+        /// Handles deserialization of a given stream to a given type
+        /// </summary>
+        private T DeserializeStream<T>(System.IO.Stream stream)
+        {
+            using var sr = new System.IO.StreamReader(stream);
+            using JsonReader reader = new JsonTextReader(sr);
+            var serializer = JsonSerializer.Create();
+            return serializer.Deserialize<T>(reader);
+        }
+
+        private static string AddPaginationParamsToUrl(string uri, int? pageSize = null, int? page = null)
+        {
+            var queryParameters = new Dictionary<string, string>();
+
+            // TODO consider to always set the pageSize parameter when not present to the default "20"
+            // in order to have a single cached resource list for requests with explicit or implicit default take
+            if (pageSize.HasValue)
+            {
+                queryParameters.Add(nameof(pageSize), pageSize.Value.ToString());
+            }
+
+            if (page.HasValue)
+            {
+                queryParameters.Add(nameof(page), page.Value.ToString());
+            }
+
+            return QueryHelpers.AddQueryString(uri, queryParameters);
+        }
+
+        private static string AddQueryFilterParamsToUrl(string uri, Dictionary<string, string> filterQuery, int? pageSize = null, int? page = null)
+        {
+            var queryParameters = new Dictionary<string, string>();
+
+            // TODO consider to always set the pageSize parameter when not present to the default "20"
+            // in order to have a single cached resource list for requests with explicit or implicit default take
+            if (pageSize.HasValue)
+            {
+                queryParameters.Add(nameof(pageSize), pageSize.Value.ToString());
+            }
+
+            if (page.HasValue)
+            {
+                queryParameters.Add(nameof(page), page.Value.ToString());
+            }
+
+            return QueryHelpers.AddQueryFiltersString(uri, queryParameters, filterQuery);
+        }
+
+        private static string GetApiEndpointString<T>()
+        {
+            PropertyInfo propertyInfo = typeof(T).GetProperty("ApiEndpoint", BindingFlags.Static | BindingFlags.NonPublic);
+            return propertyInfo.GetValue(null).ToString();
+        }
+
+        private static bool IsApiEndpointCaseSensitive<T>()
+        {
+            PropertyInfo propertyInfo = typeof(T).GetProperty("IsApiEndpointCaseSensitive", BindingFlags.Static | BindingFlags.NonPublic);
+            return propertyInfo == null ? false : (bool)propertyInfo.GetValue(null);
         }
     }
 }
