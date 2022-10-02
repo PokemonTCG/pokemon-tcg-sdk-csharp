@@ -120,6 +120,41 @@
         }
 
         [Test]
+        public async Task GetPokemon_Resource_ApiResourcePageAsyncPagination()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            // act
+            var page = await pokeClient.GetApiResourcePageAsync<PokemonCard>(take: 10, skip: 2);
+
+            // assert
+            Assert.That(page.Page, Is.EqualTo("2").NoClip);
+            Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
+        }
+
+        [Test]
+        public async Task GetPokemon_ApiResourcePageAsync_PaginationWithFilter()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+            var filter = new Dictionary<string, string>();
+            filter.Add("name", "Darkrai");
+
+            // act
+            var page = await pokeClient.GetApiResourcePageAsync<PokemonCard>(10, 2, filter);
+
+            // assert
+            StringAssert.Contains("Darkrai", page.Results.FirstOrDefault()?.Name);
+            StringAssert.Contains("Darkrai", page.Results.LastOrDefault()?.Name);
+
+            Assert.That(page.Page, Is.EqualTo("2").NoClip);
+            Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
+        }
+
+        [Test]
         public async Task GetTrainer_Resource_ApiResourcePageAsyncPagination()
         {
             // assemble
