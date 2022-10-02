@@ -1,5 +1,6 @@
 ﻿namespace PokemonTcgSdk.Standard.Tests
 {
+    using Features.FilterBuilder.Set;
     using Infrastructure.HttpClients;
     using Newtonsoft.Json;
     using NUnit.Framework;
@@ -55,7 +56,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
             var filter = new Dictionary<string, string>();
             filter.Add("legalities.standard", "legal");
-
+            
             // act
             var page = await pokeClient.GetApiResourcePageAsync<Set>(filter);
 
@@ -282,6 +283,41 @@
             // assert
             Assert.That(page.Rarity, Is.Not.Empty);
             Assert.That(page.Rarity.Count, Is.GreaterThanOrEqualTo(1));
+        }
+
+        [Test]
+        public void SetFilters_ReturnPopulatedDictionary()
+        {
+            // assemble
+            var dicObj = new SetFilterCollection<string, string>
+            {
+                {"Name", "Darkness Ablaze"}
+            };
+
+            // act
+            var filterBuilder = SetFilterBuilder.CreateSetFilter()
+                .AddName("Darkness Ablaze");
+
+            // assert
+            Assert.That(filterBuilder, Is.EqualTo(dicObj));
+        }
+
+        [Test]
+        public void SetFilters_ReturnMulitplePopulatedDictionary()
+        {
+            // assemble
+            var dicObj = new Dictionary<string, string>
+            {
+                {"Name", "Darkness Ablaze or Lost Origins"}
+            };
+
+            // act
+            var filterBuilder = SetFilterBuilder.CreateSetFilter()
+                .AddName("Darkness Ablaze")
+                .AddName("Lost Origins");
+
+            // assert
+            Assert.That(filterBuilder, Is.EqualTo(dicObj));
         }
     }
 }
