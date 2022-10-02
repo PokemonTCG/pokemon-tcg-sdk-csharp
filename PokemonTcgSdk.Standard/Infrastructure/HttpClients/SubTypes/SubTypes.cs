@@ -1,6 +1,7 @@
 ﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.SubTypes;
 
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 public class SubTypes : ResourceBase

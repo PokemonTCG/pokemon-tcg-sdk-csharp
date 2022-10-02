@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Immutable;
+
     using Infrastructure.HttpClients;
     using Infrastructure.HttpClients.Base;
     using Microsoft.Extensions.Caching.Memory;

@@ -1,6 +1,7 @@
 ﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.Cards;
 
 using System.Collections.Generic;
+
 using CommonModels;
 using Models;
 using Newtonsoft.Json;

@@ -1,6 +1,7 @@
 ﻿namespace PokemonTcgSdk.Standard.Infrastructure.HttpClients.Cards.Models;
 
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
 public class Attack

@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Text;
+﻿namespace PokemonTcgSdk.Standard.Extensions;
+
 using System;
-
-namespace PokemonTcgSdk.Standard.Extensions;
-
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public static class StringExtensions
 {
