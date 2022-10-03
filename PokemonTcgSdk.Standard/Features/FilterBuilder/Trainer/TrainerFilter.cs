@@ -13,7 +13,7 @@ public static class TrainerFilter
     /// <param name="value">The name value to add</param>
     public static TrainerFilterCollection<string, string> AddName(this TrainerFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, nameof(TrainerCard.Name), value);
+        return AddOrUpdate(dictionary, nameof(TrainerCard.Name).ToLower(), value);
     }
 
     /// <summary>
@@ -24,7 +24,7 @@ public static class TrainerFilter
     /// <param name="value">The name value to add</param>
     public static TrainerFilterCollection<string, string> AddSetName(this TrainerFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, $"{nameof(TrainerCard.Set)}:{nameof(TrainerCard.Set.Name)}", value);
+        return AddOrUpdate(dictionary, $"{nameof(TrainerCard.Set).ToLower()}.{nameof(TrainerCard.Set.Name).ToLower()}", value);
     }
 
     /// <summary>
@@ -35,7 +35,7 @@ public static class TrainerFilter
     /// <param name="value">The name value to add</param>
     public static TrainerFilterCollection<string, string> AddSetSeries(this TrainerFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, $"{nameof(TrainerCard.Set)}:{nameof(TrainerCard.Set.Series)}", value);
+        return AddOrUpdate(dictionary, $"{nameof(TrainerCard.Set).ToLower()}.{nameof(TrainerCard.Set.Series).ToLower()}", value);
     }
 
     private static TrainerFilterCollection<string, string> AddOrUpdate(TrainerFilterCollection<string, string> dictionary, string key, string value)

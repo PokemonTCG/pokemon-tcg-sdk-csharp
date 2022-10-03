@@ -12,7 +12,7 @@ public static class EnergyFilter
     /// <param name="value">The name value to add</param>
     public static EnergyFilterCollection<string, string> AddName(this EnergyFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, nameof(EnergyCard.Name), value);
+        return AddOrUpdate(dictionary, nameof(EnergyCard.Name).ToLower(), value);
     }
 
     /// <summary>
@@ -23,7 +23,7 @@ public static class EnergyFilter
     /// <param name="value">The name value to add</param>
     public static EnergyFilterCollection<string, string> AddSubTypes(this EnergyFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, nameof(EnergyCard.Subtypes), value);
+        return AddOrUpdate(dictionary, nameof(EnergyCard.Subtypes).ToLower(), value);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public static class EnergyFilter
     /// <param name="value">The name value to add</param>
     public static EnergyFilterCollection<string, string> AddSetName(this EnergyFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, $"{nameof(EnergyCard.Set)}:{nameof(EnergyCard.Set.Name)}", value);
+        return AddOrUpdate(dictionary, $"{nameof(EnergyCard.Set).ToLower()}.{nameof(EnergyCard.Set.Name).ToLower()}", value);
     }
 
     /// <summary>
@@ -45,7 +45,7 @@ public static class EnergyFilter
     /// <param name="value">The name value to add</param>
     public static EnergyFilterCollection<string, string> AddSetSeries(this EnergyFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, $"{nameof(EnergyCard.Set)}:{nameof(EnergyCard.Set.Series)}", value);
+        return AddOrUpdate(dictionary, $"{nameof(EnergyCard.Set).ToLower()}.{nameof(EnergyCard.Set.Series).ToLower()}", value);
     }
 
     /// <summary>
@@ -56,7 +56,7 @@ public static class EnergyFilter
     /// <param name="value">The name value to add</param>
     public static EnergyFilterCollection<string, string> AddRarity(this EnergyFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, nameof(EnergyCard.Rarity), value);
+        return AddOrUpdate(dictionary, nameof(EnergyCard.Rarity).ToLower(), value);
     }
 
     private static EnergyFilterCollection<string, string> AddOrUpdate(EnergyFilterCollection<string, string> dictionary, string key, string value)

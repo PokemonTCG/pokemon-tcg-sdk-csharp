@@ -2,7 +2,7 @@
 
 public static class TrainerFilterBuilder
 {
-    public static TrainerFilterCollection<string, string> CreateSetFilter()
+    public static TrainerFilterCollection<string, string> CreateTrainerFilter()
     {
         return new TrainerFilterCollection<string, string>();
     }
