@@ -1,6 +1,9 @@
 ﻿namespace PokemonTcgSdk.Standard.Tests
 {
+    using Features.FilterBuilder.Energy;
+    using Features.FilterBuilder.Pokemon;
     using Features.FilterBuilder.Set;
+    using Features.FilterBuilder.Trainer;
     using Infrastructure.HttpClients;
     using Newtonsoft.Json;
     using NUnit.Framework;
@@ -27,7 +30,7 @@
             var client = new PokemonApiClient(mockHttp);
 
             // act
-            var page = await client.GetApiResourcePageAsync<Set>();
+            var page = await client.GetApiResourceAsync<Set>();
 
             // assert
             mockHttp.VerifyNoOutstandingExpectation();
@@ -41,7 +44,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<Set>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<Set>(take: 10, skip: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -54,11 +57,11 @@
             // assemble
             var httpclient = new HttpClient();
             var pokeClient = new PokemonApiClient(httpclient);
-            var filter = new Dictionary<string, string>();
-            filter.Add("legalities.standard", "legal");
-            
+
+            var filter = new SetFilterCollection<string, string> {{"legalities.standard", "legal"}};
+
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<Set>(filter);
+            var page = await pokeClient.GetApiResourceAsync<Set>(filter);
 
             // assert
             Assert.That(page.Results.FirstOrDefault()?.Legalities.Standard, Is.EqualTo("Legal"));
@@ -71,11 +74,10 @@
             // assemble
             var httpclient = new HttpClient();
             var pokeClient = new PokemonApiClient(httpclient);
-            var filter = new Dictionary<string, string>();
-            filter.Add("legalities.standard", "legal");
+            var filter = new SetFilterCollection<string, string> { { "legalities.standard", "legal" } };
 
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<Set>(5, 2, filter);
+            var page = await pokeClient.GetApiResourceAsync<Set>(5, 2, filter);
 
             // assert
             Assert.That(page.Results.FirstOrDefault()?.Legalities.Standard, Is.EqualTo("Legal"));
@@ -93,7 +95,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<Card>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<Card>(take: 10, skip: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -110,7 +112,7 @@
             filter.Add("hp", "60");
 
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<Card>(5, 2, filter);
+            var page = await pokeClient.GetApiResourceAsync<Card>(5, 2, filter);
 
             // assert
             Assert.That(page.Results.FirstOrDefault()?.Hp, Is.EqualTo(60));
@@ -128,7 +130,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<PokemonCard>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, skip: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -141,11 +143,14 @@
             // assemble
             var httpclient = new HttpClient();
             var pokeClient = new PokemonApiClient(httpclient);
-            var filter = new Dictionary<string, string>();
-            filter.Add("name", "Darkrai");
+
+            var filter = new PokemonFilterCollection<string, string>()
+                .AddName("Darkrai");
+            filter.Add("legalities.standard", "legal");
+
 
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<PokemonCard>(10, 2, filter);
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 2, filter);
 
             // assert
             StringAssert.Contains("Darkrai", page.Results.FirstOrDefault()?.Name);
@@ -163,7 +168,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<TrainerCard>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<TrainerCard>(take: 10, skip: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -176,11 +181,9 @@
             // assemble
             var httpclient = new HttpClient();
             var pokeClient = new PokemonApiClient(httpclient);
-            var filter = new Dictionary<string, string>();
-            filter.Add("name", "Tropical Wind");
-
+            var filter = new TrainerFilterCollection<string, string>().AddName("Tropical Wind");
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<TrainerCard>(2, 2, filter);
+            var page = await pokeClient.GetApiResourceAsync<TrainerCard>(2, 2, filter);
 
             // assert
             Assert.That(page.Results.FirstOrDefault()?.Name, Is.EqualTo("Tropical Wind"));
@@ -198,7 +201,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<EnergyCard>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<EnergyCard>(take: 10, skip: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -211,11 +214,9 @@
             // assemble
             var httpclient = new HttpClient();
             var pokeClient = new PokemonApiClient(httpclient);
-            var filter = new Dictionary<string, string>();
-            filter.Add("name", "Double Rainbow Energy");
-
+            var filter = new EnergyFilterCollection<string, string>().AddName("Double Rainbow Energy");
             // act
-            var page = await pokeClient.GetApiResourcePageAsync<TrainerCard>(2, 2, filter);
+            var page = await pokeClient.GetApiResourceAsync<TrainerCard>(2, 2, filter);
 
             // assert
             Assert.That(page.Results.FirstOrDefault()?.Name, Is.EqualTo("Double Rainbow Energy"));
@@ -283,41 +284,6 @@
             // assert
             Assert.That(page.Rarity, Is.Not.Empty);
             Assert.That(page.Rarity.Count, Is.GreaterThanOrEqualTo(1));
-        }
-
-        [Test]
-        public void SetFilters_ReturnPopulatedDictionary()
-        {
-            // assemble
-            var dicObj = new SetFilterCollection<string, string>
-            {
-                {"Name", "Darkness Ablaze"}
-            };
-
-            // act
-            var filterBuilder = SetFilterBuilder.CreateSetFilter()
-                .AddName("Darkness Ablaze");
-
-            // assert
-            Assert.That(filterBuilder, Is.EqualTo(dicObj));
-        }
-
-        [Test]
-        public void SetFilters_ReturnMulitplePopulatedDictionary()
-        {
-            // assemble
-            var dicObj = new Dictionary<string, string>
-            {
-                {"Name", "Darkness Ablaze or Lost Origins"}
-            };
-
-            // act
-            var filterBuilder = SetFilterBuilder.CreateSetFilter()
-                .AddName("Darkness Ablaze")
-                .AddName("Lost Origins");
-
-            // assert
-            Assert.That(filterBuilder, Is.EqualTo(dicObj));
         }
     }
 }

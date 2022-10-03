@@ -52,57 +52,6 @@
             _resourceListCache.Dispose();
         }
 
-        /// <summary>
-        /// Send a request to the api and serialize the response into the specified type
-        /// </summary>
-        /// <typeparam name="T">The type of resource</typeparam>
-        /// <param name="apiParam">The name or id of the resource</param>
-        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
-        /// <exception cref="HttpRequestException">Something went wrong with your request</exception>
-        /// <returns>An instance of the specified type with data from the request</returns>
-        private async Task<T> GetResourcesWithParamsAsync<T>(string apiParam, CancellationToken cancellationToken)
-            where T : ResourceBase
-        {
-            // check for case sensitive API endpoint
-            bool isApiEndpointCaseSensitive = IsApiEndpointCaseSensitive<T>();
-            string sanitizedApiParam = isApiEndpointCaseSensitive ? apiParam : apiParam.ToLowerInvariant();
-            string apiEndpoint = GetApiEndpointString<T>();
-
-            return await GetAsync<T>($"{apiEndpoint}/{sanitizedApiParam}/", cancellationToken);
-        }
-
-        /// <summary>
-        /// Gets a resource from a navigation url; resource is retrieved from cache if possible
-        /// </summary>
-        /// <typeparam name="T">The type of resource</typeparam>
-        /// <param name="url">Navigation url</param>
-        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
-        /// <exception cref="NotSupportedException">Navigation url doesn't contain the resource id</exception>
-        /// <returns>The object of the resource</returns>
-        private async Task<T> GetResourceByUrlAsync<T>(string url, CancellationToken cancellationToken)
-            where T : ResourceBase
-        {
-            // need to parse out the id in order to check if it's cached.
-            // navigation urls always use the id of the resource
-            string trimmedUrl = url.TrimEnd('/');
-            string resourceId = trimmedUrl.Substring(trimmedUrl.LastIndexOf('/') + 1);
-
-            if (!int.TryParse(resourceId, out int id))
-            {
-                // not sure what to do here...
-                throw new NotSupportedException($"Navigation url '{url}' is in an unexpected format");
-            }
-
-            T resource = _resourceCache.Get<T>(id);
-            if (resource == null)
-            {
-                resource = await GetResourcesWithParamsAsync<T>(resourceId, cancellationToken);
-                _resourceCache.Store<T>(resource);
-            }
-
-            return resource;
-        }
-
         public async Task<T> GetStringResourceAsync<T>() where T : ResourceBase
         {
             string url = GetApiEndpointString<T>();
@@ -160,7 +109,7 @@
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
-        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(CancellationToken cancellationToken = default)
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(CancellationToken cancellationToken = default)
             where T : ApiResource
         {
             string url = GetApiEndpointString<T>();
@@ -175,7 +124,7 @@
         /// <param name="skip">Page offset/skip</param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
-        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(int take, int skip, CancellationToken cancellationToken = default)
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take, int skip, CancellationToken cancellationToken = default)
             where T : ApiResource
         {
             string url = GetApiEndpointString<T>();
@@ -189,7 +138,7 @@
         /// <param name="filters">Dictionary of filters based on data fields. e.g name=base </param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
-        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(Dictionary<string, string> filters, CancellationToken cancellationToken = default)
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(IDictionary<string, string> filters, CancellationToken cancellationToken = default)
             where T : ApiResource
         {
             string url = GetApiEndpointString<T>();
@@ -205,7 +154,7 @@
         /// <param name="filters">Dictionary of filters based on data fields. e.g name=base </param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
-        public Task<ApiResourceList<T>> GetApiResourcePageAsync<T>(int take , int skip, Dictionary<string, string> filters, CancellationToken cancellationToken = default)
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take , int skip, IDictionary<string, string> filters, CancellationToken cancellationToken = default)
             where T : ApiResource
         {
             string url = GetApiEndpointString<T>();
@@ -272,7 +221,7 @@
             return QueryHelpers.AddQueryString(uri, queryParameters);
         }
 
-        private static string AddQueryFilterParamsToUrl(string uri, Dictionary<string, string> filterQuery, int? pageSize = null, int? page = null)
+        private static string AddQueryFilterParamsToUrl(string uri, IDictionary<string, string> filterQuery, int? pageSize = null, int? page = null)
         {
             var queryParameters = new Dictionary<string, string>();
 
