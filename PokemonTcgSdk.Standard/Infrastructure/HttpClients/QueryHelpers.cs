@@ -25,7 +25,7 @@ internal static class QueryHelpers
     /// <returns>The combined result.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="queryString"/> is <c>null</c>.</exception>
-    public static string AddQueryString(string uri, IDictionary<string, string?> queryString)
+    public static string AddQueryString(string uri, Dictionary<string, string?> queryString)
     {
         if (uri == null)
         {
@@ -93,7 +93,7 @@ internal static class QueryHelpers
     /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="queryString"/> is <c>null</c>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="filterQuery"/> is <c>null</c>.</exception>
-    public static string AddQueryFiltersString(string uri, Dictionary<string, string> queryString, Dictionary<string, string> filterQuery)
+    public static string AddQueryFiltersString(string uri, IDictionary<string, string> queryString, IDictionary<string, string> filterQuery)
     {
         if (uri == null)
         {
