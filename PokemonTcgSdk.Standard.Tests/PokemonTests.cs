@@ -16,6 +16,7 @@
     using Infrastructure.HttpClients.SuperTypes;
     using Infrastructure.HttpClients.Types;
     using RichardSzalay.MockHttp;
+    using Newtonsoft.Json.Linq;
 
     public class PokemonTests
     {
@@ -295,13 +296,11 @@
             var pokeClient = new PokemonApiClient(httpclient);
             var dicObj = new Dictionary<string, string>
             {
-                {"name", "Darkrai"},
-                {"name", "Pikachu"},
-                {"subtypes", "Stage 1"},
-                {"hp", "{60 TO 120}"},
+                {"name", "Darkrai,Pikachu"},
+                {"subtypes", "Basic"},
+                {"hp", "{60 TO 210}"},
                 {"rarity", "Common"},
-                {"attacks.convertedEnergyCost", "{2 TO 4}"},
-                {"evolvesfrom", "Pikachu"}
+                {"attacks.convertedEnergyCost", "{2 TO 4}"}
             };
 
             // act
@@ -309,6 +308,27 @@
 
             // assert
             Assert.That(page.Results, Is.Not.Empty);
+        }
+
+        [Test]
+        public async Task GetPokemon_ExtensionFilters_ApiResourceAsync()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().AddName("Darkrai").AddName("Pikachu")
+                .AddSubTypes("Basic").AddHpRange("60", "210", false).AddAttackCostRange("2", "4", false);
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(filter);
+
+            // assert
+            Assert.That(page.Results, Is.Not.Empty);
+            Assert.That(page.Results.Any(x => x.Name == "Darkrai"));
+            Assert.That(page.Results.Any(x => x.Name == "Pikachu"));
+            //Not using exact matching so this Assert fails
+            //Assert.That(page.Results.Select(item => item.Name), Is.All.EqualTo("Darkai").Or.EqualTo("Pikachu"));
         }
     }
 }
