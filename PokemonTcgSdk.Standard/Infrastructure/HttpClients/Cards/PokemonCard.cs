@@ -21,8 +21,8 @@ public class PokemonCard : ApiResource
     [JsonProperty("subtypes")]
     public List<string> Subtypes { get; set; }
 
-    [JsonProperty("level")]
-    public int Level { get; set; }
+    [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
+    public string Level { get; set; }
 
     [JsonProperty("hp")]
     public int Hp { get; set; }
