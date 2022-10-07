@@ -80,7 +80,9 @@ var filter = PokemonFilterBuilder.CreatePokemonFilter()
 // custom addition
 filter.Add("legalities.standard", "legal");
 ```
-Or if you don't want to use any extension methods you can create your own filter from scratch. Be aware that the key needs to match the json fields in the api return
+Please see offical documentation for more advance filters until these are added in as extension.
+
+For example, if you don't want to use any extension methods you can create your own filter from scratch. Be aware that the key needs to match the json fields in the api return
 ```c#
  var filter = new Dictionary<string, string>
  {

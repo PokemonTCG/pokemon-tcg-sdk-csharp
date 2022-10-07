@@ -3,13 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonTcgSdk", "PokemonTcgSdk\PokemonTcgSdk.csproj", "{BD97F285-4FB2-419E-A967-732494271E34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonTcgSdk.Standard", "PokemonTcgSdk.Standard\PokemonTcgSdk.Standard.csproj", "{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonTest", "PokemonTest\PokemonTest.csproj", "{84A2AD05-31D9-4511-AF1C-9AE490650BB9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonTcgSdk.Standard", "PokemonTcgSdk.Standard\PokemonTcgSdk.Standard.csproj", "{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonTcgSdk.Standard.Tests", "PokemonTcgSdk.Standard.Tests\PokemonTcgSdk.Standard.Tests.csproj", "{F1630557-B7EC-4A11-A510-4E2FF3F25647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonTcgSdk.Standard.Tests", "PokemonTcgSdk.Standard.Tests\PokemonTcgSdk.Standard.Tests.csproj", "{F1630557-B7EC-4A11-A510-4E2FF3F25647}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BD97F285-4FB2-419E-A967-732494271E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BD97F285-4FB2-419E-A967-732494271E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BD97F285-4FB2-419E-A967-732494271E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BD97F285-4FB2-419E-A967-732494271E34}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84A2AD05-31D9-4511-AF1C-9AE490650BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84A2AD05-31D9-4511-AF1C-9AE490650BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84A2AD05-31D9-4511-AF1C-9AE490650BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84A2AD05-31D9-4511-AF1C-9AE490650BB9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE982DC2-E4BF-4226-ADA7-9C391B8B347C}.Release|Any CPU.ActiveCfg = Release|Any CPU

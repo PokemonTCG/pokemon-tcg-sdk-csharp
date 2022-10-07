@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
-    <Authors>JSpencer</Authors>
+    <Authors>jacob.spencer80@googlemail.com</Authors>
   </PropertyGroup>
 
   <ItemGroup>

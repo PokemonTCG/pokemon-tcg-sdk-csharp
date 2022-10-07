@@ -1,5 +1,6 @@
 ﻿namespace PokemonTcgSdk.Standard.Tests
 {
+    using System.Security.Cryptography.X509Certificates;
     using Features.FilterBuilder.Energy;
     using Features.FilterBuilder.Pokemon;
     using Features.FilterBuilder.Set;
@@ -284,6 +285,30 @@
             // assert
             Assert.That(page.Rarity, Is.Not.Empty);
             Assert.That(page.Rarity.Count, Is.GreaterThanOrEqualTo(1));
+        }        
+        
+        [Test]
+        public async Task GetPokemon_DictionaryFilters_ApiResourceAsync()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+            var dicObj = new Dictionary<string, string>
+            {
+                {"name", "Darkrai"},
+                {"name", "Pikachu"},
+                {"subtypes", "Stage 1"},
+                {"hp", "{60 TO 120}"},
+                {"rarity", "Common"},
+                {"attacks.convertedEnergyCost", "{2 TO 4}"},
+                {"evolvesfrom", "Pikachu"}
+            };
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(dicObj);
+
+            // assert
+            Assert.That(page.Results, Is.Not.Empty);
         }
     }
 }
