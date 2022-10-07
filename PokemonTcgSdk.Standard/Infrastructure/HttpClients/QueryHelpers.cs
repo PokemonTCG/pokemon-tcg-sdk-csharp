@@ -148,12 +148,32 @@ internal static class QueryHelpers
 
             if (hasQuery)
             {
-                sb.Append('&');
+                sb.Append(' ');
             }
 
-            sb.Append(UrlEncoder.Default.Encode(filterItem.Key));
-            sb.Append(':');
-            sb.Append(UrlEncoder.Default.Encode($"\"{filterItem.Value}\""));
+            if (filterItem.Value.Split(',').Length > 0)
+            {
+                var split = filterItem.Value.Split(',');
+                foreach (var item in split)
+                {
+                    sb.Append(UrlEncoder.Default.Encode(filterItem.Key));
+                    sb.Append(':');
+                    sb.Append(UrlEncoder.Default.Encode(item));
+                    var orVlaue = " or ";
+                    if (item != split.LastOrDefault())
+                    {
+                        sb.Append(UrlEncoder.Default.Encode(orVlaue));
+                    }
+                }
+
+            }
+            else
+            {
+                sb.Append(UrlEncoder.Default.Encode(filterItem.Key));
+                sb.Append(':');
+                sb.Append(UrlEncoder.Default.Encode(filterItem.Value));
+            }
+
             hasQuery = true;
         }
 

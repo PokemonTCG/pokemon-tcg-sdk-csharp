@@ -42,7 +42,7 @@ public static class SetFilter
     {
         if (dictionary.TryGetValue(key, out var oldValue))
         {
-            oldValue = $"{oldValue} or {value}";
+            oldValue = $"{oldValue},{value}";
             dictionary[key] = oldValue;
             return dictionary;
         }
