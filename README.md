@@ -59,8 +59,9 @@ PokemonFilterBuilder.CreatePokemonFilter()
 EnergyFilterBuilder.CreateEnergyFilter(
 TrainerFilterBuilder.CreateTrainerFilter()
 SetFilterBuilder.CreateSetFilter()
-
+```
 e.g
+```c#
 var filter = PokemonFilterBuilder.CreatePokemonFilter().AddName("Darkrai");
 var filter = PokemonFilterBuilder.CreatePokemonFilter()
     .AddName("Darkrai")
@@ -82,11 +83,13 @@ filter.Add("legalities.standard", "legal");
 ```
 Please see offical documentation for more advance filters until these are added in as extension.
 
-For example, if you don't want to use any extension methods you can create your own filter from scratch. Be aware that the key needs to match the json fields in the api return
+For example, if you don't want to use any extension methods you can create your own filter from scratch. 
+Be aware that the key needs to match the json fields in the api return. 
+Also for multiple matches (so OR filter) this is done by seperating with a comma, no spaces as the example of "name" shows below.
 ```c#
  var filter = new Dictionary<string, string>
  {
-     {"name", "Darkrai or Pikachu"},
+     {"name", "Darkrai,Pikachu"},
      {"subtypes", "Stage 1"},
      {"hp", "{60 TO 120}"},
      {"rarity", "Common"},
@@ -102,6 +105,7 @@ var cards = await pokeClient.GetApiResourceAsync<PokemonCard>(filter);
 var cards = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 2, filter);
 ```
 ## String Method Definitions
+As these lists as small and of type List<string> these will return all.
 ##### SubType
 ```c#
 var types = await pokeClient.GetStringResourceAsync<SubTypes>();
