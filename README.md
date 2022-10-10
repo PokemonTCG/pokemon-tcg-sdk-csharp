@@ -21,7 +21,7 @@ PokemonApiClient pokeClient = new PokemonApiClient();
   client.DefaultRequestHeaders.Add("X-Api-Key", "YOUR-API-KEY");
   
   // instantiate client
-PokemonApiClient pokeClient = new PokemonApiClient();
+PokemonApiClient pokeClient = new PokemonApiClient(client);
   ```
 
 This is especially useful when used in projects where IHttpClientFactory is used to create and configure HttpClient instances with different policies.
