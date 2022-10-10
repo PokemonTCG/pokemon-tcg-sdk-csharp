@@ -123,17 +123,21 @@ var types = await pokeClient.GetStringResourceAsync<ElementTypes>();
 var rarities = await pokeClient.GetStringResourceAsync<Rarities>();
 ```
 ## Caching
-Every resource response is automatically cached in memory, making all subsequent requests for the same resource or page pull cached data. Example:
+Every resource response is automatically cached in memory, making all subsequent requests for the same resource (url matching) pull cached data. Example:
 ```c#
 // this will fetch the data from the API  
  var filter = PokemonFilterBuilder.CreatePokemonFilter()
-   .Add("id", "swsh8-167");   
+   .AddName("Darkrai");
 var darkrai = await pokeClient.GetApiResourceAsync<Pokemon>(filter);
 
 // another call to the same resource will fetch from the cache
  var filterBuilder = PokemonFilterBuilder.CreatePokemonFilter()
      .AddName("Darkrai");
  var darkrai = await pokeClient.GetApiResourceAsync<Pokemon>(filter);    
+```
+This can be confirmed by:
+```c#
+var fromCache = darkrai.FromCache;
 ```
 
 To clear the cache of data:
@@ -188,7 +192,7 @@ Rarities
 ``` 
 
 ##### PokemonCard
-```
+```c#
     public string Id { get; set; }
     public string Name { get; set; }
     public string Supertype { get; set; }
@@ -218,6 +222,7 @@ Rarities
     public string RegulationMark { get; set; }
 ```
 ##### TrainerCard
+````c#
     public string Id { get; set; }
     public string Name { get; set; }
     public string Supertype { get; set; }
@@ -235,9 +240,10 @@ Rarities
     public string RegulationMark { get; set; }
     public int Hp { get; set; }
     public List<Ability> Abilities { get; set; }
-    
+````
+
 ##### EnergyCard
-```
+```c#
 string Id 
 string Name
 string Supertype
@@ -278,13 +284,13 @@ string  Type
 string  Value
 ```
 ###### TcgPlayer
-```
+```C#
 Uri Url
 string UpdatedAt
 TcgPlayerPrices Prices 
 ```
 ###### TcgPlayerPrices
-```
+```c#
 Prices Holofoil
 Prices ReverseHolofoil
 Prices Normal
@@ -292,7 +298,7 @@ Prices The1StEditionHolofoil
 Prices UnlimitedHolofoil
 ```
 ###### Prices
-```
+```C#
 double Low
 double Mid
 double High
@@ -300,13 +306,13 @@ double Market
 double? DirectLow
 ```
 ###### CardMarket
-```
+```c#
 Uri Url
 string UpdatedAt
 CardMarketPrices Prices 
 ```
 ###### CardMarketPrices
-```
+```c#
 decimal? AverageSellPrice 
 decimal? LowPrice 
 decimal? TrendPrice 
@@ -323,7 +329,7 @@ decimal? AverageMonthReverseHolo
 ```
 
 ###### SetData
-```C#
+```c#
 string Id
 string Name
 string Series

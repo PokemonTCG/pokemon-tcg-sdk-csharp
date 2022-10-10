@@ -5,6 +5,17 @@ using Infrastructure.HttpClients.Cards;
 public static class PokemonFilter
 {
     /// <summary>
+    /// Extension method. Will add new id filter. If id filter exists
+    /// will concat and create an OR filter. e.g "dp4-3" or "dp4-4"
+    /// </summary>
+    /// <param name="dictionary"></param>
+    /// <param name="value">The name value to add</param>
+    public static PokemonFilterCollection<string, string> AddId(this PokemonFilterCollection<string, string> dictionary, string value)
+    {
+        return AddOrUpdate(dictionary, nameof(PokemonCard.Id).ToLower(), value);
+    }
+
+    /// <summary>
     /// Extension method. Will add new name filter. If name filter exists
     /// will concat and create an OR filter. e.g "Mew" or "Mewtwo"
     /// </summary>
