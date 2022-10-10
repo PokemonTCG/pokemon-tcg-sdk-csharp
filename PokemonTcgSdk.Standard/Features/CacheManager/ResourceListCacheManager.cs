@@ -54,7 +54,7 @@
         /// </returns>
         public ApiResourceList<T> GetApiResourceList<T>(string url) where T : ApiResource
         {
-            System.Type resourceType = typeof(T);
+            Type resourceType = typeof(T);
             return listCaches[resourceType].Get<T>(url) as ApiResourceList<T>;
         }
 
@@ -121,8 +121,7 @@
             /// <param name="url">The url of the resource list</param>
             /// <typeparam name="T">The type of objects in the resource list</typeparam>
             /// <returns>The resource list from cache</returns>
-            public ResourceList<T> Get<T>(string url) where T : ResourceBase =>
-                _urlCache.Get<ResourceList<T>>(url);
+            public ResourceList<T> Get<T>(string url) where T : ResourceBase => _urlCache.Get<ResourceList<T>>(url);
 
             /// <summary>
             /// Dispose object

@@ -170,6 +170,11 @@
                 resources = await GetAsync<ApiResourceList<T>>(url, cancellationToken);
                 _resourceListCache.Store(url, resources);
             }
+            else
+            {
+                // we do this as a marker that the cache is used, useful for debugging
+                resources.FromCache = true;
+            }
 
             return resources;
         }

@@ -1,6 +1,5 @@
 ﻿namespace PokemonTcgSdk.Standard.Tests
 {
-    using System.Security.Cryptography.X509Certificates;
     using Features.FilterBuilder.Energy;
     using Features.FilterBuilder.Pokemon;
     using Features.FilterBuilder.Set;
@@ -16,7 +15,6 @@
     using Infrastructure.HttpClients.SuperTypes;
     using Infrastructure.HttpClients.Types;
     using RichardSzalay.MockHttp;
-    using Newtonsoft.Json.Linq;
 
     public class PokemonTests
     {
@@ -329,6 +327,25 @@
             Assert.That(page.Results.Any(x => x.Name == "Pikachu"));
             //Not using exact matching so this Assert fails
             //Assert.That(page.Results.Select(item => item.Name), Is.All.EqualTo("Darkai").Or.EqualTo("Pikachu"));
+        }
+
+        [Test]
+        public async Task GetPokemon_FromCache_ApiResourceAsync()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            // act
+            pokeClient.ClearCache();
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, skip: 2);
+            // assert
+            Assert.That(page.FromCache, Is.False);
+
+            // act
+            var cache = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, skip: 2);
+            // assert
+            Assert.That(cache.FromCache, Is.True);
         }
     }
 }

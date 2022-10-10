@@ -27,6 +27,11 @@ public abstract class ResourceList<T> where T : ResourceBase
     /// The size of the page
     /// </summary>
     public string PageSize { get; set; }
+
+    /// <summary>
+    /// Marker to show if response is from cache
+    /// </summary>
+    public bool FromCache { get; set; } = false;
 }
 
 /// <summary>
