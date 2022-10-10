@@ -241,7 +241,6 @@ Rarities
     public int Hp { get; set; }
     public List<Ability> Abilities { get; set; }
 ````
-
 ##### EnergyCard
 ```c#
 string Id 
@@ -259,13 +258,13 @@ TcgPlayer Tcgplayer
 CardMarket Cardmarket
 ```    
 ###### Ability
-```C#
+```c#
 string  Name
 string  Text
 string  Type
 ```
 ###### Attack
-```C#
+```c#
 List<string> Cost
 string  Name
 string  Text
@@ -273,18 +272,17 @@ string  Damage
 int  ConvertedEnergyCost
 ```
 ###### CardImage
-```C#
+```c#
 Uri Small
 Uri Large
 ```
 ###### Resistance
-
-```C#
+```c#
 string  Type
 string  Value
 ```
 ###### TcgPlayer
-```C#
+```c#
 Uri Url
 string UpdatedAt
 TcgPlayerPrices Prices 
@@ -298,7 +296,7 @@ Prices The1StEditionHolofoil
 Prices UnlimitedHolofoil
 ```
 ###### Prices
-```C#
+```c#
 double Low
 double Mid
 double High
@@ -327,7 +325,6 @@ decimal? AverageDayReverseHolo
 decimal? AverageWeekReverseHolo 
 decimal? AverageMonthReverseHolo
 ```
-
 ###### SetData
 ```c#
 string Id
