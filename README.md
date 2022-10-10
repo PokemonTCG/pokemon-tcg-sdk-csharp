@@ -1,5 +1,5 @@
 
-# # Pokémon TCG SDK C#
+# Pokémon TCG SDK C#
 A .Net wrapper for the Pokemon API at [pokemontcg.io](pokemontcg.io).
 
 Targets .Net Standard 2.0+.
@@ -84,7 +84,7 @@ filter.Add("legalities.standard", "legal");
 Please see offical documentation for more advance filters until these are added in as extension.
 
 For example, if you don't want to use any extension methods you can create your own filter from scratch. 
-Be aware that the key needs to match the json fields in the api return. 
+Be aware that the key needs to match the json fields in the api return, as well as casing. 
 Also for multiple matches (so OR filter) this is done by seperating with a comma, no spaces as the example of "name" shows below.
 ```c#
  var filter = new Dictionary<string, string>
