@@ -347,5 +347,19 @@
             // assert
             Assert.That(cache.FromCache, Is.True);
         }
+
+        [Test]
+        public async Task GetSubtypes_ApiResourcePageAsync_DefaultConstructor()
+        {
+            // assemble
+            var pokeClient = new PokemonApiClient();
+
+            // act
+            var page = await pokeClient.GetStringResourceAsync<SubTypes>();
+
+            // assert
+            Assert.That(page.SubType, Is.Not.Empty);
+            Assert.That(page.SubType.Count, Is.GreaterThanOrEqualTo(1));
+        }
     }
 }
