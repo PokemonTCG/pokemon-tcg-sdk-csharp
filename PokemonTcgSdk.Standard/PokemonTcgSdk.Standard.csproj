@@ -5,6 +5,16 @@
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
     <Authors>jacob.spencer80@googlemail.com</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>MIT</Copyright>
+    <Version>2.0.0-beta</Version>
+    <PackageProjectUrl>https://github.com/PokemonTCG/pokemon-tcg-sdk-csharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/PokemonTCG/pokemon-tcg-sdk-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>A SDK Wrapper around pokemontcg.io API. Supporting V2.</Description>
+    <Product>PokemonTcgSdk</Product>
+    <PackageId>PokemonTcgSdk</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

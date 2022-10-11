@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -17,6 +18,23 @@
         private readonly Uri _baseUri = new Uri("https://api.pokemontcg.io/v2/");
         private readonly ResourceCacheManager _resourceCache = new ResourceCacheManager();
         private readonly ResourceListCacheManager _resourceListCache = new ResourceListCacheManager();
+        public static readonly string ApiKey = "";
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public PokemonApiClient() : this(ApiKey) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PokemonApiClient"/> with 
+        /// a given value for the `User-Agent` header
+        /// </summary>
+        /// <param name="apiKey">The value for the default `X-Api-Key` header.</param>
+        public PokemonApiClient(string apikey)
+        {
+            _client = new HttpClient() { BaseAddress = _baseUri };
+            _client.DefaultRequestHeaders.Add("X-Api-Key", apikey);
+        }
 
         /// <summary>
         /// Constructor with message handler and `Api key` header value.
