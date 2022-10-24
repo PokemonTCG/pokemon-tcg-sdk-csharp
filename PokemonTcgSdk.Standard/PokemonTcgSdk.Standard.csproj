@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
+    <Authors>jacob.spencer80@googlemail.com</Authors>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>MIT</Copyright>
+    <Version>2.1.0-beta</Version>
+    <PackageProjectUrl>https://github.com/PokemonTCG/pokemon-tcg-sdk-csharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/PokemonTCG/pokemon-tcg-sdk-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>A SDK Wrapper around pokemontcg.io API. Supporting V2.</Description>
+    <Product>PokemonTcgSdk</Product>
+    <PackageId>PokemonTcgSdk</PackageId>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />
+  </ItemGroup>
+</Project>
