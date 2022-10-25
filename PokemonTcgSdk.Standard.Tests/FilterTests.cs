@@ -65,7 +65,7 @@ public class FilterTests
         // assemble
         var dicObj = new Dictionary<string, string>
         {
-            {"name", "Darkrai or Pikachu"}
+            {"name", "Darkrai,Pikachu"}
         };
 
         // act
@@ -115,7 +115,7 @@ public class FilterTests
         // assemble
         var dicObj = new Dictionary<string, string>
         {
-            {"name", "Darkrai or name:Pikachu"},
+            {"name", "Darkrai,Pikachu"},
             {"subtypes", "Stage 1"},
             {"hp", "{60 TO 120}"},
             {"rarity", "Common"},
