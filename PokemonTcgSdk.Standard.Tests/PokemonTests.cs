@@ -150,13 +150,13 @@
 
 
             // act
-            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 2, filter);
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 1, filter);
 
             // assert
             StringAssert.Contains("Darkrai", page.Results.FirstOrDefault()?.Name);
             StringAssert.Contains("Darkrai", page.Results.LastOrDefault()?.Name);
 
-            Assert.That(page.Page, Is.EqualTo("2").NoClip);
+            Assert.That(page.Page, Is.EqualTo("1").NoClip);
             Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
         }
 
@@ -216,7 +216,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
             var filter = new EnergyFilterCollection<string, string>().AddName("Double Rainbow Energy");
             // act
-            var page = await pokeClient.GetApiResourceAsync<TrainerCard>(2, 2, filter);
+            var page = await pokeClient.GetApiResourceAsync<EnergyCard>(2, 2, filter);
 
             // assert
             Assert.That(page.Results.FirstOrDefault()?.Name, Is.EqualTo("Double Rainbow Energy"));
@@ -360,6 +360,22 @@
             // assert
             Assert.That(page.SubType, Is.Not.Empty);
             Assert.That(page.SubType.Count, Is.GreaterThanOrEqualTo(1));
+        }
+
+        [Test]
+        public async Task GetPokemonMultipleId_ExtensionFilters_ApiResourceAsync()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().AddId("dp4-3").AddId("dp4-4");
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(filter);
+
+            // assert
+            Assert.That(page.Results, Is.Not.Empty);
         }
     }
 }
