@@ -12,14 +12,14 @@ As of v2 of the api an api key is needed to get the full benefit of it. This can
 // instantiate client
 PokemonApiClient pokeClient = new PokemonApiClient();
 ```
-  Internally, `PokemonApiClient`   uses an instance of the `HttpClient` class. As such, instances of `PokemonApiClient` are [meant to be instantiated once and re-used throughout the life of an application.](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1#remarks)
-  ```c# 
+Internally, `PokemonApiClient`   uses an instance of the `HttpClient` class. As such, instances of `PokemonApiClient` are [meant to be instantiated once and re-used throughout the life of an application.](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1#remarks)
+```c# 
   // instantiate client
 PokemonApiClient pokeClient = new PokemonApiClient();
 
   // instantiate client with your api key
 PokemonApiClient pokeClient = new PokemonApiClient("YOUR-API-KEY");
-  ```
+```
 
 There are additional `PokemonApiClient` constructors that support your own httpclients as well as `HttpMessageHandler`. This is especially useful when used in projects where [IHttpClientFactory is used to create and configure HttpClient instances with different policies](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-6.0).
 ```c#
