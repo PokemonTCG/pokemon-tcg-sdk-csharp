@@ -47,4 +47,14 @@ public static class StringExtensions
     {
         return input.IsEmpty() ? new string[0] : input.Split(separators, StringSplitOptions.None);
     }
+
+    public static string HasSpaces(this string str)
+    {
+        if (str.Any(char.IsWhiteSpace))
+        {
+            return $"\"{str}\"";
+        }
+
+        return str;
+    }
 }

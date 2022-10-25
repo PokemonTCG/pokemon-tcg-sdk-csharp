@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
+using Extensions;
 
 /// <summary>
 /// Based on https://source.dot.net/#Microsoft.AspNetCore.WebUtilities/QueryHelpers.cs,1c1b023fbf834a3d
@@ -158,7 +159,7 @@ internal static class QueryHelpers
                 {
                     sb.Append(UrlEncoder.Default.Encode(filterItem.Key));
                     sb.Append(':');
-                    sb.Append(UrlEncoder.Default.Encode(item));
+                    sb.Append(UrlEncoder.Default.Encode(item.HasSpaces()));
                     var orVlaue = " or ";
                     if (item != split.LastOrDefault())
                     {
@@ -171,7 +172,7 @@ internal static class QueryHelpers
             {
                 sb.Append(UrlEncoder.Default.Encode(filterItem.Key));
                 sb.Append(':');
-                sb.Append(UrlEncoder.Default.Encode(filterItem.Value));
+                sb.Append(UrlEncoder.Default.Encode(filterItem.Value.HasSpaces()));
             }
 
             hasQuery = true;
