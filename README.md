@@ -4,7 +4,7 @@ A .Net wrapper for the Pokemon API at [pokemontcg.io](pokemontcg.io).
 
 Targets .Net Standard 2.0+.
 
-![Nuget](https://img.shields.io/nuget/v/PokemonTcgSdk?style=flat-square)
+[![Nuget](https://img.shields.io/nuget/v/PokemonTcgSdk?style=flat-square)](https://www.nuget.org/packages/PokemonTcgSdk)
 
 # Use
 As of v2 of the api an api key is needed to get the full benefit of it. This can be aquired at [pokemontcg.io](pokemontcg.io), without using a key rate limits are a lot lower.
