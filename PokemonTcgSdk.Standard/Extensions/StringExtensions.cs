@@ -50,7 +50,7 @@ public static class StringExtensions
 
     public static string HasSpaces(this string str)
     {
-        if (str.Any(char.IsWhiteSpace))
+        if (str.Any(char.IsWhiteSpace) && !str.Contains("TO"))
         {
             return $"\"{str}\"";
         }
