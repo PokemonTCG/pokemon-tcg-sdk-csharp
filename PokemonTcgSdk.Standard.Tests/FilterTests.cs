@@ -30,7 +30,7 @@ public class FilterTests
         // assemble
         var dicObj = new Dictionary<string, string>
         {
-            {"Name", "Darkness Ablaze or Lost Origins"}
+            {"Name", "Darkness Ablaze,Lost Origins"}
         };
 
         // act
