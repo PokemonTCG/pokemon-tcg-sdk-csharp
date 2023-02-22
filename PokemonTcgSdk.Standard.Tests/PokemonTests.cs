@@ -377,5 +377,27 @@
             // assert
             Assert.That(page.Results, Is.Not.Empty);
         }
+
+        [Test]
+        public async Task GetPokemon_ApiResourcePageAsync_AncientTrait()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().AddId("xyp-XY93");
+
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 1, filter);
+
+            // assert
+            StringAssert.Contains("Celebi", page.Results.FirstOrDefault()?.Name);
+            StringAssert.Contains("Celebi", page.Results.LastOrDefault()?.Name);
+            Assert.That(page.Results.FirstOrDefault()?.AncientTrait, Is.Not.Null);
+
+            Assert.That(page.Page, Is.EqualTo("1").NoClip);
+            Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
+        }
     }
 }

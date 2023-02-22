@@ -1,13 +1,13 @@
 
 # Pokémon TCG SDK C#
-A .Net wrapper for the Pokemon API at [pokemontcg.io](pokemontcg.io).
+A .Net wrapper for the Pokemon API at [pokemontcg.io](https://pokemontcg.io).
 
 Targets .Net Standard 2.0+.
 
 [![Nuget](https://img.shields.io/nuget/v/PokemonTcgSdk?style=flat-square)](https://www.nuget.org/packages/PokemonTcgSdk)
 
 # Use
-As of v2 of the api an api key is needed to get the full benefit of it. This can be aquired at [pokemontcg.io](pokemontcg.io), without using a key rate limits are a lot lower.
+As of v2 of the api an api key is needed to get the full benefit of it. This can be aquired at [pokemontcg.io](https://pokemontcg.io), without using a key rate limits are a lot lower.
 ```cs
 // instantiate client
 PokemonApiClient pokeClient = new PokemonApiClient();
@@ -175,6 +175,7 @@ Rarities
     public int Hp { get; set; }
     public List<string> Types { get; set; }
     public string EvolvesFrom { get; set; }
+    public AncientTrait AncientTrait { get; set; }
     public List<Ability> Abilities { get; set; }
     public List<Attack> Attacks { get; set; }
     public List<Resistance> Weaknesses { get; set; }
@@ -206,6 +207,7 @@ Rarities
     public int Hp { get; set; }
     public List<string> Types { get; set; }
     public string EvolvesFrom { get; set; }
+    public AncientTrait AncientTrait { get; set; }
     public List<Ability> Abilities { get; set; }
     public List<Attack> Attacks { get; set; }
     public List<Resistance> Weaknesses { get; set; }
@@ -267,6 +269,11 @@ CardMarket Cardmarket
 string  Name
 string  Text
 string  Type
+```
+###### Ancient Trait
+```c#
+string  Name
+string  Text
 ```
 ###### Attack
 ```c#

@@ -34,6 +34,9 @@ public class Card : ApiResource
     [JsonProperty("evolvesFrom", NullValueHandling = NullValueHandling.Ignore)]
     public string EvolvesFrom { get; set; }
 
+    [JsonProperty("ancientTrait", NullValueHandling = NullValueHandling.Ignore)]
+    public AncientTrait AncientTrait { get; set; }
+
     [JsonProperty("abilities", NullValueHandling = NullValueHandling.Ignore)]
     public List<Ability> Abilities { get; set; }
 
