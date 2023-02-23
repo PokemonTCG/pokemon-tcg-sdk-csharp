@@ -148,7 +148,7 @@ var cards = await pokeClient.GetApiResourceAsync<PokemonCard>(filter);
 var cards = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 2, filter);
 ```
 ## String Method Definitions
-As these lists as small and of type List<string> these will return all.
+As these lists are small and of type ```List<string>``` these will return all.
 ##### SubType
 ```c#
 var types = await pokeClient.GetStringResourceAsync<SubTypes>();
