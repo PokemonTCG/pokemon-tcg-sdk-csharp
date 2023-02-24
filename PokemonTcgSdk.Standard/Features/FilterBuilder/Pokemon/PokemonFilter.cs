@@ -1,6 +1,8 @@
 ﻿namespace PokemonTcgSdk.Standard.Features.FilterBuilder.Pokemon;
 
+using System.Linq;
 using Infrastructure.HttpClients.Cards;
+using Infrastructure.HttpClients.CommonModels;
 
 public static class PokemonFilter
 {
@@ -137,6 +139,22 @@ public static class PokemonFilter
     public static PokemonFilterCollection<string, string> AddRarity(this PokemonFilterCollection<string, string> dictionary, string value)
     {
         return AddOrUpdate(dictionary, nameof(PokemonCard.Rarity).ToLower(), value);
+    }
+
+    /// <summary>
+    /// Extension method. Will add query to make sure returned card has an Ancient Trait.
+    /// </summary>
+    /// <param name="dictionary"></param>
+    public static PokemonFilterCollection<string, string> HasAncientTrait(this PokemonFilterCollection<string, string> dictionary)
+    {
+        if (dictionary.Any(x => x.Key == "ancientTrait.name"))
+        {
+            return dictionary;
+        }
+
+        var value = $"{Global.AncientTrait.Traits}";
+
+        return AddOrUpdate(dictionary, "ancientTrait.name", value);
     }
 
 

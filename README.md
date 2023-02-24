@@ -38,7 +38,7 @@ PokemonApiClient pokeClient = new PokemonApiClient(client);
 // gets all cards regardless of type
 var card = await pokeClient.GetApiResourceAsync<Card>();
 
-// with pagination
+// with pagination. take on the api is limited to a max of 250
 var card = await pokeClient.GetApiResourceAsync<Card>(take: 10, skip: 2);
 
 // Pokemon Cards
@@ -72,6 +72,44 @@ var filter = PokemonFilterBuilder.CreatePokemonFilter()
     .AddName("Darkrai")
     .AddName("Pikachu")
     .AddSetName("Base");
+```
+Most of the filter extensions are prefixed with Add 
+```c#
+// Pokemon
+AddId()
+AddName()
+AddSubTypes()
+AddHpRange()
+AddTypes()
+AddEvolvesFrom()
+AddEvolvesTo()
+AddAttackCostRange()
+AddSetName()
+AddSetSeries()
+AddRarity()
+
+// Sets
+AddId()
+AddName()
+AddSeries()
+AddPtcgoCode()
+
+// Trainer
+AddId()
+AddName()
+AddSetName()
+AddSetSeries()
+
+// Energy
+AddId()
+AddName()
+AddSubTypes()
+AddSetName()
+AddSetSeries()
+```
+There is also a custom extension to bring only Pokemon cards that have an ancient trait
+```c#
+var filter = PokemonFilterBuilder.CreatePokemonFilter().HasAncientTrait();
 ```
 If the filter extensions don't cover off everything you can build up your own
 ```c#
@@ -110,7 +148,7 @@ var cards = await pokeClient.GetApiResourceAsync<PokemonCard>(filter);
 var cards = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 2, filter);
 ```
 ## String Method Definitions
-As these lists as small and of type List<string> these will return all.
+As these lists are small and of type ```List<string>``` these will return all.
 ##### SubType
 ```c#
 var types = await pokeClient.GetStringResourceAsync<SubTypes>();
@@ -147,7 +185,7 @@ var fromCache = darkrai.FromCache;
 
 To clear the cache of data:
 ```c#
-// clear all caches for both resources and pages
+// clear all caches for all resources
 pokeClient.ClearCache();
 ```
 Additional overloads are provided to allow for clearing the individual caches for resources, as well as by type of cache.
