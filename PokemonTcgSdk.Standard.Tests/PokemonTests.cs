@@ -399,5 +399,25 @@
             Assert.That(page.Page, Is.EqualTo("1").NoClip);
             Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
         }
+
+        [Test]
+        public async Task GetPokemon_ApiResourcePageAsync_HasAncientTrait()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().HasAncientTrait();
+
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 1, filter);
+
+            // assert
+            Assert.That(page.Results.Select(x => x.AncientTrait), Is.Not.Null);
+
+            Assert.That(page.Page, Is.EqualTo("1").NoClip);
+            Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
+        }
     }
 }
