@@ -419,5 +419,28 @@
             Assert.That(page.Page, Is.EqualTo("1").NoClip);
             Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
         }
+
+        [Test]
+        public async Task GetPokemon_ApiResourcePageAsync_TcgPrices1stEdition()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().AddId("neo3-20");
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 1, filter);
+
+            // assert
+            StringAssert.Contains("Lugia", page.Results.FirstOrDefault()?.Name);
+            StringAssert.Contains("Lugia", page.Results.LastOrDefault()?.Name);
+            Assert.That(page.Results.FirstOrDefault()?.Tcgplayer, Is.Not.Null);
+            Assert.That(page.Results.FirstOrDefault()?.Tcgplayer.Prices.The1StEdition, Is.Not.Null);
+            Assert.That(page.Results.FirstOrDefault()?.Tcgplayer.Prices.Unlimited, Is.Not.Null);
+
+            Assert.That(page.Page, Is.EqualTo("1").NoClip);
+            Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
+        }
     }
 }

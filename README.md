@@ -344,6 +344,8 @@ Prices ReverseHolofoil
 Prices Normal
 Prices The1StEditionHolofoil
 Prices UnlimitedHolofoil
+Prices The1StEdition
+Prices Unlimited
 ```
 ###### Prices
 ```c#
@@ -399,6 +401,3 @@ Images Images
 * Commit your changes (git commit -am 'Add some feature')
 * Push to the branch (git push origin my-new-feature)
 * Create a new Pull Request to ```develop```
-
-#### Mentions
-- Caching and some api handling used/inspired from [PokeApiNet](https://github.com/mtrdp642/PokeApiNet) under the MIT license
