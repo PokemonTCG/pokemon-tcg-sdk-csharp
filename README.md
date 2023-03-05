@@ -58,7 +58,7 @@ var card = await pokeClient.GetApiResourceAsync<Set>();
 var card = await pokeClient.GetApiResourceAsync<Set>(take: 10, skip: 2);
 ```
 ## Filter Definitions
-Each type (PokemonCard, TrainerCard, EnergyCard, Set) have some helpful filter extensions that cover off a lot of the usual filter needs. These can be stacked also.
+Each type (PokemonCard, TrainerCard, EnergyCard, Set) have some helpful fluent like filter extensions that cover off a lot of the usual filter needs. These can be stacked also.
 ```c#
 PokemonFilterBuilder.CreatePokemonFilter()
 EnergyFilterBuilder.CreateEnergyFilter(
@@ -86,6 +86,7 @@ AddEvolvesTo()
 AddAttackCostRange()
 AddSetName()
 AddSetSeries()
+AddSetId()
 AddRarity()
 
 // Sets
@@ -353,7 +354,7 @@ double Low
 double Mid
 double High
 double Market
-double? DirectLow
+double DirectLow
 ```
 ###### CardMarket
 ```c#

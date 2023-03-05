@@ -46,19 +46,19 @@
 
     public class Prices
     {
-        [JsonProperty("low")]
+        [JsonProperty("low", NullValueHandling = NullValueHandling.Ignore)]
         public double Low { get; set; }
 
-        [JsonProperty("mid")]
+        [JsonProperty("mid", NullValueHandling = NullValueHandling.Ignore)]
         public double Mid { get; set; }
 
-        [JsonProperty("high")]
+        [JsonProperty("high", NullValueHandling = NullValueHandling.Ignore)]
         public double High { get; set; }
 
-        [JsonProperty("market")]
+        [JsonProperty("market", NullValueHandling = NullValueHandling.Ignore)]
         public double Market { get; set; }
 
         [JsonProperty("directLow", NullValueHandling = NullValueHandling.Ignore)]
-        public double? DirectLow { get; set; }
+        public double DirectLow { get; set; }
     }
 }
