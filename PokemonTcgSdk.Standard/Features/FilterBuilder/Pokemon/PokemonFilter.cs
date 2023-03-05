@@ -120,7 +120,7 @@ public static class PokemonFilter
     }
 
     /// <summary>
-    /// Extension method. Will add new name filter. If name filter exists
+    /// Extension method. Will add new set series filter. If set series filter exists
     /// will concat and create an OR filter. e.g "Dark" or "Water"
     /// </summary>
     /// <param name="dictionary"></param>
@@ -128,6 +128,17 @@ public static class PokemonFilter
     public static PokemonFilterCollection<string, string> AddSetSeries(this PokemonFilterCollection<string, string> dictionary, string value)
     {
         return AddOrUpdate(dictionary, $"{nameof(PokemonCard.Set).ToLower()}.{nameof(PokemonCard.Set.Series).ToLower()}", value);
+    }
+
+    /// <summary>
+    /// Extension method. Will add new set id filter. If set id filter exists
+    /// will concat and create an OR filter. e.g "Dark" or "Water"
+    /// </summary>
+    /// <param name="dictionary"></param>
+    /// <param name="value">The name value to add</param>
+    public static PokemonFilterCollection<string, string> AddSetId(this PokemonFilterCollection<string, string> dictionary, string value)
+    {
+        return AddOrUpdate(dictionary, $"{nameof(PokemonCard.Set).ToLower()}.{nameof(PokemonCard.Set.Id).ToLower()}", value);
     }
 
     /// <summary>
