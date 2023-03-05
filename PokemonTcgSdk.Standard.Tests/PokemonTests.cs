@@ -401,6 +401,26 @@
         }
 
         [Test]
+        public async Task GetPokemon_ApiResourcePageAsync_TcgPrices_MissingMarket()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().AddId("dp1-104");
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(250, 1, filter);
+
+            // assert
+            Assert.That(page.Results.FirstOrDefault()?.Tcgplayer, Is.Not.Null);
+            Assert.That(page.Results.FirstOrDefault()?.Tcgplayer.Prices.ReverseHolofoil.Market, Is.EqualTo(0.0d));
+
+            Assert.That(page.Page, Is.EqualTo("1").NoClip);
+            Assert.That(page.PageSize, Is.EqualTo("250").NoClip);
+        }
+
+        [Test]
         public async Task GetPokemon_ApiResourcePageAsync_HasAncientTrait()
         {
             // assemble
