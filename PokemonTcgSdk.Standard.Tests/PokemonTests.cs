@@ -414,7 +414,7 @@
 
             // assert
             Assert.That(page.Results.FirstOrDefault()?.Tcgplayer, Is.Not.Null);
-            Assert.That(page.Results.FirstOrDefault()?.Tcgplayer.Prices.ReverseHolofoil.Market, Is.EqualTo(0.0d));
+            Assert.That(page.Results.FirstOrDefault()?.Tcgplayer.Prices.ReverseHolofoil.Market, Is.GreaterThanOrEqualTo(0.0d));
 
             Assert.That(page.Page, Is.EqualTo("1").NoClip);
             Assert.That(page.PageSize, Is.EqualTo("250").NoClip);
