@@ -4,10 +4,10 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
-    <Authors>jacob.spencer80@googlemail.com</Authors>
+    <Authors>Jacob Spencer</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>MIT</Copyright>
-    <Version>2.4.1</Version>
+    <Version>2.4.2</Version>
     <PackageProjectUrl>https://github.com/PokemonTCG/pokemon-tcg-sdk-csharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/PokemonTCG/pokemon-tcg-sdk-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
