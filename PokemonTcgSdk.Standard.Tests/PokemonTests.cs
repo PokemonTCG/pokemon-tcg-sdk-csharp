@@ -462,5 +462,24 @@
             Assert.That(page.Page, Is.EqualTo("1").NoClip);
             Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
         }
+
+        [Test]
+        public async Task GetPokemonByName_ExtensionFilters_ApiResourceAsync()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().AddName("charizard");
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(filter);
+
+            // assert
+            Assert.That(page.Results, Is.Not.Empty);
+            Assert.That(page.Results.Any(x => x.Name == "Charizard"));
+            //Not using exact matching so this Assert fails
+            //Assert.That(page.Results.Select(item => item.Name), Is.All.EqualTo("Darkai").Or.EqualTo("Pikachu"));
+        }
     }
 }
