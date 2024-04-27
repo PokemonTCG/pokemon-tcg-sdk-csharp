@@ -1,6 +1,7 @@
 ﻿namespace PokemonTcgSdk.Standard.Features.FilterBuilder.Set;
 
 using Infrastructure.HttpClients.Set;
+using PokemonTcgSdk.Standard.Extensions;
 
 // TODO: Legalities Filters
 public static class SetFilter
@@ -24,7 +25,7 @@ public static class SetFilter
     /// <param name="value">The name value to add</param>
     public static SetFilterCollection<string, string> AddName(this SetFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, nameof(Set.Name), value);
+        return AddOrUpdate(dictionary, nameof(Set.Name).ToLower(), value);
     }
 
     /// <summary>
@@ -35,7 +36,7 @@ public static class SetFilter
     /// <param name="value">The name value to add</param>
     public static SetFilterCollection<string, string> AddSeries(this SetFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, nameof(Set.Series), value);
+        return AddOrUpdate(dictionary, nameof(Set.Series).ToLower(), value);
     }
 
     /// <summary>
@@ -46,7 +47,7 @@ public static class SetFilter
     /// <param name="value">The name value to add</param>
     public static SetFilterCollection<string, string> AddPtcgoCode(this SetFilterCollection<string, string> dictionary, string value)
     {
-        return AddOrUpdate(dictionary, nameof(Set.PtcgoCode), value);
+        return AddOrUpdate(dictionary, nameof(Set.PtcgoCode).ToCamelCase(), value);
     }
 
     private static SetFilterCollection<string, string> AddOrUpdate(SetFilterCollection<string, string> dictionary, string key, string value)
