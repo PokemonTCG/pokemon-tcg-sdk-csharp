@@ -19,6 +19,19 @@
     public class PokemonTests
     {
         [Test]
+        public async Task GetSet_ApiResourcePageAsync_Ordering()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<Set>(orderBy: "-total");
+
+            // assert
+            Assert.That(page.Results.First().Total >= page.Results[1].Total,Is.True);
+        }
+        [Test]
         public async Task GetApiResourcePageAsync()
         {
             // assemble
@@ -44,11 +57,26 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourceAsync<Set>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<Set>(take: 10, page: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
             Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
+        }
+
+        [Test]
+        public async Task GetSet_ApiResourcePageAsync_OrderingAndPagination()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<Card>(take: 20, page:1, orderBy: "-convertedRetreatCost");
+
+            // assert
+            Assert.That(page.Results.First().ConvertedRetreatCost >= page.Results[1].ConvertedRetreatCost, Is.True);
+            Assert.That(page.Count, Is.EqualTo(20));
         }
 
         [Test]
@@ -95,7 +123,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourceAsync<Card>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<Card>(take: 10, page: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -130,7 +158,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, page: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -168,7 +196,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourceAsync<TrainerCard>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<TrainerCard>(take: 10, page: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -201,7 +229,7 @@
             var pokeClient = new PokemonApiClient(httpclient);
 
             // act
-            var page = await pokeClient.GetApiResourceAsync<EnergyCard>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<EnergyCard>(take: 10, page: 2);
 
             // assert
             Assert.That(page.Page, Is.EqualTo("2").NoClip);
@@ -338,12 +366,12 @@
 
             // act
             pokeClient.ClearCache();
-            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, skip: 2);
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, page: 2);
             // assert
             Assert.That(page.FromCache, Is.False);
 
             // act
-            var cache = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, skip: 2);
+            var cache = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, page: 2);
             // assert
             Assert.That(cache.FromCache, Is.True);
         }

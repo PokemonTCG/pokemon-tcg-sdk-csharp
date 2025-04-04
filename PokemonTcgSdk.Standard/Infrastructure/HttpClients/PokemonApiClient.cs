@@ -135,18 +135,48 @@
         }
 
         /// <summary>
+        /// Gets a single page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="orderBy">The ordering parameter to pass for the request.</param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(string orderBy, CancellationToken cancellationToken = default)
+            where T : ApiResource
+        {
+            string url = GetApiEndpointString<T>();
+            return InternalGetApiResourcePageAsync<T>(AddPaginationParamsToUrl(url, orderBy: orderBy), cancellationToken);
+        }
+
+        /// <summary>
         /// Gets the specified page of unnamed resource data
         /// </summary>
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="take">The number of cards to return</param>
-        /// <param name="skip">Page offset/skip</param>
+        /// <param name="page">page to get, as this is not handled as an offet at all</param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
-        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take, int skip, CancellationToken cancellationToken = default)
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take, int page, CancellationToken cancellationToken = default)
             where T : ApiResource
         {
             string url = GetApiEndpointString<T>();
-            return InternalGetApiResourcePageAsync<T>(AddPaginationParamsToUrl(url, take, skip), cancellationToken);
+            return InternalGetApiResourcePageAsync<T>(AddPaginationParamsToUrl(url, take, page), cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets the specified page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="take">The number of cards to return</param>
+        /// <param name="page">page to get, as this is not handled as an offet at all</param>
+        /// <param name="orderBy">The ordering parameter to pass for the request.</param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take, int page, string orderBy, CancellationToken cancellationToken = default)
+            where T : ApiResource
+        {
+            string url = GetApiEndpointString<T>();
+            return InternalGetApiResourcePageAsync<T>(AddPaginationParamsToUrl(url, take, page, orderBy), cancellationToken);
         }
 
         /// <summary>
@@ -167,16 +197,49 @@
         /// Gets the specified page of unnamed resource data
         /// </summary>
         /// <typeparam name="T">The type of resource</typeparam>
-        /// <param name="take">The number of cards to return</param>
-        /// <param name="skip">Page offset/skip</param>
         /// <param name="filters">Dictionary of filters based on data fields. e.g name=base </param>
+        /// <param name="orderBy">The ordering parameter to pass for the request.</param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
-        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take , int skip, IDictionary<string, string> filters, CancellationToken cancellationToken = default)
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(IDictionary<string, string> filters, string orderBy, CancellationToken cancellationToken = default)
             where T : ApiResource
         {
             string url = GetApiEndpointString<T>();
-            return InternalGetApiResourcePageAsync<T>(AddQueryFilterParamsToUrl(url, filters, take, skip), cancellationToken);
+            return InternalGetApiResourcePageAsync<T>(AddQueryFilterParamsToUrl(url, filters, orderBy: orderBy), cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets the specified page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="take">The number of cards to return</param>
+        /// <param name="page">page to get, as this is not handled as an offet at all</param>
+        /// <param name="filters">Dictionary of filters based on data fields. e.g name=base </param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take , int page, IDictionary<string, string> filters, CancellationToken cancellationToken = default)
+            where T : ApiResource
+        {
+            string url = GetApiEndpointString<T>();
+            return InternalGetApiResourcePageAsync<T>(AddQueryFilterParamsToUrl(url, filters, take, page), cancellationToken);
+        }
+
+
+        /// <summary>
+        /// Gets the specified page of unnamed resource data
+        /// </summary>
+        /// <typeparam name="T">The type of resource</typeparam>
+        /// <param name="take">The number of cards to return</param>
+        /// <param name="page">page to get, as this is not handled as an offet at all</param>
+        /// <param name="filters">Dictionary of filters based on data fields. e.g name=base </param>
+        /// <param name="orderBy">The ordering parameter to pass for the request.</param>
+        /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
+        /// <returns>The paged resource object</returns>
+        public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take, int page, IDictionary<string, string> filters, string orderBy, CancellationToken cancellationToken = default)
+            where T : ApiResource
+        {
+            string url = GetApiEndpointString<T>();
+            return InternalGetApiResourcePageAsync<T>(AddQueryFilterParamsToUrl(url, filters, take, page, orderBy), cancellationToken);
         }
 
         private async Task<ApiResourceList<T>> InternalGetApiResourcePageAsync<T>(string url, CancellationToken cancellationToken)
@@ -225,7 +288,7 @@
             return serializer.Deserialize<T>(reader);
         }
 
-        private static string AddPaginationParamsToUrl(string uri, int? pageSize = null, int? page = null)
+        private static string AddPaginationParamsToUrl(string uri, int? pageSize = null, int? page = null, string? orderBy = null)
         {
             var queryParameters = new Dictionary<string, string>();
 
@@ -239,12 +302,17 @@
             if (page.HasValue)
             {
                 queryParameters.Add(nameof(page), page.Value.ToString());
+            }
+
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                queryParameters.Add(nameof(orderBy), orderBy);
             }
 
             return QueryHelpers.AddQueryString(uri, queryParameters);
         }
 
-        private static string AddQueryFilterParamsToUrl(string uri, IDictionary<string, string> filterQuery, int? pageSize = null, int? page = null)
+        private static string AddQueryFilterParamsToUrl(string uri, IDictionary<string, string> filterQuery, int? pageSize = null, int? page = null, string? orderBy = null)
         {
             var queryParameters = new Dictionary<string, string>();
 
@@ -258,6 +326,11 @@
             if (page.HasValue)
             {
                 queryParameters.Add(nameof(page), page.Value.ToString());
+            }
+
+            if (!string.IsNullOrEmpty(orderBy))
+            {
+                queryParameters.Add(nameof(orderBy), orderBy);
             }
 
             return QueryHelpers.AddQueryFiltersString(uri, queryParameters, filterQuery);
