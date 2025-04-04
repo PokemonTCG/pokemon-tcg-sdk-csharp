@@ -14,7 +14,7 @@ public class FilterTests
         // assemble
         var dicObj = new SetFilterCollection<string, string>
         {
-            {"Name", "Darkness Ablaze"}
+            {"name", "Darkness Ablaze"}
         };
 
         // act
@@ -31,7 +31,7 @@ public class FilterTests
         // assemble
         var dicObj = new Dictionary<string, string>
         {
-            {"Name", "Darkness Ablaze,Lost Origins"}
+            {"name", "Darkness Ablaze,Lost Origins"}
         };
 
         // act
