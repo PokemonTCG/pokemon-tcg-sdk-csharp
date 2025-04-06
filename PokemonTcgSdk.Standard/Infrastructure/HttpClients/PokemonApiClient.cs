@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -238,6 +237,8 @@
 
             if (page.HasValue)
             {
+                // Always set page to 1 if 0 so no error
+                page = page.Equals(0) ? 1 : page;
                 queryParameters.Add(nameof(page), page.Value.ToString());
             }
 
@@ -257,6 +258,8 @@
 
             if (page.HasValue)
             {
+                // Always set page to 1 if 0 so no error
+                page = page.Equals(0) ? 1 : page;
                 queryParameters.Add(nameof(page), page.Value.ToString());
             }
 

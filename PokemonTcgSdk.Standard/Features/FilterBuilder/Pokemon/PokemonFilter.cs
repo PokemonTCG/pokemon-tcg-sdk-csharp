@@ -3,6 +3,8 @@
 using System.Linq;
 using Infrastructure.HttpClients.Cards;
 using Infrastructure.HttpClients.CommonModels;
+using Ordering;
+using PokemonTcgSdk.Standard.Features.FilterBuilder.Base;
 
 public static class PokemonFilter
 {
@@ -18,11 +20,17 @@ public static class PokemonFilter
     }
 
     /// <summary>
-    /// Extension method. Will add new name filter. If name filter exists
-    /// will concat and create an OR filter. e.g "Mew" or "Mewtwo"
+    /// Adds or updates a Pokemon's name filter in the collection.
     /// </summary>
-    /// <param name="dictionary"></param>
-    /// <param name="value">The name value to add</param>
+    /// <param name="dictionary">The Pokemon filter collection.</param>
+    /// <param name="value">The name value to filter by.</param>
+    /// <returns>The Pokemon filter collection with the name filter added or updated.</returns>
+    /// <example>
+    /// <code>
+    /// var filter = new PokemonFilterCollection&lt;string, string&gt;()
+    ///     .AddName("Darkrai");
+    /// </code>
+    /// </example>
     public static PokemonFilterCollection<string, string> AddName(this PokemonFilterCollection<string, string> dictionary, string value)
     {
         return AddOrUpdate(dictionary, nameof(PokemonCard.Name).ToLower(), value);
@@ -167,7 +175,6 @@ public static class PokemonFilter
 
         return AddOrUpdate(dictionary, "ancientTrait.name", value);
     }
-
 
     private static PokemonFilterCollection<string, string> AddOrUpdate(PokemonFilterCollection<string, string> dictionary, string key, string value)
     {

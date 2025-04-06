@@ -91,93 +91,108 @@ internal static class QueryHelpers
     /// <param name="queryString">A collection of name value query pairs to append.</param>
     /// <param name="filterQuery">A collection of name value filter pairs to append.</param>
     /// <returns>The combined result.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="uri"/> is <c>null</c>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="queryString"/> is <c>null</c>.</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="filterQuery"/> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentNullException">Thrown when any parameter is null.</exception>
     public static string AddQueryFiltersString(string uri, IDictionary<string, string> queryString, IDictionary<string, string> filterQuery)
     {
-        if (uri == null)
+        ValidateParameters(uri, queryString, filterQuery);
+
+        var sb = new StringBuilder(uri);
+        var hasQuery = uri.Contains('?');
+
+        AppendQueryParameters(sb, queryString, ref hasQuery);
+        AppendFilterParameters(sb, filterQuery, ref hasQuery);
+        AppendOrderByParameters(sb, filterQuery, hasQuery);
+
+        return sb.ToString();
+    }
+
+    private static void ValidateParameters(string uri, IDictionary<string, string> queryString, IDictionary<string, string> filterQuery)
+    {
+        if (uri == null) throw new ArgumentNullException(nameof(uri));
+        if (queryString == null) throw new ArgumentNullException(nameof(queryString));
+        if (filterQuery == null) throw new ArgumentNullException(nameof(filterQuery));
+    }
+
+    private static void AppendQueryParameters(StringBuilder sb, IDictionary<string, string> queryString, ref bool hasQuery)
+    {
+        foreach (var parameter in queryString.Where(p => p.Value != null))
         {
-            throw new ArgumentNullException(nameof(uri));
-        }
-
-        if (queryString == null)
-        {
-            throw new ArgumentNullException(nameof(queryString));
-        }
-
-        if (filterQuery == null)
-        {
-            throw new ArgumentNullException(nameof(filterQuery));
-        }
-
-        var uriToBeAppended = uri;
-        var queryIndex = uriToBeAppended.IndexOf('?');
-        var hasQuery = queryIndex != -1;
-
-        var sb = new StringBuilder();
-        sb.Append(uriToBeAppended);
-
-        foreach (var parameter in queryString)
-        {
-            if (parameter.Value == null)
-            {
-                continue;
-            }
-
-            sb.Append(hasQuery ? '&' : '?');
-            sb.Append(UrlEncoder.Default.Encode(parameter.Key));
-            sb.Append('=');
-            sb.Append(UrlEncoder.Default.Encode(parameter.Value));
+            sb.Append(hasQuery ? '&' : '?')
+                .Append(UrlEncoder.Default.Encode(parameter.Key))
+                .Append('=')
+                .Append(UrlEncoder.Default.Encode(parameter.Value));
             hasQuery = true;
         }
+    }
 
-        if (filterQuery.Any())
+    private static void AppendFilterParameters(StringBuilder sb, IDictionary<string, string> filterQuery, ref bool hasQuery)
+    {
+        var filters = filterQuery.Where(x => x.Key != "orderby" && x.Key != "thenby" && x.Value != null).ToList();
+
+        if (!filters.Any()) return;
+
+        sb.Append(hasQuery ? '&' : '?')
+            .Append("q=");
+
+        var isFirstFilter = true;
+        foreach (var filter in filters)
         {
-            sb.Append(hasQuery ? '&' : '?');
-            sb.Append('q');
-            sb.Append('=');
-            hasQuery = false;
-        }
-
-        foreach (KeyValuePair<string, string> filterItem in filterQuery)
-        {
-            if (filterItem.Value == null)
-            {
-                continue;
-            }
-
-            if (hasQuery)
+            if (!isFirstFilter)
             {
                 sb.Append(' ');
             }
 
-            if (filterItem.Value.Split(',').Length > 0)
-            {
-                var split = filterItem.Value.Split(',');
-                foreach (var item in split)
-                {
-                    sb.Append(UrlEncoder.Default.Encode(filterItem.Key));
-                    sb.Append(':');
-                    sb.Append(UrlEncoder.Default.Encode(item.HasSpaces()));
-                    var orVlaue = " or ";
-                    if (item != split.LastOrDefault())
-                    {
-                        sb.Append(UrlEncoder.Default.Encode(orVlaue));
-                    }
-                }
-
-            }
-            else
-            {
-                sb.Append(UrlEncoder.Default.Encode(filterItem.Key));
-                sb.Append(':');
-                sb.Append(UrlEncoder.Default.Encode(filterItem.Value.HasSpaces()));
-            }
-
-            hasQuery = true;
+            AppendFilterValue(sb, filter.Key, filter.Value);
+            isFirstFilter = false;
         }
+    }
 
-        return sb.ToString();
+    private static void AppendFilterValue(StringBuilder sb, string key, string value)
+    {
+        var values = value.Split(',');
+
+        if (values.Length > 1)
+        {
+            AppendMultiValueFilter(sb, key, values);
+        }
+        else
+        {
+            AppendSingleValueFilter(sb, key, value);
+        }
+    }
+
+    private static void AppendMultiValueFilter(StringBuilder sb, string key, string[] values)
+    {
+        for (var i = 0; i < values.Length; i++)
+        {
+            sb.Append(UrlEncoder.Default.Encode(key))
+                .Append(':')
+                .Append(UrlEncoder.Default.Encode(values[i].HasSpaces()));
+
+            if (i < values.Length - 1)
+            {
+                sb.Append(UrlEncoder.Default.Encode(" or "));
+            }
+        }
+    }
+
+    private static void AppendSingleValueFilter(StringBuilder sb, string key, string value)
+    {
+        sb.Append(UrlEncoder.Default.Encode(key))
+            .Append(':')
+            .Append(UrlEncoder.Default.Encode(value.HasSpaces()));
+    }
+
+    private static void AppendOrderByParameters(StringBuilder sb, IDictionary<string, string> filterQuery, bool hasQuery)
+    {
+        var orders = filterQuery.Where(x => (x.Key == "orderby" || x.Key == "thenby") && x.Value != null).ToList();
+
+        if (!orders.Any()) return;
+
+        sb.Append(hasQuery ? '&' : '?')
+            .Append(UrlEncoder.Default.Encode("orderBy"))
+            .Append('=');
+
+        sb.Append(string.Join(",", orders.Select(o => UrlEncoder.Default.Encode(o.Value))));
     }
 }
