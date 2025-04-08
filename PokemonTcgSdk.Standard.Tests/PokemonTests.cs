@@ -1,6 +1,8 @@
 ﻿namespace PokemonTcgSdk.Standard.Tests
 {
+    using Features.FilterBuilder.Base;
     using Features.FilterBuilder.Energy;
+    using Features.FilterBuilder.Ordering;
     using Features.FilterBuilder.Pokemon;
     using Features.FilterBuilder.Set;
     using Features.FilterBuilder.Trainer;
@@ -144,10 +146,9 @@
             var httpclient = new HttpClient();
             var pokeClient = new PokemonApiClient(httpclient);
 
-            var filter = new PokemonFilterCollection<string, string>()
-                .AddName("Darkrai");
+            var filter = new PokemonFilterCollection<string, string>().AddName("Darkrai");
             filter.Add("legalities.standard", "legal");
-
+            //filter.OrderBy("hp", ordering: Ordering.Descending).ThenBy("id");
 
             // act
             var page = await pokeClient.GetApiResourceAsync<PokemonCard>(10, 1, filter);
@@ -182,6 +183,7 @@
             var httpclient = new HttpClient();
             var pokeClient = new PokemonApiClient(httpclient);
             var filter = new TrainerFilterCollection<string, string>().AddName("Tropical Wind");
+            //filter.OrderBy("id");
             // act
             var page = await pokeClient.GetApiResourceAsync<TrainerCard>(2, 2, filter);
 
@@ -480,6 +482,21 @@
             Assert.That(page.Results.Any(x => x.Name == "Charizard"));
             //Not using exact matching so this Assert fails
             //Assert.That(page.Results.Select(item => item.Name), Is.All.EqualTo("Darkai").Or.EqualTo("Pikachu"));
+        }
+
+        [Test]
+        public async Task GetPokemon_Resource_ApiResourcePageAsyncPageZero()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(take: 10, skip: 0);
+
+            // assert
+            Assert.That(page.Page, Is.EqualTo("1").NoClip);
+            Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
         }
     }
 }

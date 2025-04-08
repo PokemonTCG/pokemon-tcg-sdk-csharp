@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -139,7 +138,7 @@
         /// </summary>
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="take">The number of cards to return</param>
-        /// <param name="skip">Page offset/skip</param>
+        /// <param name="skip">Page Number (default is 1)</param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
         public Task<ApiResourceList<T>> GetApiResourceAsync<T>(int take, int skip, CancellationToken cancellationToken = default)
@@ -168,7 +167,7 @@
         /// </summary>
         /// <typeparam name="T">The type of resource</typeparam>
         /// <param name="take">The number of cards to return</param>
-        /// <param name="skip">Page offset/skip</param>
+        /// <param name="skip">Page Number (default is 1)</param>
         /// <param name="filters">Dictionary of filters based on data fields. e.g name=base </param>
         /// <param name="cancellationToken">Cancellation token for the request; not utilitized if data has been cached</param>
         /// <returns>The paged resource object</returns>
@@ -238,6 +237,8 @@
 
             if (page.HasValue)
             {
+                // Always set page to 1 if 0 so no error
+                page = page.Equals(0) ? 1 : page;
                 queryParameters.Add(nameof(page), page.Value.ToString());
             }
 
@@ -257,6 +258,8 @@
 
             if (page.HasValue)
             {
+                // Always set page to 1 if 0 so no error
+                page = page.Equals(0) ? 1 : page;
                 queryParameters.Add(nameof(page), page.Value.ToString());
             }
 

@@ -141,7 +141,98 @@ Also for multiple matches (so OR filter) this is done by seperating with a comma
      {"evolvesfrom", "Pikachu"}
  };
 ```
-#### Using Filters
+#### Ordering Filters
+`PokemonFilterBuilder`, `EnergyFilterBuilder` and `TrainerFilterBuilder` all support fluent like OrderBy/ThenBy. Along with the ability to order ASC or DESC (ASC is default). You can only have one OrderBy, but multiple ThenBy's.
+
+Remember that OrderBy/ThenBy's are case API sensitive (camel case)
+
+```c#
+var filter = PokemonFilterBuilder.CreatePokemonFilter()
+            .AddName("Darkrai")
+            .OrderBy("hp");
+```
+Or
+```c#
+var filter = PokemonFilterBuilder.CreatePokemonFilter()
+            .AddName("Darkrai")
+            .OrderBy(nameof(PokemonCard.Hp));
+```
+Descending:
+```c#
+var filter = PokemonFilterBuilder.CreatePokemonFilter()
+            .AddName("Darkrai")
+            .OrderBy("hp", Ordering.Descending);
+```
+ThenBy:
+```c#
+var filter = PokemonFilterBuilder.CreatePokemonFilter()
+            .AddName("Darkrai")
+            .OrderBy("hp")
+            .ThenBy("id");
+```
+```c#
+var filter = PokemonFilterBuilder.CreatePokemonFilter()
+            .AddName("Darkrai")
+            .OrderBy("hp")
+            .ThenBy("id", Ordering.Descending);
+```
+
+You can also build up the OrderBy filters without using the fluent like extensions:
+
+#### ASC
+```c#
+ var filter = new Dictionary<string, string>
+ {
+     {"name", "Darkrai,Pikachu"},
+     {"subtypes", "Stage 1"},
+     {"hp", "{60 TO 120}"},
+     {"rarity", "Common"},
+     {"attacks.convertedEnergyCost", "{2 TO 4}"},
+     {"evolvesfrom", "Pikachu"},
+     {"orderby", "hp"},
+ };
+```
+```c#
+ var filter = new Dictionary<string, string>
+ {
+     {"name", "Darkrai,Pikachu"},
+     {"subtypes", "Stage 1"},
+     {"hp", "{60 TO 120}"},
+     {"rarity", "Common"},
+     {"attacks.convertedEnergyCost", "{2 TO 4}"},
+     {"evolvesfrom", "Pikachu"},
+     {"orderby", "hp"},
+     {"thenby", "id"},
+ };
+```
+#### DESC
+```c#
+ var filter = new Dictionary<string, string>
+ {
+     {"name", "Darkrai,Pikachu"},
+     {"subtypes", "Stage 1"},
+     {"hp", "{60 TO 120}"},
+     {"rarity", "Common"},
+     {"attacks.convertedEnergyCost", "{2 TO 4}"},
+     {"evolvesfrom", "Pikachu"},
+     {"orderby", "-hp"},
+ };
+```
+```c#
+ var filter = new Dictionary<string, string>
+ {
+     {"name", "Darkrai,Pikachu"},
+     {"subtypes", "Stage 1"},
+     {"hp", "{60 TO 120}"},
+     {"rarity", "Common"},
+     {"attacks.convertedEnergyCost", "{2 TO 4}"},
+     {"evolvesfrom", "Pikachu"},
+     {"orderby", "hp"},
+     {"thenby", "-id"},
+ };
+```
+
+### Using Filters
 Once you have built up the filter you can pass it into your call method. Pagination is still supported
 ```c#
 var filter = PokemonFilterBuilder.CreatePokemonFilter().AddName("Darkrai");

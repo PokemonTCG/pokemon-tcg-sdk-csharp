@@ -7,7 +7,7 @@
     <Authors>Jacob Spencer</Authors>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>MIT</Copyright>
-    <Version>2.4.2</Version>
+    <Version>2.5.0</Version>
     <PackageProjectUrl>https://github.com/PokemonTCG/pokemon-tcg-sdk-csharp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/PokemonTCG/pokemon-tcg-sdk-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.3" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
