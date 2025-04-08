@@ -1,13 +1,15 @@
 ﻿namespace PokemonTcgSdk.Standard.Tests;
 
+using Features.FilterBuilder.Base;
+using Features.FilterBuilder.Ordering;
 using Features.FilterBuilder.Pokemon;
 using Features.FilterBuilder.Set;
+using Features.FilterBuilder.Trainer;
 using Infrastructure.HttpClients.CommonModels;
 using NUnit.Framework;
 
 public class FilterTests
 {
-
     [Test]
     public void SetFilters_ReturnPopulatedDictionary()
     {
@@ -150,6 +152,151 @@ public class FilterTests
         // act
         var filterBuilder = PokemonFilterBuilder.CreatePokemonFilter().HasAncientTrait().HasAncientTrait().HasAncientTrait();
 
+
+        // assert
+        Assert.That(filterBuilder, Is.EqualTo(dicObj));
+    }
+
+    [Test]
+    public void PokemonFilter_OrderBy()
+    {
+        // assemble
+        var dicObj = new Dictionary<string, string>
+        {
+            {"name", "Darkrai"},
+            {"orderby", "hp"},
+        };
+
+        // act
+        var filterBuilder = PokemonFilterBuilder.CreatePokemonFilter().AddName("Darkrai").OrderBy("hp");
+        var dictionary = new Dictionary<string, string>(filterBuilder);
+
+        // assert
+        Assert.That(dictionary, Is.EqualTo(dicObj));
+    }
+
+    [Test]
+    public void PokemonFilter_OrderByDescending()
+    {
+        // assemble
+        var dicObj = new Dictionary<string, string>
+        {
+            {"name", "Darkrai"},
+            {"orderby", "-hp"},
+        };
+
+        // act
+        var filterBuilder = PokemonFilterBuilder.CreatePokemonFilter().AddName("Darkrai").OrderBy("hp", Ordering.Descending);
+        var dictionary = new Dictionary<string, string>(filterBuilder);
+
+        // assert
+        Assert.That(dictionary, Is.EqualTo(dicObj));
+    }
+
+    [Test]
+    public void PokemonFilter_OrderBy_ThenBy()
+    {
+        // assemble
+        var dicObj = new Dictionary<string, string>
+        {
+            {"name", "Darkrai"},
+            {"orderby", "hp"},
+            {"thenby", "id"},
+        };
+
+        // act
+        var filterBuilder = PokemonFilterBuilder.CreatePokemonFilter().AddName("Darkrai").OrderBy("hp").ThenBy("id");
+        var dictionary = new Dictionary<string, string>(filterBuilder);
+
+        // assert
+        Assert.That(dictionary, Is.EqualTo(dicObj));
+    }
+
+    [Test]
+    public void PokemonFilter_OrderBy_ThenByDescending()
+    {
+        // assemble
+        var dicObj = new Dictionary<string, string>
+        {
+            {"name", "Darkrai"},
+            {"orderby", "hp"},
+            {"thenby", "-id"},
+        };
+
+        // act
+        var filterBuilder = PokemonFilterBuilder.CreatePokemonFilter().AddName("Darkrai").OrderBy("hp").ThenBy("id", Ordering.Descending);
+        var dictionary = new Dictionary<string, string>(filterBuilder);
+
+        // assert
+        Assert.That(dictionary, Is.EqualTo(dicObj));
+    }
+
+    [Test]
+    public void PokemonFilter_OrderBy_TwoThenBy()
+    {
+        // assemble
+        var dicObj = new Dictionary<string, string>
+        {
+            {"name", "Darkrai"},
+            {"orderby", "hp"},
+            {"thenby", "id,supertype"},
+        };
+
+        // act
+        var filterBuilder = PokemonFilterBuilder.CreatePokemonFilter().AddName("Darkrai").OrderBy("hp").ThenBy("id").ThenBy("supertype");
+        var dictionary = new Dictionary<string, string>(filterBuilder);
+
+        // assert
+        Assert.That(dictionary, Is.EqualTo(dicObj));
+    }
+
+    [Test]
+    public void TrainerFilter_Name()
+    {
+        // assemble
+        var dicObj = new Dictionary<string, string>
+        {
+            {"name", "Misty's Favor"}
+        };
+
+        // act
+        var filterBuilder = TrainerFilterBuilder.CreateTrainerFilter().AddName("Misty's Favor");
+
+        // assert
+        Assert.That(filterBuilder, Is.EqualTo(dicObj));
+    }
+
+
+    [Test]
+    public void TrainerFilter_Name_OrderBy()
+    {
+        // assemble
+        var dicObj = new Dictionary<string, string>
+        {
+            {"name", "Misty's Favor"},
+            {"orderby", "number"}
+        };
+
+        // act
+        var filterBuilder = TrainerFilterBuilder.CreateTrainerFilter().AddName("Misty's Favor").OrderBy("number");
+
+        // assert
+        Assert.That(filterBuilder, Is.EqualTo(dicObj));
+    }
+
+    [Test]
+    public void TrainerFilter_Name_OrderByThenBy()
+    {
+        // assemble
+        var dicObj = new Dictionary<string, string>
+        {
+            {"name", "Misty's Favor"},
+            {"orderby", "number"},
+            {"thenby", "artist"},
+        };
+
+        // act
+        var filterBuilder = TrainerFilterBuilder.CreateTrainerFilter().AddName("Misty's Favor").OrderBy("number").ThenBy("artist");
 
         // assert
         Assert.That(filterBuilder, Is.EqualTo(dicObj));
