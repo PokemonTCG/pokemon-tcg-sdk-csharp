@@ -55,6 +55,12 @@ public static class StringExtensions
             return $"\"{str}\"";
         }
 
+        // fixes issue when names include EM DASH in them
+        if (str.Any(c => c == '\u2014'))
+        {
+            return $"\"{str}\"";
+        }
+
         return str;
     }
 

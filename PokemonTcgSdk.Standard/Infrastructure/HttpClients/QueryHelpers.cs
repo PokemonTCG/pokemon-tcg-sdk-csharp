@@ -176,11 +176,18 @@ internal static class QueryHelpers
         }
     }
 
+    //private static void AppendSingleValueFilter(StringBuilder sb, string key, string value)
+    //{
+    //    sb.Append(UrlEncoder.Default.Encode(key))
+    //        .Append(':')
+    //        .Append(UrlEncoder.Default.Encode(value.HasSpaces()));
+    //}
+
     private static void AppendSingleValueFilter(StringBuilder sb, string key, string value)
     {
-        sb.Append(UrlEncoder.Default.Encode(key))
+        sb.Append(key)
             .Append(':')
-            .Append(UrlEncoder.Default.Encode(value.HasSpaces()));
+            .Append(value.HasSpaces());
     }
 
     private static void AppendOrderByParameters(StringBuilder sb, IDictionary<string, string> filterQuery, bool hasQuery)

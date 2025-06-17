@@ -498,5 +498,36 @@
             Assert.That(page.Page, Is.EqualTo("1").NoClip);
             Assert.That(page.PageSize, Is.EqualTo("10").NoClip);
         }
+
+        [Test]
+        public async Task GetPokemon_Resource_ByDashSet_ApiResourceAsync()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().AddSetName("HS-Undaunted");
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(filter);
+
+            // assert
+            Assert.That(page.Results, Is.Empty);
+        }
+
+        [Test]
+        public async Task GetPokemon_Resource_BySetEMDash_ApiResourceAsync()
+        {
+            // assemble
+            var httpclient = new HttpClient();
+            var pokeClient = new PokemonApiClient(httpclient);
+            var filter = PokemonFilterBuilder.CreatePokemonFilter().AddSetName("HS—Undaunted");
+
+            // act
+            var page = await pokeClient.GetApiResourceAsync<PokemonCard>(filter);
+
+            // assert
+            Assert.That(page.Results, Is.Not.Empty);
+            Assert.That(page.Results.Any(x => x.Set.Name == "HS—Undaunted"));
+        }
     }
 }
